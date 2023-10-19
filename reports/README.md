@@ -56,4 +56,3 @@
 -   Last week: N/A
 -   This week: Beginning to sketch out the basic architecture of Seenema.
 -   Next week: Begin work on API integration with IMDB, with expected completion before 11/10
-    0 comments on commit fe669be
