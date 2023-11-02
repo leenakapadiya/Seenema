@@ -4,8 +4,11 @@
   "description": "",
   "main": " ",
   "scripts": {
-    "test": "test"
+    "test": "jest"
   },
   "author": "Leena Kapadiya",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^29.7.0"
+  }
 }
