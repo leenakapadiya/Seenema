@@ -1,0 +1,11 @@
+{
+  "name": "seenema-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": " ",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Leena Kapadiya",
+  "license": "ISC"
+}
