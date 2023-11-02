@@ -8,8 +8,8 @@
   },
   "scripts": {
     "start": "npm start --prefix ./seenema-frontend",
-    "install": "npm install --prefix ./seenema-frontend",
-    "test": "npm test --prefix ./seenema-frontend"
+    "install": "npm install --prefix ./seenema-frontend && npm install --prefix ./seenema-backend",
+    "test": "npm test --prefix ./seenema-frontend && npm test --prefix ./seenema-backend"
   },
   "repository": {
     "type": "git",
