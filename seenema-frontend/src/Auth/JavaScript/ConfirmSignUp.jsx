@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { confirmSignUp } from "./Auth"
 import SignIn from "./SignIn";
 import {useForm} from "react-hook-form";
-import Form from "./Form.css"
+import Form from "../CSS/Form.css"
 
 export default function ConfirmSignUp({email}) {
     const [code, setCode] = useState("")
@@ -30,16 +30,16 @@ export default function ConfirmSignUp({email}) {
 
     return (
         <div>
-            <h1>Confirm Sign Up</h1>
             <form onSubmit={handleSubmit}>
+                <h1>Enter your verification code</h1>
                 <div>
-                    <h4>Please check your email. The verification code has been sent to your email.</h4>
-                    <label>Confirmation code</label>
+                    <h4> A verification code has been sent to your email. Please enter the code that you received.</h4>
+                    <label>Secure verification code</label>
                     <input name="code" {...register('code', {
                         onChange: (e) => setCode(e.target.value)
                     })} />
                 </div>
-                <button>Confirm</button>
+                <button>Submit</button>
             </form>
             {error && <p>{error}</p>}
         </div>

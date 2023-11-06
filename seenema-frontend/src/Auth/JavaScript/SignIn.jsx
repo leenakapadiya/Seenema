@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { signIn } from "./Auth"
 import ConfirmSignUp from "./ConfirmSignUp";
 import {useForm} from "react-hook-form";
-import Form from "./Form.css"
+import Form from "../CSS/Form.css"
 
 export default function SignIn() {
     const [email, setEmail] = useState("")
@@ -36,8 +36,9 @@ export default function SignIn() {
 
     return (
         <div>
-            <h1>Sign In</h1>
+            {/*<h1>Sign In</h1>*/}
             <form onSubmit={handleSubmit}>
+                <h1>Sign In</h1>
                 <div>
                     <label>Email</label>
                     <input name="email" required {...register('email', {
