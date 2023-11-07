@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500&display=swap');
+
+h2 {
+    margin-left: 30px;
+    margin-top: 18px;
+    margin-bottom: 0;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--white-text);
+    font-weight: bolder;
+}
