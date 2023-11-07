@@ -4,6 +4,7 @@ import ConfirmSignUp from "./ConfirmSignUp";
 import {useForm} from "react-hook-form";
 import Form from "../CSS/Form.css"
 import seenemaLogo from "../SeenemaLogo.png";
+import Homepage from "../../Homepage/js/Homepage";
 
 export default function SignIn() {
     const [email, setEmail] = useState("")
@@ -36,30 +37,33 @@ export default function SignIn() {
 
 
     return (
-        <div>
-            <div className= "logo">
-                <img
-                    src={seenemaLogo}
-                    alt={"Logo is here"}
-                    style={{ width: "200px", height: "150px", marginRight: "10px" }}
-                />
+        <div className="bg-Poster">
+            <div className="auth-Form">
+                <div className= "logo-auth">
+                    <img
+                        src={seenemaLogo}
+                        alt={"Logo is here"}
+                    />
+                </div>
+                <form onSubmit={handleSubmit}>
+                    <div className="heading-auth">
+                        <h1>SignIn</h1>
+                    </div>
+                    <div>
+                        <label>Email</label>
+                            <input className="auth-input" name="email" required {...register('email', {
+                                onChange: (e) => setEmail(e.target.value)
+                            })} />
+                    </div>
+                    <div>
+                        <label>Password</label>
+                        <input className="auth-input" name="password" type="password" required {...register('password', {
+                            onChange: (e) => setPassword(e.target.value)
+                        })} />
+                    </div>
+                    <button>Sign In</button>
+                </form>
             </div>
-            <form onSubmit={handleSubmit}>
-                <h1>Sign In</h1>
-                <div>
-                    <label>Email</label>
-                    <input name="email" required {...register('email', {
-                        onChange: (e) => setEmail(e.target.value)
-                    })} />
-                </div>
-                <div>
-                    <label>Password</label>
-                    <input name="password" type="password" required {...register('password', {
-                        onChange: (e) => setPassword(e.target.value)
-                    })} />
-                </div>
-                <button>Sign In</button>
-            </form>
             {error && <p>{error}</p>}
         </div>
     )

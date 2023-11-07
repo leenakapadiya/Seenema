@@ -1,31 +1,49 @@
-body {
-    background: url("../MoviePoster.jpeg") no-repeat center center fixed;
+html, body {
+    font-family: sans-serif;
+    height: 100%;
+    margin: 0;
+
+}
+
+.bg-Poster {
+    position: relative;
+    background-image: url("../MoviePoster.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
     background-size: cover;
     color: white;
     font-family: sans-serif;
-
+    height: 100vh;
+    /*opacity: 0.5; !* Adjust the opacity to your liking *!*/
 }
 
 .full-form {
 
 }
 
-form {
-    max-width: 400px;
-    margin: 100px auto;
+.auth-Form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px; /* Adjust the width to your preference */
     background: rgba(0, 0, 0, 0.8);
-    padding: 80px;
-    /*padding-top: 200px;*/
+    padding: 20px 80px 80px; /* Adjust the padding to extend the top part */
     border-radius: 30px;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    text-align: center;
 }
 
 
-h1 {
+
+
+
+.heading-auth {
     font-weight: 300;
     color: white;
     text-align: justify;
-    padding-bottom: 10px;
+    margin-bottom: 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 
 }
@@ -47,7 +65,7 @@ p::before {
     content: "⚠ ";
 }
 
-input {
+.auth-input {
     display: block;
     box-sizing: border-box;
     width: calc(100% - 30px);
@@ -121,11 +139,10 @@ button {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    margin-top: 50px;
-    margin-left: 300px;
-    /*background: black;*/
+.logo-auth {
+    margin-bottom: 70px;
+}
 
+.logo-auth img {
+    max-width: 50%; /* Ensure the logo is responsive */
 }

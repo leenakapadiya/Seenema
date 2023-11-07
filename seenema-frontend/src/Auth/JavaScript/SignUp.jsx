@@ -35,44 +35,49 @@ export default function SignUp() {
     }
 
     return (
-        <div>
-            <div className= "logo">
-                <img
-                    src={seenemaLogo}
-                    alt={"Logo is here"}
-                    style={{ width: "200px", height: "150px", marginRight: "10px" }}
-                />
+        <div className="bg-Poster">
+            <div className="auth-Form">
+                <div className= "logo-auth">
+                    <img
+                        src={seenemaLogo}
+                        alt={"Logo is here"}
+                    />
+                </div>
+                <form onSubmit={handleSubmit} >
+                    <div className="heading-auth">
+                        <h1>SignUp</h1>
+                    </div>
+                    <div>
+                        <div>
+                            <label>First Name</label>
+                            <input className="auth-input" name="First Name" required {...register('First Name', {
+                                onChange: (e) => setFirstname(e.target.value)
+                            })} />
+                        </div>
+                    </div>
+                    <div>
+                        <label>Last Name</label>
+                        <input className="auth-input" name="Last Name" required {...register('Last Name', {
+                            onChange: (e) => setLastname(e.target.value)
+                        })} />
+                    </div>
+                    <div>
+                        <label>Email</label>
+                        <input className="auth-input" type="email" name="email"  required {...register('email', {
+                            onChange: (e) => setEmail(e.target.value)
+                        })} />
+                    </div>
+                    <div>
+                        <label>Password</label>
+                        <input className="auth-input" type="password" name="password" required {...register('password', {
+                            onChange: (e) => setPassword(e.target.value)
+                        })} />
+                    </div>
+                    {error && <p>{error}</p>}
+                    <button>Sign Up</button>
+                    {/*<p className= "para">Already have an account? <Link to = "/SignIn"> Sign In </Link></p>*/}
+                </form>
             </div>
-            <form onSubmit={handleSubmit}>
-                <h1>SignUp</h1>
-                <div>
-                    <label>First Name</label>
-                    <input name="First Name" required {...register('First Name', {
-                        onChange: (e) => setFirstname(e.target.value)
-                    })} />
-                </div>
-                <div>
-                    <label>Last Name</label>
-                    <input name="Last Name" required {...register('Last Name', {
-                        onChange: (e) => setLastname(e.target.value)
-                    })} />
-                </div>
-                <div>
-                    <label>Email</label>
-                    <input type="email" name="email"  required {...register('email', {
-                        onChange: (e) => setEmail(e.target.value)
-                    })} />
-                </div>
-                <div>
-                    <label>Password</label>
-                    <input type="password" name="password" required {...register('password', {
-                        onChange: (e) => setPassword(e.target.value)
-                    })} />
-                </div>
-                {error && <p>{error}</p>}
-                <button>Sign Up</button>
-                {/*<p className= "para">Already have an account? <Link to = "/SignIn"> Sign In </Link></p>*/}
-            </form>
         </div>
     )
 }
