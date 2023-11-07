@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import logo from '../images/seenemaLogo.png';
+import logo from '../../assets/SeenemaLogo.png';
 import '../css/Header.css';
 
 const NavigationBar = () => {

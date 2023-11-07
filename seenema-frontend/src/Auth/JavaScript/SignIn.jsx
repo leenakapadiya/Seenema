@@ -3,7 +3,7 @@ import { signIn } from "./Auth"
 import ConfirmSignUp from "./ConfirmSignUp";
 import {useForm} from "react-hook-form";
 import Form from "../CSS/Form.css"
-import seenemaLogo from "../SeenemaLogo.png";
+import seenemaLogo from '../../assets/SeenemaLogo.png';
 import Homepage from "../../Homepage/js/Homepage";
 
 export default function SignIn() {
@@ -29,8 +29,7 @@ export default function SignIn() {
     if (success) {
         return (
             <div>
-                <h1>You are signed In!</h1>
-                <p>Explore the app!</p>
+                <Homepage/>
             </div>
         )
     }
@@ -61,10 +60,10 @@ export default function SignIn() {
                             onChange: (e) => setPassword(e.target.value)
                         })} />
                     </div>
+                    {error && <p>{error}</p>}
                     <button className="button-auth">Sign In</button>
                 </form>
             </div>
-            {error && <p>{error}</p>}
         </div>
     )
 }
