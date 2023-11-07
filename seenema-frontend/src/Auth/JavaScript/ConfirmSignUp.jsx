@@ -43,13 +43,13 @@ export default function ConfirmSignUp({email}) {
                         <h1>Enter your verification code</h1>
                     </div>
                     <div>
-                        <h4> A verification code has been sent to your email. Please enter the code that you received.</h4>
-                        <label>Secure verification code</label>
+                        <h4 className="conformation-name"> A verification code has been sent to your email. Please enter the code that you received.</h4>
+                        <label className="label-names">Secure verification code</label>
                         <input className="auth-input" name="code" {...register('code', {
                             onChange: (e) => setCode(e.target.value)
                         })} />
                     </div>
-                    <button>Submit</button>
+                    <button className="button-auth">Submit</button>
                 </form>
             </div>
             {error && <p>{error}</p>}
