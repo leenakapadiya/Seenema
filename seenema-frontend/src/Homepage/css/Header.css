@@ -21,3 +21,7 @@
     outline: none;
     box-shadow: 0 0 0 0.10rem var(--text-color);
 }
+
+.profile-logo {
+    color: #959499;
+}

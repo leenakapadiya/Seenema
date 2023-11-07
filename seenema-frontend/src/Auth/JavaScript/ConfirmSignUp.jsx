@@ -30,25 +30,28 @@ export default function ConfirmSignUp({email}) {
     }
 
     return (
-        <div>
-            <div className= "logo">
-                <img
-                    src={seenemaLogo}
-                    alt={"Logo is here"}
-                    style={{ width: "200px", height: "150px", marginRight: "10px" }}
-                />
-            </div>
-            <form onSubmit={handleSubmit}>
-                <h1>Enter your verification code</h1>
-                <div>
-                    <h4> A verification code has been sent to your email. Please enter the code that you received.</h4>
-                    <label>Secure verification code</label>
-                    <input name="code" {...register('code', {
-                        onChange: (e) => setCode(e.target.value)
-                    })} />
+        <div className="bg-Poster">
+            <div className="auth-Form">
+                <div className= "logo-auth">
+                    <img
+                        src={seenemaLogo}
+                        alt={"Logo is here"}
+                    />
                 </div>
-                <button>Submit</button>
-            </form>
+                <form onSubmit={handleSubmit}>
+                    <div className="heading-auth">
+                        <h1>Enter your verification code</h1>
+                    </div>
+                    <div>
+                        <h4> A verification code has been sent to your email. Please enter the code that you received.</h4>
+                        <label>Secure verification code</label>
+                        <input className="auth-input" name="code" {...register('code', {
+                            onChange: (e) => setCode(e.target.value)
+                        })} />
+                    </div>
+                    <button>Submit</button>
+                </form>
+            </div>
             {error && <p>{error}</p>}
         </div>
     )

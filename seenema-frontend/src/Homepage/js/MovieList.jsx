@@ -59,13 +59,13 @@ const MovieList = () => {
 
     return (
         <div>
-            <h2>Now Playing</h2>
+            <h2 className="header-home">Now Playing</h2>
             <CardRow movies={nowPlayingMovies} />
-            <h2>Top Rated Movies</h2>
+            <h2 className="header-home">Top Rated Movies</h2>
             <CardRow movies={topRatedMovies} />
-            <h2>Upcoming Movies</h2>
+            <h2 className="header-home">Upcoming Movies</h2>
             <CardRow movies={upcomingMovies} />
-            <h2>Popular Movies</h2>
+            <h2 className="header-home">Popular Movies</h2>
             <CardRow movies={popularMovies} />
         </div>
     );

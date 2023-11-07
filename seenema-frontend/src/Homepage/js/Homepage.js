@@ -4,15 +4,13 @@ import MovieList from "./MovieList";
 import "../css/Homepage.css"
 
 
-function App() {
+function Homepage() {
     return (
-        <div className="App">
+        <div className="home">
             <Header />
-
             <MovieList />
-
         </div>
     );
 }
 
-export default App;
+export default Homepage;
