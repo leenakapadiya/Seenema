@@ -12,9 +12,10 @@ body {
 
 form {
     max-width: 400px;
-    margin: 300px auto;
+    margin: 100px auto;
     background: rgba(0, 0, 0, 0.8);
     padding: 80px;
+    /*padding-top: 200px;*/
     border-radius: 30px;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
@@ -118,4 +119,13 @@ button {
     padding: 15px 20px;
     border-radius: 4px;
     background: rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    margin-left: 300px;
+    /*background: black;*/
+
 }

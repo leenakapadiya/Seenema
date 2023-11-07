@@ -6,6 +6,7 @@ import {useForm} from "react-hook-form";
 import Form from "../CSS/Form.css"
 import {Link} from "react-router-dom";
 import SignIn from "./SignIn";
+import seenemaLogo from "../SeenemaLogo.png";
 
 export default function SignUp() {
     const [firstname, setFirstname] = useState("")
@@ -35,6 +36,13 @@ export default function SignUp() {
 
     return (
         <div>
+            <div className= "logo">
+                <img
+                    src={seenemaLogo}
+                    alt={"Logo is here"}
+                    style={{ width: "200px", height: "150px", marginRight: "10px" }}
+                />
+            </div>
             <form onSubmit={handleSubmit}>
                 <h1>SignUp</h1>
                 <div>

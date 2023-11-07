@@ -3,6 +3,7 @@ import { signIn } from "./Auth"
 import ConfirmSignUp from "./ConfirmSignUp";
 import {useForm} from "react-hook-form";
 import Form from "../CSS/Form.css"
+import seenemaLogo from "../SeenemaLogo.png";
 
 export default function SignIn() {
     const [email, setEmail] = useState("")
@@ -36,7 +37,13 @@ export default function SignIn() {
 
     return (
         <div>
-            {/*<h1>Sign In</h1>*/}
+            <div className= "logo">
+                <img
+                    src={seenemaLogo}
+                    alt={"Logo is here"}
+                    style={{ width: "200px", height: "150px", marginRight: "10px" }}
+                />
+            </div>
             <form onSubmit={handleSubmit}>
                 <h1>Sign In</h1>
                 <div>
