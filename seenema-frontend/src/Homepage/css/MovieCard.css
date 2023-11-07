@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500&display=swap');
+
+
+.container {
+    margin: 16px;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--white-text);
+
+
+}
+
+.card {
+    height: 300px;
+    width: 205px;
+    margin-bottom: 8px;
+    background-size: cover;
+    border-radius: 23px  !important;
+}
+
+.card-rating {
+    display: flex; /* This line will make sure that the children (the star icon and the rating) are in a row */
+    align-items: center; /* This line will vertically align the children in the middle */
+    gap: 1px; /* This line will add some space between the star icon and the rating */
+}
+
+.star-icon {
+    width: 23px;
+    height: 23px;
+}
+
+
+.rating{
+    margin-top: 7px;
+    margin-right: 110px;
+    font-size: large;
+}
+
+.year {
+    margin-top: 8px;
+    display: inline-block;
+    padding: 0 6px 0 6px;
+    border-radius: 4px;
+    background: rgb(47, 45, 45);
+    font-size: medium;
+}
+
+.card-name {
+    white-space: nowrap;  /* Ensures the text is on one line */
+    overflow: hidden;     /* Ensures overflow text is hidden */
+    text-overflow: ellipsis; /* Adds an ellipsis at the end of the text */
+    width: 100%;          /* You might need to adjust this depending on your layout */
+    display: block;       /* If not already set, this ensures proper behavior of white-space property */
+}

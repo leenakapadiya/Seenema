@@ -1,0 +1,29 @@
+.Cards {
+    font-family: sans-serif;
+}
+
+.movie-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.movie-container {
+    width: 100%;
+    overflow: auto;
+    display: flex;
+}
+
+.movie-container::-webkit-scrollbar {
+    display: none;
+}
+.container {
+    width: 205px;
+}
+
+.card {
+    width: 100%;
+}
+
+.card-name {
+    text-align: left;
+}
