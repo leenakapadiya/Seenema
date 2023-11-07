@@ -1,4 +1,4 @@
 export const cognitoConfig = {
-    UserPoolId: "Enter-your-UserpoolId-here",
-    ClientId: "Enter-your-ClientId-here",
+    UserPoolId: process.env.REACT_APP_USER_POOL,
+    ClientId: process.env.REACT_APP_CLIENT_ID,
 }
