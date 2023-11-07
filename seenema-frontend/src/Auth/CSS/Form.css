@@ -27,7 +27,7 @@ html, body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 400px; /* Adjust the width to your preference */
+    width: 600px; /* Adjust the width to your preference */
     background: rgba(0, 0, 0, 0.8);
     padding: 20px 80px 80px; /* Adjust the padding to extend the top part */
     border-radius: 30px;
@@ -48,8 +48,9 @@ html, body {
 
 }
 
-h4 {
+.conformation-name {
     font-weight: 100;
+    text-align: justify;
 }
 
 p {
@@ -62,7 +63,7 @@ p {
 
 p::before {
     display: inline;
-    content: "⚠ ";
+    content: "⚠";
 }
 
 .auth-input {
@@ -78,7 +79,7 @@ p::before {
     color: white;
 }
 
-label {
+.label-names {
     line-height: 2;
     text-align: left;
     display: block;
@@ -129,7 +130,7 @@ hr {
     margin-top: 30px;
 }
 
-button {
+.button-auth {
     margin-top: 40px;
     color: white;
     border: 1px solid white;

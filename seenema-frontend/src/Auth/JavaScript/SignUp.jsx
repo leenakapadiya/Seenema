@@ -49,32 +49,32 @@ export default function SignUp() {
                     </div>
                     <div>
                         <div>
-                            <label>First Name</label>
+                            <label className="label-names">First Name</label>
                             <input className="auth-input" name="First Name" required {...register('First Name', {
                                 onChange: (e) => setFirstname(e.target.value)
                             })} />
                         </div>
                     </div>
                     <div>
-                        <label>Last Name</label>
+                        <label className="label-names">Last Name</label>
                         <input className="auth-input" name="Last Name" required {...register('Last Name', {
                             onChange: (e) => setLastname(e.target.value)
                         })} />
                     </div>
                     <div>
-                        <label>Email</label>
+                        <label className="label-names">Email</label>
                         <input className="auth-input" type="email" name="email"  required {...register('email', {
                             onChange: (e) => setEmail(e.target.value)
                         })} />
                     </div>
                     <div>
-                        <label>Password</label>
+                        <label className="label-names">Password</label>
                         <input className="auth-input" type="password" name="password" required {...register('password', {
                             onChange: (e) => setPassword(e.target.value)
                         })} />
                     </div>
                     {error && <p>{error}</p>}
-                    <button>Sign Up</button>
+                    <button className="button-auth">Sign Up</button>
                     {/*<p className= "para">Already have an account? <Link to = "/SignIn"> Sign In </Link></p>*/}
                 </form>
             </div>

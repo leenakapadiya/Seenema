@@ -1,4 +1,24 @@
-.search-bar {
+.navbar {
+    padding: 10px 20px;
+}
+
+.navbar-brand img {
+    margin-right: 10px;
+}
+
+.form-control {
+    width: 300px;
+}
+
+.navbar .nav-link {
+    margin-right: 15px;
+}
+
+.bg-navbar {
+    background-color: #0f1115;
+}
+
+.search-bar-home {
     padding: 12px 16px;
     border: none;
     border-radius: 4px;
@@ -7,11 +27,6 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-
-}
-
-.custom-navbar {
-    background-color: var(--surface-color);
 }
 
 .search-input::placeholder {
@@ -19,7 +34,7 @@
 }
 .search-input:focus {
     outline: none;
-    box-shadow: 0 0 0 0.10rem var(--text-color);
+    box-shadow: 0 0 0 0.10rem #959499;
 }
 
 .profile-logo {

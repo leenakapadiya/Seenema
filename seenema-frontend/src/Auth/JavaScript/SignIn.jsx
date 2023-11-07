@@ -50,18 +50,18 @@ export default function SignIn() {
                         <h1>SignIn</h1>
                     </div>
                     <div>
-                        <label>Email</label>
+                        <label className="label-names">Email</label>
                             <input className="auth-input" name="email" required {...register('email', {
                                 onChange: (e) => setEmail(e.target.value)
                             })} />
                     </div>
                     <div>
-                        <label>Password</label>
+                        <label className="label-names">Password</label>
                         <input className="auth-input" name="password" type="password" required {...register('password', {
                             onChange: (e) => setPassword(e.target.value)
                         })} />
                     </div>
-                    <button>Sign In</button>
+                    <button className="button-auth">Sign In</button>
                 </form>
             </div>
             {error && <p>{error}</p>}
