@@ -6,7 +6,7 @@ import {useForm} from "react-hook-form";
 import Form from "../CSS/Form.css"
 import {Link} from "react-router-dom";
 import SignIn from "./SignIn";
-import seenemaLogo from "../SeenemaLogo.png";
+import seenemaLogo from '../../assets/SeenemaLogo.png';
 
 export default function SignUp() {
     const [firstname, setFirstname] = useState("")

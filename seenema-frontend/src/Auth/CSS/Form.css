@@ -15,7 +15,6 @@ html, body {
     color: white;
     font-family: sans-serif;
     height: 100vh;
-    /*opacity: 0.5; !* Adjust the opacity to your liking *!*/
 }
 
 .full-form {
@@ -27,9 +26,9 @@ html, body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 600px; /* Adjust the width to your preference */
+    width: 600px;
     background: rgba(0, 0, 0, 0.8);
-    padding: 20px 80px 80px; /* Adjust the padding to extend the top part */
+    padding: 20px 80px 80px;
     border-radius: 30px;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
     text-align: center;
@@ -42,7 +41,7 @@ html, body {
 .heading-auth {
     font-weight: 300;
     color: white;
-    text-align: justify;
+    text-align: left;
     margin-bottom: 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 
@@ -145,5 +144,5 @@ hr {
 }
 
 .logo-auth img {
-    max-width: 50%; /* Ensure the logo is responsive */
+    max-width: 40%; /* Ensure the logo is responsive */
 }
