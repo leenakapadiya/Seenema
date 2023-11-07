@@ -8,7 +8,7 @@ import Homepage from "./Homepage/js/Homepage";
 function App() {
   return (
     <div>
-      <Homepage/>
+      <SignUp/>
     </div>
   );
 }
