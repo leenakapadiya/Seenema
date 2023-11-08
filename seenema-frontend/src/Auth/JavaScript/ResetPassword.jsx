@@ -79,7 +79,7 @@ export default function ResetPassword(callback) {
                     </div>
                     <div>
                         <label className="label-names">Password</label>
-                        <input className="auth-input" name="New password" type="password" placeholder="Enter your password" required {...register('password', {
+                        <input className="auth-input" name="New password" type="password" placeholder="Enter your new password" required {...register('password', {
                             onChange: (e) => setNewPassword(e.target.value)
                         })} />
                     </div>
