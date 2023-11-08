@@ -49,10 +49,15 @@ html, body {
 
 }
 
-.conformation-name {
+.confirmation-name {
     font-weight: 100;
     font-size: 15px;
-    text-align: justify;
+    text-align: left;
+}
+
+.confirmation-reset {
+    font-size: 20px;
+    text-align: center;
 }
 
 p {
@@ -148,6 +153,7 @@ hr {
     max-width: 25%; /* Ensure the logo is responsive */
 }
 
-/*a {*/
-/*    color: #E63946 !important;*/
+/*Link {*/
+/*    !*color: #E63946 !important;*!*/
+/*    text-decoration: none;*/
 /*}*/

@@ -1,7 +1,7 @@
 import { Paper } from "@material-ui/core";
 import React from "react";
 import "../css/MovieCard.css";
-import starImage from '../../assets/star.png';
+import starImage from '../../assets/Star.png';
 
 const MovieCard = ({ movie }) => {
     const posterPath = movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : '';
