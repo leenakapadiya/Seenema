@@ -50,7 +50,7 @@ export default function ConfirmSignUp({email}) {
                         })} />
                     </div>
                     {error && <p style={{paddingTop: "20px", color: "#E63946", textAlign: "left"}}>{error}</p>}
-                    <button style={{marginTop: "70px"}} className="button-auth">Submit</button>
+                    <button style={{marginTop: "30px"}} className="button-auth">Submit</button>
                 </form>
             </div>
         </div>
