@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import { confirmPassword } from "./Auth"
 import {Link, Navigate} from "react-router-dom"
@@ -78,7 +78,7 @@ export default function ResetPassword(callback) {
                         })} />
                     </div>
                     <div>
-                        <label className="label-names">Password</label>
+                        <label className="label-names">New Password</label>
                         <input className="auth-input" name="New password" type="password" placeholder="Enter your new password" required {...register('password', {
                             onChange: (e) => setNewPassword(e.target.value)
                         })} />
