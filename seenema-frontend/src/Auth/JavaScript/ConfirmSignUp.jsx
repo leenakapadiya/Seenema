@@ -49,8 +49,8 @@ export default function ConfirmSignUp({email}) {
                             onChange: (e) => setCode(e.target.value)
                         })} />
                     </div>
-                    {error && <p style={{paddingTop: "20px", color: "#E63946"}}>{error}</p>}
-                    <button className="button-auth">Submit</button>
+                    {error && <p style={{paddingTop: "20px", color: "#E63946", textAlign: "left"}}>{error}</p>}
+                    <button style={{marginTop: "70px"}} className="button-auth">Submit</button>
                 </form>
             </div>
         </div>
