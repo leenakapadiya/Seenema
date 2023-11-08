@@ -42,7 +42,7 @@ export default function ResetPassword(callback) {
                     <div style={{width: "80%", paddingLeft: "20%"}}>
                         <Lottie loop={true} animationData={Success}/>
                     </div>
-                    <button style={{marginTop: "30px"}} className="button-auth"><Link to="/SignIn" style={{color: 'inherit', textDecoration: "none"}}>Sign In</Link></button>
+                    <button style={{marginTop: "30px"}} className="button-auth"><Link to="/SignIn" style={{color: 'inherit', textDecoration: "none"}}>Back to Sign In</Link></button>
                     </div>
             </div>
         )
