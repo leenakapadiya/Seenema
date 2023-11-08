@@ -3,6 +3,9 @@ import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-boots
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../../assets/SeenemaLogo.png';
 import '../css/Header.css';
+import {signOut} from "../../Auth/JavaScript/Auth";
+import {Link} from "react-router-dom";
+import '../../Auth/JavaScript/SignIn';
 
 const NavigationBar = () => {
     return (
@@ -23,7 +26,7 @@ const NavigationBar = () => {
                     <Form className="d-flex ms-auto me-3 search-bar-home">
                         <FormControl
                             type="search"
-                            placeholder="Search"
+                            placeholder="Search any movies..."
                             className="me-2 search-input"
                             aria-label="Search"
                             style={{backgroundColor: '#313036', color: 'white', border: "none"}}
@@ -41,7 +44,9 @@ const NavigationBar = () => {
                     <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.2">My List</NavDropdown.Item>
                     <NavDropdown.Divider/>
-                    <NavDropdown.Item href="#action/3.3">Log Out</NavDropdown.Item>
+                    <NavDropdown.Item href="#action/3.3">
+                        <Link to="/signOut">Sign Out</Link>
+                    </NavDropdown.Item>
                 </NavDropdown>
             </Navbar.Collapse>
         </Navbar>

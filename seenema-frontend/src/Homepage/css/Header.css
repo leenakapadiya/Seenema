@@ -1,5 +1,5 @@
 .navbar {
-    padding: 10px 20px;
+    padding-left: 10px;
 }
 
 .navbar-brand img {
@@ -7,11 +7,7 @@
 }
 
 .form-control {
-    width: 300px;
-}
-
-.navbar .nav-link {
-    margin-right: 15px;
+    width: 500px;
 }
 
 .bg-navbar {
@@ -23,9 +19,8 @@
     border: none;
     border-radius: 4px;
     font-size: 16px;
-    flex-grow: 0.3;
-    display: block;
-    margin-left: auto;
+    display: flex;
+    margin-left: 23%;
     margin-right: auto;
 }
 

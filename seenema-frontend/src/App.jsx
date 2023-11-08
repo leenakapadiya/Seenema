@@ -1,15 +1,22 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom"
 import SignUp from "./Auth/JavaScript/SignUp"
-import ConfirmSignUp from "./Auth/JavaScript/ConfirmSignUp"
-import signIn from "./Auth/JavaScript/SignIn";
-import SignIn from "./Auth/JavaScript/SignIn";
+import SignIn from "./Auth/JavaScript/SignIn"
 import Homepage from "./Homepage/js/Homepage";
+import SignOut from "./Auth/JavaScript/SignOut";
 
 function App() {
   return (
-    <div>
-      <SignUp/>
-    </div>
+      <>
+          <Router>
+              <Routes>
+                  <Route path="/signIn" element={<SignIn />} />
+                  <Route path="/Homepage" element={<Homepage />} />
+                  <Route path="/signUp" element={<SignUp />} />
+                  <Route path="/signOut" element={<SignOut />} />
+                  <Route path="*" element={<Navigate to="/signIn" />} />
+              </Routes>
+          </Router>
+      </>
   );
 }
 
