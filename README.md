@@ -21,4 +21,4 @@ To run the system, run the following commands
 For the beta release we have implemented the signup/login feature which allows users to sign up for Seenema and verify their email and also allows the user to log in to their profile.
 On top of that we have created a homepage that displays the top movies/shows fetched from the TMDB API to the user.
 
-#### Beta Release version id: 67fce79
+#### Beta Release version id: v1.0.0
