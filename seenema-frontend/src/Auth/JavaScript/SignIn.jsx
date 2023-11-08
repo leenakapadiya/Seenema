@@ -63,8 +63,8 @@ export default function SignIn() {
                             onChange: (e) => setPassword(e.target.value)
                         })} />
                     </div>
-                    {error && <p style={{paddingTop: "20px", color: "#E63946"}}>{error}</p>}
-                    <button className="button-auth">Sign In</button>
+                    {error && <p style={{paddingTop: "20px", color: "#E63946", textAlign: "left"}}>{error}</p>}
+                    <button style={{marginTop: "70px"}} className="button-auth">Sign In</button>
                 </form>
 
                 <p style={{ marginTop: '20px', textAlign: 'center' }}>Don't have an account? <Link to="/signUp">Sign Up</Link></p>

@@ -73,7 +73,7 @@ export default function SignUp() {
                         })} />
                     </div>
                     {error && <p style={{paddingTop: "10px", textAlign: "left", color: "#E63946"}}>{error}</p>}
-                    <button className="button-auth">Sign Up</button>
+                    <button style={{marginTop: "30px"}} className="button-auth">Sign Up</button>
                 </form>
                 <p style={{ marginTop: '20px', textAlign: 'center'}}>Already have an account? <Link to="/signIn">Sign In</Link></p>
             </div>
