@@ -78,9 +78,9 @@ export function confirmPassword(username, code, newPassword) {
 }
 
 export function signOut() {
-    const cognitoUser = userPool.getCurrentUser()
+    const cognitoUser = userPool.getCurrentUser();
     if (cognitoUser) {
-        cognitoUser.signOut()
+        cognitoUser.signOut();
     }
 }
 

@@ -1,12 +1,11 @@
 import React, { useState } from "react"
 import { signUp } from "./Auth"
-import {signIn} from "./Auth";
 import ConfirmSignUp from "./ConfirmSignUp";
 import {useForm} from "react-hook-form";
-import Form from "../CSS/Form.css"
 import {Link} from "react-router-dom";
-import SignIn from "./SignIn";
 import seenemaLogo from '../../assets/SeenemaLogo.png';
+import "../CSS/Form.css";
+import '../JavaScript/SignIn';
 
 export default function SignUp() {
     const [firstname, setFirstname] = useState("")
@@ -45,7 +44,7 @@ export default function SignUp() {
                 </div>
                 <form onSubmit={handleSubmit} >
                     <div className="heading-auth">
-                        <h1>SignUp</h1>
+                        <h2>Sign Up</h2>
                     </div>
                     <div>
                         <div>
@@ -73,10 +72,10 @@ export default function SignUp() {
                             onChange: (e) => setPassword(e.target.value)
                         })} />
                     </div>
-                    {error && <p>{error}</p>}
+                    {error && <p style={{paddingTop: "10px", textAlign: "left", color: "#E63946"}}>{error}</p>}
                     <button className="button-auth">Sign Up</button>
-                    {/*<p className= "para">Already have an account? <Link to = "/SignIn"> Sign In </Link></p>*/}
                 </form>
+                <p style={{ marginTop: '20px', textAlign: 'center'}}>Already have an account? <Link to="/signIn">Sign In</Link></p>
             </div>
         </div>
     )

@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import { signIn } from "./Auth"
-import ConfirmSignUp from "./ConfirmSignUp";
 import {useForm} from "react-hook-form";
-import Form from "../CSS/Form.css"
+import "../CSS/Form.css";
 import seenemaLogo from '../../assets/SeenemaLogo.png';
 import Homepage from "../../Homepage/js/Homepage";
+import {Link} from "react-router-dom";
 
 export default function SignIn() {
     const [email, setEmail] = useState("")
@@ -37,6 +37,9 @@ export default function SignIn() {
 
     return (
         <div className="bg-Poster">
+            <div>
+
+            </div>
             <div className="auth-Form">
                 <div className= "logo-auth">
                     <img
@@ -46,7 +49,7 @@ export default function SignIn() {
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="heading-auth">
-                        <h1>SignIn</h1>
+                        <h2>Sign In</h2>
                     </div>
                     <div>
                         <label className="label-names">Email</label>
@@ -60,9 +63,11 @@ export default function SignIn() {
                             onChange: (e) => setPassword(e.target.value)
                         })} />
                     </div>
-                    {error && <p>{error}</p>}
+                    {error && <p style={{paddingTop: "20px", color: "#E63946"}}>{error}</p>}
                     <button className="button-auth">Sign In</button>
                 </form>
+
+                <p style={{ marginTop: '20px', textAlign: 'center' }}>Don't have an account? <Link to="/signUp">Sign Up</Link></p>
             </div>
         </div>
     )

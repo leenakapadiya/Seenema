@@ -2,8 +2,8 @@ import React, { useState } from "react"
 import { confirmSignUp } from "./Auth"
 import SignIn from "./SignIn";
 import {useForm} from "react-hook-form";
-import Form from "../CSS/Form.css"
 import seenemaLogo from '../../assets/SeenemaLogo.png';
+import "../CSS/Form.css";
 
 export default function ConfirmSignUp({email}) {
     const [code, setCode] = useState("")
@@ -40,16 +40,16 @@ export default function ConfirmSignUp({email}) {
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="heading-auth">
-                        <h1>Enter your verification code</h1>
+                        <h2>Enter your verification code</h2>
                     </div>
                     <div>
-                        <h4 className="conformation-name"> A verification code has been sent to your email. Please enter the code that you received.</h4>
+                        <h4 className="conformation-name"> A verification code has been sent to your email.</h4>
                         <label className="label-names">Secure verification code</label>
                         <input className="auth-input" name="code" {...register('code', {
                             onChange: (e) => setCode(e.target.value)
                         })} />
                     </div>
-                    {error && <p>{error}</p>}
+                    {error && <p style={{paddingTop: "20px", color: "#E63946"}}>{error}</p>}
                     <button className="button-auth">Submit</button>
                 </form>
             </div>
