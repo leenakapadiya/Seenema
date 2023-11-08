@@ -1,7 +1,7 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
+import {useForm} from "react-hook-form";
 import { signUp } from "./Auth"
 import ConfirmSignUp from "./ConfirmSignUp";
-import {useForm} from "react-hook-form";
 import {Link} from "react-router-dom";
 import seenemaLogo from '../../assets/SeenemaLogo.png';
 import "../CSS/Form.css";
@@ -49,33 +49,33 @@ export default function SignUp() {
                     <div>
                         <div>
                             <label className="label-names">First Name</label>
-                            <input className="auth-input" name="First Name" required {...register('First Name', {
+                            <input className="auth-input" name="First Name" placeholder="Enter your first name" required {...register('First Name', {
                                 onChange: (e) => setFirstname(e.target.value)
                             })} />
                         </div>
                     </div>
                     <div>
                         <label className="label-names">Last Name</label>
-                        <input className="auth-input" name="Last Name" required {...register('Last Name', {
+                        <input className="auth-input" name="Last Name" required placeholder="Enter your last name"{...register('Last Name', {
                             onChange: (e) => setLastname(e.target.value)
                         })} />
                     </div>
                     <div>
                         <label className="label-names">Email</label>
-                        <input className="auth-input" type="email" name="email"  required {...register('email', {
+                        <input className="auth-input" type="email" name="email" placeholder="Enter your email" required {...register('email', {
                             onChange: (e) => setEmail(e.target.value)
                         })} />
                     </div>
                     <div>
                         <label className="label-names">Password</label>
-                        <input className="auth-input" type="password" name="password" required {...register('password', {
+                        <input className="auth-input" type="password" name="password" placeholder="Enter your password" required {...register('password', {
                             onChange: (e) => setPassword(e.target.value)
                         })} />
                     </div>
                     {error && <p style={{paddingTop: "10px", textAlign: "left", color: "#E63946"}}>{error}</p>}
                     <button style={{marginTop: "30px"}} className="button-auth">Sign Up</button>
                 </form>
-                <p style={{ marginTop: '20px', textAlign: 'center'}}>Already have an account? <Link to="/signIn">Sign In</Link></p>
+                <p style={{ marginTop: '20px', textAlign: 'left'}}>Already have an account? <Link to="/signIn" style={{color: 'inherit'}}>Sign In</Link></p>
             </div>
         </div>
     )

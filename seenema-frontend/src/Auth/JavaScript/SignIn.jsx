@@ -37,9 +37,6 @@ export default function SignIn() {
 
     return (
         <div className="bg-Poster">
-            <div>
-
-            </div>
             <div className="auth-Form">
                 <div className= "logo-auth">
                     <img
@@ -53,21 +50,23 @@ export default function SignIn() {
                     </div>
                     <div>
                         <label className="label-names">Email</label>
-                            <input className="auth-input" name="email" required {...register('email', {
+                            <input className="auth-input" name="email" placeholder="Enter your email" required {...register('email', {
                                 onChange: (e) => setEmail(e.target.value)
                             })} />
                     </div>
                     <div>
                         <label className="label-names">Password</label>
-                        <input className="auth-input" name="password" type="password" required {...register('password', {
+                        <input className="auth-input" name="password" type="password" placeholder="Enter your password" required {...register('password', {
                             onChange: (e) => setPassword(e.target.value)
                         })} />
                     </div>
+                    <p style={{ marginTop: '20px', textAlign: 'left' }}> <Link to="/forgotPassword" style={{ color: 'inherit'}}>Forgot your password?</Link></p>
                     {error && <p style={{paddingTop: "20px", color: "#E63946", textAlign: "left"}}>{error}</p>}
-                    <button style={{marginTop: "30px"}} className="button-auth">Sign In</button>
+                    <button style={{marginTop: "30px", marginBottom: "20px"}} className="button-auth">Sign In</button>
                 </form>
-
-                <p style={{ marginTop: '20px', textAlign: 'center' }}>Don't have an account? <Link to="/signUp">Sign Up</Link></p>
+                <hr/>
+                <p style={{ marginTop: '20px', textAlign: 'left' }}>Don't have an account yet? <Link to="/signUp" style={{ color: 'inherit'}}>Sign Up</Link></p>
+                <hr/>
             </div>
         </div>
     )

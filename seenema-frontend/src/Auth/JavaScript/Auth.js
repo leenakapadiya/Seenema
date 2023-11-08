@@ -69,12 +69,40 @@ export function signIn(email, password) {
     })
 }
 
-export function forgotPassword(username) {
-    // Forgot password implementation
+export function forgotPassword(email) {
+    return new Promise((resolve, reject) => {
+        const cognitoUser = new CognitoUser({
+            Username: email,
+            Pool: userPool,
+        })
+
+        cognitoUser.forgotPassword({
+            onSuccess: () => {
+                resolve()
+            },
+            onFailure: (err) => {
+                reject(err)
+            },
+        })
+    })
 }
 
-export function confirmPassword(username, code, newPassword) {
-    // Confirm password implementation
+export function confirmPassword(email, confirmationCode, newPassword) {
+    return new Promise((resolve, reject) => {
+        const cognitoUser = new CognitoUser({
+            Username: email,
+            Pool: userPool,
+        })
+
+        cognitoUser.confirmPassword(confirmationCode, newPassword, {
+            onSuccess: () => {
+                resolve()
+            },
+            onFailure: (err) => {
+                reject(err)
+            },
+        })
+    })
 }
 
 export function signOut() {
@@ -84,10 +112,3 @@ export function signOut() {
     }
 }
 
-export function getCurrentUser() {
-    // Get current user implementation
-}
-
-export function getSession() {
-
-}
