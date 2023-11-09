@@ -3,8 +3,7 @@ import { signIn } from "./Auth"
 import {useForm} from "react-hook-form";
 import "../CSS/Form.css";
 import seenemaLogo from '../../assets/SeenemaLogo.png';
-import Homepage from "../../Homepage/js/Homepage";
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 
 export default function SignIn() {
     const [email, setEmail] = useState("")
@@ -26,14 +25,6 @@ export default function SignIn() {
         }
     }
 
-    if (success) {
-        return (
-            <div>
-                <Homepage/>
-            </div>
-        )
-    }
-
 
     return (
         <div className="bg-Poster">
@@ -44,6 +35,9 @@ export default function SignIn() {
                         alt={"Logo is here"}
                     />
                 </div>
+                {success && (
+                    <Navigate to="/Homepage" replace={true} />
+                )}
                 <form onSubmit={handleSubmit}>
                     <div className="heading-auth">
                         <h2>Sign In</h2>

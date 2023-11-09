@@ -6,6 +6,7 @@ import seenemaLogo from '../../assets/SeenemaLogo.png';
 import "../CSS/Form.css";
 import Lottie from "lottie-react";
 import Mail from "../../assets/Mail.json";
+import {Navigate} from "react-router-dom";
 
 export default function ConfirmSignUp({email}) {
     const [code, setCode] = useState("")
@@ -25,12 +26,6 @@ export default function ConfirmSignUp({email}) {
         }
     }
 
-    if (success) {
-        return (
-            <SignIn />
-        )
-    }
-
     return (
         <div className="bg-Poster">
             <div className="auth-Form">
@@ -40,6 +35,9 @@ export default function ConfirmSignUp({email}) {
                         alt={"Logo is here"}
                     />
                 </div>
+                {success && (
+                    <Navigate to="/Homepage" replace={true} />
+                )}
                 <form onSubmit={handleSubmit}>
                     <div className="heading-auth">
                         <h2>Enter your verification code</h2>
