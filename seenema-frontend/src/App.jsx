@@ -17,7 +17,7 @@ function App() {
                   <Route path="/signOut" element={<SignOut />} />
                   <Route path="/forgotPassword" element={<ForgotPassword />} />
                   <Route path="/resetPassword" element={<ResetPassword />} />
-                  <Route path="*" element={<Navigate to="/signIn" />} />
+                  <Route path="*" element={<Navigate to="/Homepage" />} />
               </Routes>
           </Router>
       </>
