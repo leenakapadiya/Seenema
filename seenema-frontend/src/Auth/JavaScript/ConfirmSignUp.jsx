@@ -36,7 +36,7 @@ export default function ConfirmSignUp({email}) {
                     />
                 </div>
                 {success && (
-                    <Navigate to="/Homepage" replace={true} />
+                    <Navigate to="/signIn" replace={true} />
                 )}
                 <form onSubmit={handleSubmit}>
                     <div className="heading-auth">

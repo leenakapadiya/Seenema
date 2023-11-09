@@ -44,7 +44,7 @@ const NavigationBar = () => {
                     <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
                     <NavDropdown.Item href="#action/3.2">My List</NavDropdown.Item>
                     <NavDropdown.Divider/>
-                    <NavDropdown.Item href="#action/3.3">
+                    <NavDropdown.Item href="signIn">
                         <Link to="/signOut" style={{ textDecoration: 'none', color: 'inherit' }}>Sign Out</Link>
                     </NavDropdown.Item>
                 </NavDropdown>
