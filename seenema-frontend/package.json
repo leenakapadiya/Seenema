@@ -31,7 +31,9 @@
     "react-scripts": "^5.0.1",
     "styled-components": "^6.1.0",
     "web-vitals": "^2.1.4",
-    "lottie-react": "^2.4.0"
+    "lottie-react": "^2.4.0",
+    "@nextui-org/react": "^2.2.2",
+    "framer-motion": "^10.16.4"
   },
   "scripts": {
     "start": "react-scripts start",
