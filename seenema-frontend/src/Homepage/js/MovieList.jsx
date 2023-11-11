@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react"
-import axios from "axios";
+import {useEffect, useState} from "react"
 import CardRow from "./CardRow"
 import api from "./api"
 import '../css/MovieList.css'
@@ -15,7 +14,7 @@ const MovieList = () => {
 
         const fetchTopRatedMovies = async () => {
             try {
-                const { data } = await api.get("movie/top_rated");
+                const {data} = await api.get("movie/top_rated");
                 setTopRatedMovies(data.results);
             } catch (error) {
                 console.error('Failed to fetch top rated movies:', error);
@@ -24,7 +23,7 @@ const MovieList = () => {
 
         const fetchUpcomingMovies = async () => {
             try {
-                const { data } = await api.get("movie/upcoming");
+                const {data} = await api.get("movie/upcoming");
                 setUpcomingMovies(data.results);
             } catch (error) {
                 console.error('Failed to fetch upcoming movies:', error);
@@ -33,7 +32,7 @@ const MovieList = () => {
 
         const fetchPopularMovies = async () => {
             try {
-                const { data } = await api.get("movie/popular");
+                const {data} = await api.get("movie/popular");
                 setPopularMovies(data.results);
             } catch (error) {
                 console.error('Failed to fetch popular movies:', error);
@@ -42,7 +41,7 @@ const MovieList = () => {
 
         const fetchNowPlayingMovies = async () => {
             try {
-                const { data } = await api.get("movie/now_playing");
+                const {data} = await api.get("movie/now_playing");
                 setNowPlayingMovies(data.results);
             } catch (error) {
                 console.error('Failed to fetch now playing movies:', error);
@@ -60,13 +59,13 @@ const MovieList = () => {
     return (
         <div>
             <h2 className="header-home">Now Playing</h2>
-            <CardRow movies={nowPlayingMovies} />
+            <CardRow movies={nowPlayingMovies}/>
             <h2 className="header-home">Top Rated Movies</h2>
-            <CardRow movies={topRatedMovies} />
+            <CardRow movies={topRatedMovies}/>
             <h2 className="header-home">Upcoming Movies</h2>
-            <CardRow movies={upcomingMovies} />
+            <CardRow movies={upcomingMovies}/>
             <h2 className="header-home">Popular Movies</h2>
-            <CardRow movies={popularMovies} />
+            <CardRow movies={popularMovies}/>
         </div>
     );
 };
