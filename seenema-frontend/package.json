@@ -1,7 +1,18 @@
 {
-  "name": "seenema-frontend",
-  "version": "0.1.0",
-  "private": true,
+  "name": "seenema",
+  "version": "1.0.0",
+  "description": "Seenema is a movie/tv show browsing website that allows users to browse movies, add movies to watchlist, and send movie recommendations to friends.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leenapagdar/Seenema.git"
+  },
+  "author": "Leena Kapadiya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leenapagdar/Seenema/issues"
+  },
+  "homepage": "https://github.com/leenapagdar/Seenema#readme",
   "dependencies": {
     "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",
