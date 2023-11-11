@@ -17,7 +17,7 @@
     width: 205px;
     margin-bottom: 8px;
     background-size: cover;
-    border-radius: 23px !important;
+    border-radius: 23px  !important;
 }
 
 .card-rating {
@@ -32,7 +32,7 @@
 }
 
 
-.rating {
+.rating{
     margin-top: 7px;
     margin-right: 110px;
     font-size: large;
@@ -48,9 +48,9 @@
 }
 
 .card-name {
-    white-space: nowrap; /* Ensures the text is on one line */
-    overflow: hidden; /* Ensures overflow text is hidden */
+    white-space: nowrap;  /* Ensures the text is on one line */
+    overflow: hidden;     /* Ensures overflow text is hidden */
     text-overflow: ellipsis; /* Adds an ellipsis at the end of the text */
-    width: 100%; /* You might need to adjust this depending on your layout */
-    display: block; /* If not already set, this ensures proper behavior of white-space property */
+    width: 100%;          /* You might need to adjust this depending on your layout */
+    display: block;       /* If not already set, this ensures proper behavior of white-space property */
 }

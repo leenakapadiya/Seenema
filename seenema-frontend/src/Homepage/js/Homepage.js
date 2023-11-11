@@ -9,7 +9,7 @@ function Homepage() {
     return (
         <div className="home">
             <Header/>
-            <MovieList/>
+            <MovieList />
         </div>
     );
 }

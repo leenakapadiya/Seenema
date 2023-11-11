@@ -1,5 +1,6 @@
-import React, {useState} from "react"
-import {confirmSignUp} from "./Auth"
+import React, { useState } from "react"
+import { confirmSignUp } from "./Auth"
+import SignIn from "./SignIn";
 import {useForm} from "react-hook-form";
 import seenemaLogo from '../../assets/SeenemaLogo.png';
 import "../CSS/Form.css";
@@ -11,7 +12,7 @@ export default function ConfirmSignUp({email}) {
     const [code, setCode] = useState("")
     const [error, setError] = useState("")
     const [success, setSuccess] = useState(false)
-    const {register} = useForm();
+    const { register } = useForm();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -28,14 +29,14 @@ export default function ConfirmSignUp({email}) {
     return (
         <div className="bg-Poster">
             <div className="auth-Form">
-                <div className="logo-auth">
+                <div className= "logo-auth">
                     <img
                         src={seenemaLogo}
                         alt={"Logo is here"}
                     />
                 </div>
                 {success && (
-                    <Navigate to="/signIn" replace={true}/>
+                    <Navigate to="/signIn" replace={true} />
                 )}
                 <form onSubmit={handleSubmit}>
                     <div className="heading-auth">
@@ -47,8 +48,7 @@ export default function ConfirmSignUp({email}) {
                             <Lottie loop={true} animationData={Mail}/>
                         </div>
                         <label className="label-names">Secure verification code</label>
-                        <input className="auth-input" name="code"
-                               placeholder="Enter your verfication code"{...register('code', {
+                        <input className="auth-input" name="code" placeholder="Enter your verfication code"{...register('code', {
                             onChange: (e) => setCode(e.target.value)
                         })} />
                     </div>
