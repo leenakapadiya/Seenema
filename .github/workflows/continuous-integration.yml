@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  frontend-ci:
+  frontend:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -23,6 +23,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+          cache-dependency-path: 'seenema-frontend/package-lock.json'
       - name: Install package dependencies
         working-directory: seenema-frontend
         run: npm install --legacy-peer-deps
