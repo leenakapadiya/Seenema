@@ -36,7 +36,7 @@ export default function SignIn() {
                     />
                 </div>
                 {success && (
-                    <Navigate to="/Homepage" replace={true}/>
+                    <Navigate to="/Homepage" replace={true} />
                 )}
                 <form onSubmit={handleSubmit}>
                     <div className="heading-auth">
