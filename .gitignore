@@ -9,6 +9,10 @@ logs
 **/*.back.*
 .idea
 
+*.iml
+.gradle
+build/
+
 node_modules
 bower_components
 
