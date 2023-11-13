@@ -1,5 +1,3 @@
-**The developer guidelines are focused solely on people who want to contribute to your project.**
-
 # How to obtain the source code
 * To obtain the source code for the project clone the repository from the main branch using following command in your command line interface(CLI):
 * `git clone https://github.com/leenapagdar/Seenema.git`
@@ -17,8 +15,8 @@
 1. **README.md:** The main documentation file providing an overview of the project.
 
 # How to build the software
-* A .env.local file would be necessary:
-  * Create a file “.env.local” and place all the tokens and keys inside that file.
+* `.env.local` file would be necessary:
+  * Create a file `.env.local` and place all the tokens and keys inside that file.
   * Ask your colleague to share API keys and authentication tokens needed for the application to start
 * To build the software
   * Navigate to the project root directory
@@ -63,6 +61,7 @@
 
 # How to build a release of the software
 * In the github navigate to the repository and ‘releases’ page, you can find initial releases tags there.
-* e.g. for the initial beta release(`v1.0.0` tag), follow the steps below:
-  * In your CLI, enter the command `git checkout v1.0.0`
-  *  Follow the [**How to build the software**](#how-to-build-the-software) documentation in this file.
+* For example:
+  * for the initial beta release(`v1.0.0` tag), follow the steps below:
+    * In your CLI, enter the command `git checkout v1.0.0`
+    *  Follow the [**How to build the software**](#how-to-build-the-software) documentation in this file.
