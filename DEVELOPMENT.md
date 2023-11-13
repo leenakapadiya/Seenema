@@ -2,7 +2,7 @@
 
 # How to obtain the source code
 * To obtain the source code for the project clone the repository from the main branch using following command in your command line interface(CLI):
-* git clone [https://github.com/leenapagdar/Seenema.git](https://github.com/leenapagdar/Seenema.git)
+* `git clone https://github.com/leenapagdar/Seenema.git`
 
 
 ## The layout of your directory structure
