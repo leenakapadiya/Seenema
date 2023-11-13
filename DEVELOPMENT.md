@@ -18,19 +18,18 @@
 * `.env.local` file would be necessary:
   * Create a file `.env.local` and place all the tokens and keys inside that file.
   * Ask your colleague to share API keys and authentication tokens needed for the application to start
-* To build the software
-  * Navigate to the project root directory
-  * Navigate to the seenema-frontend directory by running the following command:
-    * `cd seenema-frontend`
-  * Run the following command in your CLI
-   ```bash
-   npm install --legacy-peer-deps
-   # To install the project dependencies
-   npm run build --if-present
-   # Start building script in package.json
-   npm run start
-   #  Starts the application in the browser of your choice
-   ```
+    * To build the software
+      * Navigate to the project root directory
+      * Navigate to the seenema-frontend directory by running the following command:
+        * `cd seenema-frontend`
+      * Run the following command in your CLI
+        ```bash
+        npm install --legacy-peer-deps
+        # To install the project dependencies
+        npm run build --if-present
+        # Start building script in package.json
+        npm run start
+        #  Starts the application in the browser of your choice```
 
 # How to test the software
 * To build and test our system, run the following commands.
