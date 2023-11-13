@@ -3,7 +3,7 @@
   * `git clone https://github.com/leenapagdar/Seenema.git`
 
 
-## The layout of your directory structure
+# The layout of the directory structure
 1. **./.github/workflows:** GitHub Actions workflows for continuous integration and automation tasks.
 1. **./reports:** Weekly team meeting reports.
 1. **./seenema-backend/src/main:** contains source code for the backend of the project.
@@ -59,8 +59,29 @@
     * Test file: `TestMyClass.java`
 
 # How to build a release of the software
-* In the github navigate to the repository and ‘releases’ page, you can find initial releases tags there.
-* For example:
-  * for the initial beta release(`v1.0.0` tag), follow the steps below:
-    * In your CLI, enter the command `git checkout v1.0.0`
-    *  Follow the [**How to build the software**](#how-to-build-the-software) documentation in this file.
+Here are the combined steps to build a release:
+
+#### Automated steps
+
+1. In the code and documentation, update the existing version number with the new release version number.
+1. Execute the entire test suite and linter tests to check the functionality and quality of the code.
+1. Create or update the documentation to ensure the inclusion of the changes in the new release.
+1. Build the script file to compile the binary files reflecting preparation of the release artifacts.
+
+#### Manual steps
+
+1. Go to the [GitHub.com](https://github.com/).
+1. Navigate to the main page of your repository. 
+1. To the right side of the list of files, Click on the **Releases** tab.
+1. Click on **Draft a new Release** button, on the top of the page.
+1. Click on **Choose a tag** drop down menu. 
+   * Choose a tag version if you already created one from the dropdown choices
+   * To create a new tag, enter a tag version by clicking on the input field **Find or create a new tag**. 
+1. Enter description for your release under **Describe the release** input field.
+For example, detailed information about new features, bug fixes or nay other relevant changes.
+1. Attach Binary files by dragging & dropping or manually selecting them to upload under a section 
+**Attach binaries by dropdown them here or selecting them**. 
+1. If you want to label the release as non-production ready, then click on a checkbox **Set as pre-release**. 
+1. If you want to label the release as non-production ready as the latest, then click on a checkbox 
+**Set as the latest release**. 
+1. Click on **Publish release** button.
