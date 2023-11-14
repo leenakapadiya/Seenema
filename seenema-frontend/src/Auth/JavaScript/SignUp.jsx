@@ -7,32 +7,39 @@ import seenemaLogo from '../../assets/SeenemaLogo.png';
 import "../CSS/Form.css";
 import '../JavaScript/SignIn';
 
+// component for user sign-up
 export default function SignUp() {
+    // State variables to handle the code
     const [firstname, setFirstname] = useState("")
     const [lastname, setLastname] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
     const [success, setSuccess] = useState(false)
-    const { register } = useForm();
+    const {register} = useForm();
+
+    // handles the submission of the form
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError("")
 
         try {
+            // try to signup using provided user details
             await signUp(firstname, lastname, email, password)
             setSuccess(true)
         } catch (err) {
+            // Set the error message
             setError(err.message)
         }
     }
-
+    // if success is true, go to confirmSignUp
     if (success) {
         return (
             <ConfirmSignUp email={email}/>
         )
     }
 
+    // renders the SignUp component
     return (
         <div className="bg-Poster">
             <div className="auth-Form">
