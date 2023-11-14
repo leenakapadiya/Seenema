@@ -15,36 +15,64 @@
 1. **README.md:** The main documentation file providing an overview of the project.
 
 # How to build the software
+
+## To build the application frontend
 * `.env.local` file would be necessary:
+  * Ask your colleague to share API keys and authentication tokens needed to initiate the application frontend
   * Create a file `.env.local` and place all the tokens and keys inside that file.
-  * Ask your colleague to share API keys and authentication tokens needed for the application to start
-    * To build the software
+  * Place that file under **./seenema-frontend** folder.
+    * To build the frontend software
       * Navigate to the project root directory
       * Navigate to the seenema-frontend directory by running the following command:
         * `cd seenema-frontend`
       * Run the following command in your CLI
         ```bash
-        npm install --legacy-peer-deps
         # To install the project dependencies
-        npm run build --if-present
+        npm install --legacy-peer-deps
         # Start building script in package.json
+        npm run build --if-present
+        #  Starts the application in the browser of your choice
         npm run start
-        #  Starts the application in the browser of your choice```
+        ```
 
+## To build the application backend
+* To build the backend software
+  * Navigate to the project root directory
+  * Navigate to the seenema-backend directory by running the following command:
+    * `cd seenema-backend`
+  * Run the following command in your CLI
+    ```bash
+    # To build the application backend
+    gradle build
+    ```
+        
 # How to test the software
-* To build and test our system, run the following commands.
+## To test the application frontend
+* To build and test our frontend system, run the following commands.
   * Navigate to the project root directory
   * Navigate to the seenema-frontend directory by running the following command:
     * `cd seenema-frontend`
-* Run the following command in your CLI
-   ```bash
-  npm install --legacy-peer-deps
-  # To install the project dependencies
-  npm run build --if-present
-  # Start building script in package.json
-  npm test
-  # Starts test for the application frontend
-  ```
+  * Run the following command in your CLI
+     ```bash
+    # To install the project dependencies
+    npm install --legacy-peer-deps
+    # Start building script in package.json
+    npm run build --if-present
+    # Starts test for the application frontend
+    npm test
+    ```
+    
+    
+## To test the application backend
+* To build and test our backend system, run the following commands.
+  * Navigate to the project root directory
+  * Navigate to the seenema-backend directory by running the following command:
+    * `cd seenema-backend`
+  * Run the following command in your CLI
+     ```bash
+    # To test the application backend
+    gradle test
+    ```
 
 # How to add new tests
 * When adding new tests to the frontend, follow these steps:
@@ -59,29 +87,9 @@
     * Test file: `TestMyClass.java`
 
 # How to build a release of the software
-Here are the combined steps to build a release:
 
-#### Automated steps
+The release process is automated via Github Actions and Vercel. On merge to master branch, vercel will pull the latest 
+code and update the website. To view the latest released website open [this link](https://seenema-one.vercel.app/).
 
-1. In the code and documentation, update the existing version number with the new release version number.
-1. Execute the entire test suite and linter tests to check the functionality and quality of the code.
-1. Create or update the documentation to ensure the inclusion of the changes in the new release.
-1. Build the script file to compile the binary files reflecting preparation of the release artifacts.
-
-#### Manual steps
-
-1. Go to the [GitHub.com](https://github.com/).
-1. Navigate to the main page of your repository. 
-1. To the right side of the list of files, Click on the **Releases** tab.
-1. Click on **Draft a new Release** button, on the top of the page.
-1. Click on **Choose a tag** drop down menu. 
-   * Choose a tag version if you already created one from the dropdown choices
-   * To create a new tag, enter a tag version by clicking on the input field **Find or create a new tag**. 
-1. Enter description for your release under **Describe the release** input field.
-For example, detailed information about new features, bug fixes or nay other relevant changes.
-1. Attach Binary files by dragging & dropping or manually selecting them to upload under a section 
-**Attach binaries by dropdown them here or selecting them**. 
-1. If you want to label the release as non-production ready, then click on a checkbox **Set as pre-release**. 
-1. If you want to label the release as non-production ready as the latest, then click on a checkbox 
-**Set as the latest release**. 
-1. Click on **Publish release** button.
+[OPTIONAL]: You can also tag releases using [Git tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging).
+Follow [SemVer](https://semver.org/) versioning for the Git tags.
