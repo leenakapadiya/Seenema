@@ -26,7 +26,6 @@ export default function ForgotPassword() {
         }
     }
 
-
     // renders the forgotPassword component
     return (
         <div className="bg-Poster">
@@ -56,7 +55,7 @@ export default function ForgotPassword() {
                     <button style={{marginTop: "30px", marginBottom: "20px"}} className="button-auth">Submit</button>
                 </form>
                 <Link to="/SignIn" style={{color: 'inherit'}}>Back to Sign In</Link>
+            </div>
         </div>
-    </div>
     )
 }

@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/react
 # Edit at https://www.toptal.com/developers/gitignore?templates=react
 
+*.class
+.vscode
+
 ### react ###
 .DS_*
 *.log
@@ -8,6 +11,10 @@ logs
 **/*.backup.*
 **/*.back.*
 .idea
+
+*.iml
+.gradle
+build/
 
 node_modules
 bower_components

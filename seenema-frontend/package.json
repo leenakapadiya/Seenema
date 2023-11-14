@@ -1,6 +1,8 @@
 {
   "name": "seenema-frontend",
   "version": "0.1.0",
+  "description": "Seenema is a movie/tv show browsing website that allows users to browse movies, add movies to watchlist, and send movie recommendations to friends.",
+  "author": "Leena Kapadiya",
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^2.8.1",

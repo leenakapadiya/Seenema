@@ -1,9 +1,5 @@
-import {
-    CognitoUserPool,
-    CognitoUser,
-    AuthenticationDetails,
-} from "amazon-cognito-identity-js"
-import { cognitoConfig } from "./CognitoConfig"
+import {AuthenticationDetails, CognitoUser, CognitoUserPool,} from "amazon-cognito-identity-js"
+import {cognitoConfig} from "./CognitoConfig"
 
 
 // creates a CognitoUserPool instance with cognito configurations
@@ -19,7 +15,10 @@ export function signUp(firstname, lastname, email, password) {
         userPool.signUp(
             email,
             password,
-            [{Name: "given_name", Value: firstname}, {Name: "family_name", Value: lastname}, { Name: "email", Value: email }],
+            [{Name: "given_name", Value: firstname}, {Name: "family_name", Value: lastname}, {
+                Name: "email",
+                Value: email
+            }],
             null,
             (err, result) => {
                 if (err) {

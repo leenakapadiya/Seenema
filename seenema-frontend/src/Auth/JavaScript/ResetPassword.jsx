@@ -16,7 +16,7 @@ export default function ResetPassword(callback) {
     const [newPassword, setNewPassword] = useState("")
     const [error, setError] = useState("")
     const [success, setSuccess] = useState(false)
-    const { register } = useForm();
+    const {register} = useForm();
 
     // handles the submission of the form
     const handleSubmit = async (e) => {
@@ -38,7 +38,7 @@ export default function ResetPassword(callback) {
         return (
             <div className="bg-Poster">
                 <div className="auth-Form">
-                    <div className= "logo-auth">
+                    <div className="logo-auth">
                         <img
                             src={seenemaLogo}
                             alt={"Logo is here"}
@@ -48,8 +48,11 @@ export default function ResetPassword(callback) {
                     <div style={{width: "80%", paddingLeft: "20%"}}>
                         <Lottie loop={true} animationData={Success}/>
                     </div>
-                    <button style={{marginTop: "30px"}} className="button-auth"><Link to="/SignIn" style={{color: 'inherit', textDecoration: "none"}}>Back to Sign In</Link></button>
-                    </div>
+                    <button style={{marginTop: "30px"}} className="button-auth"><Link to="/SignIn" style={{
+                        color: 'inherit',
+                        textDecoration: "none"
+                    }}>Back to Sign In</Link></button>
+                </div>
             </div>
         )
     }
@@ -58,7 +61,7 @@ export default function ResetPassword(callback) {
     return (
         <div className="bg-Poster">
             <div className="auth-Form">
-                <div className= "logo-auth">
+                <div className="logo-auth">
                     <img
                         src={seenemaLogo}
                         alt={"Logo is here"}
@@ -68,30 +71,35 @@ export default function ResetPassword(callback) {
                     <div className="heading-auth">
                         <h2>Reset Password</h2>
                     </div>
-                    <h4 className="confirmation-name">Check your email for the confirmation code to reset your password.</h4>
+                    <h4 className="confirmation-name">Check your email for the confirmation code to reset your
+                        password.</h4>
                     <div style={{width: "60%", paddingLeft: "35%"}}>
                         <Lottie loop={true} animationData={Mail}/>
                     </div>
                     <div>
                         <label className="label-names">Email</label>
-                            <input className="auth-input" name="email" placeholder="Enter your email" required {...register('email', {
-                                onChange: (e) => setEmail(e.target.value)
-                            })} />
+                        <input className="auth-input" name="email" placeholder="Enter your email"
+                               required {...register('email', {
+                            onChange: (e) => setEmail(e.target.value)
+                        })} />
                     </div>
                     <div>
                         <label className="label-names">Confirmation code</label>
-                        <input className="auth-input" name="confirmationCode" placeholder="Enter your verfication code"{...register('confirmationCode', {
+                        <input className="auth-input" name="confirmationCode"
+                               placeholder="Enter your verfication code"{...register('confirmationCode', {
                             onChange: (e) => setConfirmationCode(e.target.value)
                         })} />
                     </div>
                     <div>
                         <label className="label-names">New Password</label>
-                        <input className="auth-input" name="New password" type="password" placeholder="Enter your new password" required {...register('password', {
+                        <input className="auth-input" name="New password" type="password"
+                               placeholder="Enter your new password" required {...register('password', {
                             onChange: (e) => setNewPassword(e.target.value)
                         })} />
                     </div>
                     {error && <p style={{paddingTop: "20px", color: "#E63946", textAlign: "left"}}>{error}</p>}
-                    <button style={{marginTop: "30px", marginBottom: "20px" }} className="button-auth">Reset Password</button>
+                    <button style={{marginTop: "30px", marginBottom: "20px"}} className="button-auth">Reset Password
+                    </button>
                     <br/>
                 </form>
                 <Link to="/SignIn" style={{color: 'inherit'}}>Back to Sign In</Link>

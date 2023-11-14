@@ -1,12 +1,13 @@
 import React, {useState} from "react";
-import { useNavigate } from "react-router-dom";
-import { signOut } from "./Auth";
+import {useNavigate} from "react-router-dom";
+import {signOut} from "./Auth";
 
 // component for user sign out
 function SignOut() {
     // State variables to handle the code
     const navigate = useNavigate();
     const [error, setError] = useState("")
+
 
     // handles the signOut of the user
     const handleSignOut = async () => {
@@ -23,7 +24,7 @@ function SignOut() {
     let nothing;
     handleSignOut().then(r => nothing);
 
-    return<div>{error && <p>{error}</p>}</div>;
+    return <div>{error && <p>{error}</p>}</div>;
 
 }
 

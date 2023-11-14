@@ -27,6 +27,7 @@
 .search-input::placeholder {
     color: #73727a;
 }
+
 .search-input:focus {
     outline: none;
     box-shadow: 0 0 0 0.10rem #959499;
