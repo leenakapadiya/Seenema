@@ -4,8 +4,8 @@
 
 
 # The layout of the directory structure
-1. **./.github/workflows:** GitHub Actions workflows for continuous integration and automation tasks.
-1. **./reports:** Weekly team meeting reports.
+1. **./.github/workflows:** contains GitHub Actions workflows for continuous integration and automation tasks.
+1. **./reports:** contains weekly team meeting reports.
 1. **./seenema-backend/src/main:** contains source code for the backend of the project.
 1. **./seenema-backend/src/tests:** contains tests for the backend.
 1. **./seenema-frontend/src/:** contains source code for the frontend of the project.
