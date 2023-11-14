@@ -3,7 +3,6 @@ import Header from './Header';
 import MovieList from "./MovieList";
 import "../css/Homepage.css"
 import "../../App.css"
-import { useScrollTrigger } from '@material-ui/core';
 
 // Defining homepage component as a functional component
 function Homepage() {
