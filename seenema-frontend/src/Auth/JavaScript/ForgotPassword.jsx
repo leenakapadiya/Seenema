@@ -1,35 +1,32 @@
 import React, {useState} from "react"
 import {forgotPassword} from "./Auth";
-import {Link} from "react-router-dom"
+import {Link, Navigate} from "react-router-dom"
 import "../CSS/Form.css";
 import seenemaLogo from "../../assets/SeenemaLogo.png";
-import ResetPassword from "./ResetPassword";
 
+// Component for forgot password
 export default function ForgotPassword() {
+    // State variables to handle the code
     const [email, setEmail] = useState("")
     const [error, setError] = useState("")
     const [success, setSuccess] = useState(false)
 
+    // handles the submission of the form
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError("")
 
         try {
+            // try to perform forgotPassword using provided email
             await forgotPassword(email)
             setSuccess(true)
         } catch (err) {
+            // Set the error message
             setError(err.message)
         }
     }
 
-    if (success) {
-        return (
-            <div>
-                <ResetPassword/>
-            </div>
-        )
-    }
-
+    // renders the forgotPassword component
     return (
         <div className="bg-Poster">
             <div className="auth-Form">
@@ -39,6 +36,9 @@ export default function ForgotPassword() {
                         alt={"Logo is here"}
                     />
                 </div>
+                {success && (
+                    <Navigate to="/resetPassword" replace={true}/>
+                )}
                 <form onSubmit={handleSubmit}>
                     <div className="heading-auth">
                         <h2>Forgot Password</h2>

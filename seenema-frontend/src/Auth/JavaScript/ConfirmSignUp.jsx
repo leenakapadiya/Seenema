@@ -7,24 +7,30 @@ import Lottie from "lottie-react";
 import Mail from "../../assets/Mail.json";
 import {Navigate} from "react-router-dom";
 
+// component to confirm user sign-up with a verification code
 export default function ConfirmSignUp({email}) {
+    // State variables to handle the code
     const [code, setCode] = useState("")
     const [error, setError] = useState("")
     const [success, setSuccess] = useState(false)
     const {register} = useForm();
 
+    // handles the submission of the form
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError("")
 
         try {
+            // try to confirm signup using provided email and verification code
             await confirmSignUp(email, code)
             setSuccess(true)
         } catch (err) {
+            // Set the error message
             setError(err.message)
         }
     }
 
+    // renders the confirmSignUp component
     return (
         <div className="bg-Poster">
             <div className="auth-Form">

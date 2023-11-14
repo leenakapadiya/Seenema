@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useForm} from "react-hook-form";
-import {confirmPassword} from "./Auth"
+import { confirmPassword } from "./Auth"
 import {Link} from "react-router-dom"
 import seenemaLogo from "../../assets/SeenemaLogo.png";
 import "../CSS/Form.css";
@@ -8,7 +8,9 @@ import Lottie from "lottie-react";
 import Success from "../../assets/Success.json";
 import Mail from "../../assets/Mail.json";
 
+// component for reset password
 export default function ResetPassword(callback) {
+    // State variables to handle the code
     const [email, setEmail] = useState("")
     const [confirmationCode, setConfirmationCode] = useState("")
     const [newPassword, setNewPassword] = useState("")
@@ -16,19 +18,22 @@ export default function ResetPassword(callback) {
     const [success, setSuccess] = useState(false)
     const {register} = useForm();
 
+    // handles the submission of the form
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError("")
 
         try {
+            // try to perform confirmPassword using provided email, verification code and new password
             await confirmPassword(email, confirmationCode, newPassword)
             setSuccess(true)
         } catch (err) {
+            // Set the error message
             setError(err.message)
         }
     }
 
-
+    // if success is ture, it renders the component with animation and a button to sign in page
     if (success) {
         return (
             <div className="bg-Poster">
@@ -52,6 +57,7 @@ export default function ResetPassword(callback) {
         )
     }
 
+    // renders the resetPassword component
     return (
         <div className="bg-Poster">
             <div className="auth-Form">

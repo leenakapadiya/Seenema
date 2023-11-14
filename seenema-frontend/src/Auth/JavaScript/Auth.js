@@ -1,13 +1,17 @@
 import {AuthenticationDetails, CognitoUser, CognitoUserPool,} from "amazon-cognito-identity-js"
 import {cognitoConfig} from "./CognitoConfig"
 
+
+// creates a CognitoUserPool instance with cognito configurations
 const userPool = new CognitoUserPool({
     UserPoolId: cognitoConfig.UserPoolId,
     ClientId: cognitoConfig.ClientId,
 })
 
+// handles user sign up
 export function signUp(firstname, lastname, email, password) {
     return new Promise((resolve, reject) => {
+        // calls signUp function on the user pool instance
         userPool.signUp(
             email,
             password,
@@ -27,14 +31,15 @@ export function signUp(firstname, lastname, email, password) {
     })
 }
 
-
+// handles confirm signup
 export function confirmSignUp(email, code) {
     return new Promise((resolve, reject) => {
+        // creates a cognitoUser instance with the email given
         const cognitoUser = new CognitoUser({
             Username: email,
             Pool: userPool
         })
-
+        //  calls confirmRegistration function on the cognitoUser instance
         cognitoUser.confirmRegistration(code, false, (err, result) => {
             if (err) {
                 reject(err)
@@ -45,18 +50,22 @@ export function confirmSignUp(email, code) {
     })
 }
 
+// handles user sign in
 export function signIn(email, password) {
     return new Promise((resolve, reject) => {
+        // create authenticationDetails instance with the email  and password given
         const authenticationDetails = new AuthenticationDetails({
             Username: email,
             Password: password,
         })
 
+        // creates a cognitoUser instance with the email given
         const cognitoUser = new CognitoUser({
             Username: email,
             Pool: userPool,
         })
 
+        //  calls authenticateUser function on the cognitoUser instance
         cognitoUser.authenticateUser(authenticationDetails, {
             onSuccess: (result) => {
                 resolve(result)
@@ -68,13 +77,15 @@ export function signIn(email, password) {
     })
 }
 
+// handles forgotPassword
 export function forgotPassword(email) {
     return new Promise((resolve, reject) => {
+        // creates a cognitoUser instance with the email given
         const cognitoUser = new CognitoUser({
             Username: email,
             Pool: userPool,
         })
-
+        // calls forgotPassword function on the cognitoUser instance
         cognitoUser.forgotPassword({
             onSuccess: () => {
                 resolve()
@@ -86,13 +97,16 @@ export function forgotPassword(email) {
     })
 }
 
+// handles confirmPassword
 export function confirmPassword(email, confirmationCode, newPassword) {
     return new Promise((resolve, reject) => {
+        // creates a cognitoUser instance with the email given
         const cognitoUser = new CognitoUser({
             Username: email,
             Pool: userPool,
         })
 
+        // calls confirmPassword function on the cognitoUser instance
         cognitoUser.confirmPassword(confirmationCode, newPassword, {
             onSuccess: () => {
                 resolve()
@@ -104,7 +118,10 @@ export function confirmPassword(email, confirmationCode, newPassword) {
     })
 }
 
+// handles user sign out
 export function signOut() {
+    // Gets the current authenticated user from the cognito userpool
+    // if the user exist then sign them out from the application
     const cognitoUser = userPool.getCurrentUser();
     if (cognitoUser) {
         cognitoUser.signOut();

@@ -5,27 +5,32 @@ import "../CSS/Form.css";
 import seenemaLogo from '../../assets/SeenemaLogo.png';
 import {Link, Navigate} from "react-router-dom";
 
+// component for user SignIn
 export default function SignIn() {
+    // State variables to handle the code
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
     const [success, setSuccess] = useState(false)
     const {register} = useForm();
 
+    // handles the submission of the form
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError("")
 
         try {
+            // try to signIn using provided email and password
             await signIn(email, password)
             setSuccess(true)
             // Redirect to the app's main page or dashboard
         } catch (err) {
+            // Set the error message
             setError(err.message)
         }
     }
 
-
+    // renders signIn component
     return (
         <div className="bg-Poster">
             <div className="auth-Form">
