@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Form, FormControl, Navbar, NavDropdown} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../../assets/SeenemaLogo.png';
 import '../css/Header.css';
 import {Link} from "react-router-dom";
 import '../../Auth/JavaScript/SignIn';
+import SearchBar from './SearchBar';
 
-const NavigationBar = () => {
+const NavigationBar = ({onChange}) => {
     return (
         <div className="bg-navbar">
             <Navbar expand="lg">
@@ -21,17 +22,7 @@ const NavigationBar = () => {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <div className="search-bar-home">
-                        <Form className="d-flex ms-auto me-3 search-bar-home">
-                            <FormControl
-                                type="search"
-                                placeholder="Search any movies..."
-                                className="me-2 search-input"
-                                aria-label="Search"
-                                style={{backgroundColor: '#313036', color: 'white', border: "none"}}
-                            />
-                        </Form>
-                    </div>
+                    <SearchBar onChange={onChange}/>
                     <NavDropdown title={
                         <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor  "
                              className="bi bi-person-circle profile-logo" viewBox="0 0 16 16">
