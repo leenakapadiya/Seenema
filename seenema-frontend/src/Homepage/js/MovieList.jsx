@@ -2,16 +2,35 @@ import {useEffect, useState} from "react"
 import CardRow from "./CardRow"
 import api from "./api"
 import '../css/MovieList.css'
+import SearchedCardsPage from "./SearchedCardsPage"
 
-const MovieList = () => {
+const MovieList = (searchValue) => {
     // State Variables for different categories of the movies.
     const [topRatedMovies, setTopRatedMovies] = useState([]);
     const [upcomingMovies, setUpcomingMovies] = useState([]);
     const [popularMovies, setPopularMovies] = useState([]);
     const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
+    const [searchResults, setSearchResults] = useState([])
 
     // useEffect to fetch movie data
     useEffect(() => {
+        // Async func to fetch the searched movies
+        const fetchSearchMovies = async (searchValue) => {
+            const title = searchValue.searchValue;
+            console.log(typeof title)
+            console.log(title);
+            try{
+                console.log(searchValue);
+                const {data} = await api.get("search/movie", {
+                    params: {
+                        query: title
+                    },
+                })
+                setSearchResults(data.results);
+            } catch (error){
+                console.error('Failed to fetch the searched movie:', error);
+            }
+        }
 
         // Async func to fetch top-rated movies
         const fetchTopRatedMovies = async () => {
@@ -53,25 +72,35 @@ const MovieList = () => {
             }
         };
 
-
+        if(searchValue !== ''){
+            fetchSearchMovies(searchValue);
+        }
         fetchTopRatedMovies();
         fetchUpcomingMovies();
         fetchPopularMovies();
-        fetchNowPlayingMovies()
-
-    }, []);
-
+        fetchNowPlayingMovies();
+    }, [searchValue]);
+  
     // Rendering the component with movie data
     return (
         <div>
-            <h2 className="header-home">Now Playing</h2>
-            <CardRow movies={nowPlayingMovies}/>
-            <h2 className="header-home">Top Rated Movies</h2>
-            <CardRow movies={topRatedMovies}/>
-            <h2 className="header-home">Upcoming Movies</h2>
-            <CardRow movies={upcomingMovies}/>
-            <h2 className="header-home">Popular Movies</h2>
-            <CardRow movies={popularMovies}/>
+            {(searchResults.length > 0) && (searchValue !== '') ? (
+                <>
+                    <h2 className="header-home">Search Results</h2>
+                    <SearchedCardsPage movies={searchResults} />
+                </>
+            ) : 
+            <>
+            `   <h2 className="header-home">Now Playing</h2>
+                <CardRow movies={nowPlayingMovies}/>
+                <h2 className="header-home">Top Rated Movies</h2>
+                <CardRow movies={topRatedMovies}/>
+                <h2 className="header-home">Upcoming Movies</h2>
+                <CardRow movies={upcomingMovies}/>
+                <h2 className="header-home">Popular Movies</h2>
+                <CardRow movies={popularMovies}/>`
+            </>
+            }
         </div>
     );
 };
