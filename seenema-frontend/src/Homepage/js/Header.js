@@ -1,4 +1,4 @@
-import React, from 'react';
+import React from 'react';
 import {Navbar, NavDropdown} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../../assets/SeenemaLogo.png';
