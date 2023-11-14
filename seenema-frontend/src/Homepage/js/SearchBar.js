@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, FormControl } from 'react-bootstrap';
 
 /* accepts a function onChange as a parameter which sets SearchValue in Homepage.js*/
