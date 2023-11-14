@@ -5,13 +5,16 @@ import '../css/MovieList.css'
 import SearchedCardsPage from "./SearchedCardsPage"
 
 const MovieList = (searchValue) => {
+    // State Variables for different categories of the movies.
     const [topRatedMovies, setTopRatedMovies] = useState([]);
     const [upcomingMovies, setUpcomingMovies] = useState([]);
     const [popularMovies, setPopularMovies] = useState([]);
     const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
     const [searchResults, setSearchResults] = useState([])
 
+    // useEffect to fetch movie data
     useEffect(() => {
+        // Async func to fetch the searched movies
         const fetchSearchMovies = async (searchValue) => {
             const title = searchValue.searchValue;
             console.log(typeof title)
@@ -29,6 +32,7 @@ const MovieList = (searchValue) => {
             }
         }
 
+        // Async func to fetch top-rated movies
         const fetchTopRatedMovies = async () => {
             try {
                 const {data} = await api.get("movie/top_rated");
@@ -38,6 +42,7 @@ const MovieList = (searchValue) => {
             }
         };
 
+        // Async func to fetch upcoming movies
         const fetchUpcomingMovies = async () => {
             try {
                 const {data} = await api.get("movie/upcoming");
@@ -47,6 +52,7 @@ const MovieList = (searchValue) => {
             }
         };
 
+        // Async func to fetch Popular movies
         const fetchPopularMovies = async () => {
             try {
                 const {data} = await api.get("movie/popular");
@@ -56,6 +62,7 @@ const MovieList = (searchValue) => {
             }
         };
 
+        // Async func to fetch now playing movies
         const fetchNowPlayingMovies = async () => {
             try {
                 const {data} = await api.get("movie/now_playing");
@@ -72,9 +79,9 @@ const MovieList = (searchValue) => {
         fetchUpcomingMovies();
         fetchPopularMovies();
         fetchNowPlayingMovies();
-        
-
     }, [searchValue]);
+  
+    // Rendering the component with movie data
     return (
         <div>
             {(searchResults.length > 0) && (searchValue !== '') ? (

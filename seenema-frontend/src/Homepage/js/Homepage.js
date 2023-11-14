@@ -5,7 +5,7 @@ import "../css/Homepage.css"
 import "../../App.css"
 import { useScrollTrigger } from '@material-ui/core';
 
-
+// Defining homepage component as a functional component
 function Homepage() {
     const [searchValue, setSearchValue] = useState('');
 
@@ -14,7 +14,10 @@ function Homepage() {
     }
     return (
         <div className="home">
+            {/* Rendering Header component */}
             <Header onChange={handleSearchChange}/>
+              
+            {/* Rendering MovieList component */}
             <MovieList searchValue={searchValue}/>
         </div>
     );
