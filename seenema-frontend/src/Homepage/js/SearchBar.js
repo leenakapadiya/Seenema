@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Form, FormControl } from 'react-bootstrap';
 
+/* accepts a function onChange as a parameter which sets SearchValue in Homepage.js*/
 const SearchBar = ({onChange}) => {
   const handleSearchChange = (e) => {
     const value = e.target.value
-    console.log(value);
+    /* updates the searchValue to what the user typed in */
     onChange(value);
 };
 

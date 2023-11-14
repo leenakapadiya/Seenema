@@ -9,7 +9,7 @@
 }
 
 .movie-container-searched { 
-  margin-left: 6%;
+  margin-left: 6%; /* to center the cards */
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* Five columns */
   gap: 15px; /* Gap between items */
