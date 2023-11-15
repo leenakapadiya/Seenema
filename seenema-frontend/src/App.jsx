@@ -5,6 +5,8 @@ import Homepage from "./Homepage/js/Homepage";
 import SignOut from "./Auth/JavaScript/SignOut";
 import ForgotPassword from "./Auth/JavaScript/ForgotPassword";
 import ResetPassword from "./Auth/JavaScript/ResetPassword";
+import DetailPage from './DetailPage/DetailPage'; // Adjust the path as necessary
+
 
 function App() {
     return (
@@ -17,6 +19,7 @@ function App() {
                     <Route path="/signOut" element={<SignOut/>}/>
                     <Route path="/forgotPassword" element={<ForgotPassword/>}/>
                     <Route path="/resetPassword" element={<ResetPassword/>}/>
+                    <Route path="/movie/:movieId" element={<DetailPage/>}/> {/* Add this line */}
                     <Route path="*" element={<Navigate to="/Homepage"/>}/>
                 </Routes>
             </Router>
