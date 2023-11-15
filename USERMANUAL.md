@@ -2,14 +2,17 @@
 
 ## Introduction
 
-**Seenema** is a centralized platform designed to transform how users manage, discover, and engage with movies. It offers intuitive search and browsing features, allowing users to explore movies through keywords, phrases, or genres. With the integration of the TMDb API, Seenema provides real-time access to extensive movie information, trailers, and clips, enhancing the user experience in discovering and watching movies.
+**Seenema** is a centralized platform designed to transform how users manage, discover, and engage with movies. 
+It offers intuitive search and browsing features, allowing users to explore movies through keywords, phrases, or genres.
+With the integration of the TMDb API, Seenema provides real-time access to extensive movie information, trailers, 
+and clips, enhancing the user experience in discovering and suggesting movies.
 
 ### Why Use Seenema?
 - **Personalized Experience:** Create watchlists and like movies for a tailored movie tracking and organizing experience.
 - **Social Engagement:** Connect with friends and share movie recommendations.
 - **Real-Time Movie Information:** Access up-to-date movie details and previews.
 
-## Installation
+## How to install Seenema
 
 ### Prerequisites
 - **Internet Connection:** Stable internet access is required.
@@ -18,38 +21,38 @@
 
 ### Accessing Seenema
 1. Open your web browser.
-2. Navigate to [Seenema's website](https://seenema-one.vercel.app/).
+2. Navigate to [Seenema's website](https://seenema-one.vercel.app/signIn).
 3. No installation is required as Seenema runs directly in the browser.
 
-## How to Run the Software
+## How to Run Seenema
 
 1. **Open Your Web Browser:** Launch your preferred web browser.
-2. **Visit the Seenema Website:** Go to [Seenema's website](https://seenema-one.vercel.app/).
+2. **Visit the Seenema Website:** Go to [Seenema's website](https://seenema-one.vercel.app/signIn).
 3. **Sign In or Sign Up:** If you're a new user, create an account. If you already have an account, log in with your credentials.
 
 ## How to Use Seenema
 
-- **Search and Discover Movies:** Use the search bar to find movies by keywords, phrases, or genres.
+- **Search and Discover Movies:** Use the search bar to find movies by keywords or phrases.
 - **Browse by Genre:** Explore movies categorized by different genres.
 - **Manage Watchlist:** Add or remove movies from your personalized watchlist.
-- **Social Features:** Add friends by entering their email addresses and suggest movies to them. These suggestions will appear in your friend’s watchlist.
-- **View Movie Trailers and Clips:** Access trailers and clips from the movie details screen.
+- **Social Features:** Add friends by entering their email addresses and suggest movies to them. 
+These suggestions will appear in your friend’s watchlist.
+- **Movie Detail Page:** Access information about the movie, including details like cast members, release date, 
+a summary of the plot, ratings, streaming platforms where the movie is available, and access to the movie trailer and clips.
 
 ### Work in Progress
-- **Friend’s Approval for Friend Requests:** This feature is currently under development.
-- **Filter Movies Based on Subscription Service:** Upcoming feature to filter movies by services like Hulu, Netflix, etc.
-- **Building a Recommender System:** A system to provide personalized movie recommendations is in progress.
+Following features are currently under development:
+- **Browse by Genre** 
+- **Manage Watchlist** 
+- **Social Features**
+- **Movie Detail Page**
 
-## Reporting Bugs
 
-If you encounter any issues or bugs, please report them through our [GitHub Issues page](https://github.com/leenapagdar/Seenema/issues). When reporting a bug, include the following:
-- A clear and concise description of the issue.
-- Steps to reproduce the behavior.
-- Expected vs. actual results.
-- Screenshots or video clips if applicable.
-- Your environment (browser version, device type).
+## How to report a bug
 
-For more detailed guidelines on writing a good bug report, refer to our [bug reporting guidelines](https://seenema.example.com/bug-report-guidelines).
+If you come across any problems or bugs, kindly report them via our
+[GitHub Issues page](https://github.com/leenapagdar/Seenema/issues). 
+Feel free to utilize the bug report template available on the page for submitting your bug reports.
 
 ## Known Bugs
 
