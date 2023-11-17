@@ -17,8 +17,6 @@ const MovieList = (searchValue) => {
         // Async func to fetch the searched movies
         const fetchSearchMovies = async (searchValue) => {
             const title = searchValue.searchValue;
-            console.log(typeof title)
-            console.log(title);
             try{
                 console.log(searchValue);
                 const {data} = await api.get("search/movie", {

@@ -14,7 +14,7 @@ function Homepage() {
     return (
         <div className="home">
             {/* Rendering Header component */}
-            <Header onChange={handleSearchChange}/>
+            <Header onSearch={handleSearchChange}/>
               
             {/* Rendering MovieList component */}
             <MovieList searchValue={searchValue}/>
