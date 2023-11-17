@@ -25,7 +25,7 @@ const SearchBar = ({ onSearch }) => {
           className="me-2 search-input"
           aria-label="Search"
           style={{ backgroundColor: '#313036', color: 'white', border: 'none' }}
-          onChange = {handleSearchChange}
+          onKeyDown = {handleSearchChange}
         />
       </Form>
     </div>

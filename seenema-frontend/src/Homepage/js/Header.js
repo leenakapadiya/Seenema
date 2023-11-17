@@ -8,7 +8,7 @@ import '../../Auth/JavaScript/SignIn';
 import SearchBar from './SearchBar';
 
 // NavigationBar component
-const NavigationBar = ({onChange}) => {
+const NavigationBar = ({onSearch}) => {
     return (
         <div className="bg-navbar">
             <Navbar expand="lg">
@@ -23,7 +23,7 @@ const NavigationBar = ({onChange}) => {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <SearchBar onChange={onChange}/>
+                    <SearchBar onSearch={onSearch}/>
                     <NavDropdown title={
                         <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor  "
                              className="bi bi-person-circle profile-logo" viewBox="0 0 16 16">
