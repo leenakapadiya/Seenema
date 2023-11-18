@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Navbar, NavDropdown} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../../assets/SeenemaLogo.png';
@@ -7,10 +7,20 @@ import {Link} from "react-router-dom";
 import '../../Auth/JavaScript/SignIn';
 import SearchBar from './SearchBar';
 
+
 // NavigationBar component
-const NavigationBar = ({onChange}) => {
+const NavigationBar = ({onChange, onHeightChange}) => {
+    const headerRef = useRef(null);
+
+    useEffect(() => {
+        if (headerRef.current) {
+            const height = headerRef.current.offsetHeight;
+            onHeightChange(height); // Pass the height to the parent component
+        }
+    }, []);
+
     return (
-        <div className="bg-navbar">
+        <div ref={headerRef} className="bg-navbar">
             <Navbar expand="lg">
                 <Navbar.Brand href="#home">
                     <img
