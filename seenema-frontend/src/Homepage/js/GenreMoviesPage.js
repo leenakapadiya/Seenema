@@ -12,7 +12,7 @@ const GenreMoviesPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const {genreId} = useParams();
-    const [searchValue, setSearchValue] = useState('');
+    const [isSearchActive, setIsSearchActive] = useState(false);
 
     const searchMoviesByGenreAndName = useCallback(async (searchTerm) => {
         setLoading(true);
@@ -32,7 +32,6 @@ const GenreMoviesPage = () => {
             setLoading(false);
         }
     }, [genreId]);
-
 
 
     const fetchMoviesByGenre = useCallback(async (page) => {
@@ -73,7 +72,6 @@ const GenreMoviesPage = () => {
         fetchGenreName();
     }, [genreId, fetchMoviesByGenre, fetchGenreName]);
 
-
     const handleLoadMore = () => {
         const newPage = currentPage + 1;
         setCurrentPage(newPage);
@@ -81,14 +79,14 @@ const GenreMoviesPage = () => {
     }
 
     const handleSearchChange = (value) => {
-        setSearchValue(value);
         if (value.trim() !== '') {
             searchMoviesByGenreAndName(value);
+            setIsSearchActive(true);
         } else {
             fetchMoviesByGenre(currentPage); // fetch current page of genre when search is cleared
+            setIsSearchActive(false);
         }
-    }
-
+    };
 
     return (
         <div className="home-layout">
@@ -104,7 +102,7 @@ const GenreMoviesPage = () => {
                             <MovieCard key={movie.id} movie={movie}/>
                         ))}
                     </div>
-                    {!loading && (
+                    {!loading && !isSearchActive && (
                         <div className="load-more-container-genre-page">
                             <button onClick={handleLoadMore} className="load-more-button-genre-page">
                                 Load More
