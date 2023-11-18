@@ -8,6 +8,7 @@
 .genre-main {
     font-family: 'DM Sans', sans-serif;
     color: var(--white-text);
+    margin-top: 10px;
 }
 
 .genre-list {

@@ -9,16 +9,19 @@
     flex-shrink: 0; /* Prevents the sidebar from shrinking */
     position: fixed; /* Fix the sidebar position */
     overflow-y: auto; /* Enable vertical scrolling for sidebar if needed */
+    margin-top: -9px;
 }
 
 .homepage-main-content {
     display: flex;
     flex-direction: row;
-    height: calc(100vh - (var(--headerHeight)));
+    /*padding-top: 70px;*/
+    margin-top: 100px;
 }
 
 .main-content-area {
     flex-grow: 1; /* Takes the remaining space */
     overflow-x: auto; /* Enables horizontal scrolling */
     margin-left: 15rem; /* Same as the sidebar width */
+    margin-top: 6px;
 }

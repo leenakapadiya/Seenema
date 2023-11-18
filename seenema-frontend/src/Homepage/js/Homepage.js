@@ -8,15 +8,14 @@ import Sidebar from "./Sidebar";
 // Defining homepage component as a functional component
 function Homepage() {
     const [searchValue, setSearchValue] = useState('');
-    const [headerHeight, setHeaderHeight] = useState(0);
 
     const handleSearchChange = (value) => {
         setSearchValue(value);
     }
     return (
-        <div className="home-layout" style={{'--headerHeight': `${headerHeight}px`}}>
+        <div className="home-layout">
             {/*Header Component */}
-            <div><Header onChange={handleSearchChange} onHeightChange={setHeaderHeight}/>
+            <div><Header onChange={handleSearchChange}/>
             </div>
             <div className="homepage-main-content">
                 {/* Sidebar */}
@@ -27,7 +26,6 @@ function Homepage() {
                     {/* Rendering MovieList component */}
                     <MovieList searchValue={searchValue}/>
                 </div>
-
             </div>
         </div>
     );
