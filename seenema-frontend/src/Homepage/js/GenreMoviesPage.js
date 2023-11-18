@@ -14,6 +14,27 @@ const GenreMoviesPage = () => {
     const {genreId} = useParams();
     const [searchValue, setSearchValue] = useState('');
 
+    const searchMoviesByGenreAndName = useCallback(async (searchTerm) => {
+        setLoading(true);
+        try {
+            const response = await api.get(`/search/movie`, {
+                params: {
+                    query: searchTerm,
+                    with_genres: genreId // This should ensure that the search is constrained to the selected genre
+                }
+            });
+            // If necessary, further filter the results to ensure they belong to the selected genre
+            const filteredResults = response.data.results.filter(movie => movie.genre_ids.includes(parseInt(genreId)));
+            setMovies(filteredResults);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error searching movies:', error);
+            setLoading(false);
+        }
+    }, [genreId]);
+
+
+
     const fetchMoviesByGenre = useCallback(async (page) => {
         setLoading(true);
         try {
@@ -61,7 +82,13 @@ const GenreMoviesPage = () => {
 
     const handleSearchChange = (value) => {
         setSearchValue(value);
+        if (value.trim() !== '') {
+            searchMoviesByGenreAndName(value);
+        } else {
+            fetchMoviesByGenre(currentPage); // fetch current page of genre when search is cleared
+        }
     }
+
 
     return (
         <div className="home-layout">
@@ -72,14 +99,14 @@ const GenreMoviesPage = () => {
                 </div>
                 <div className="main-content-area-GenrePage">
                     <h2 className="genre-heading-GenreMoviePage">{'All ' + genreName + ' Movies'}</h2>
-                    <div className="movie-grid">
-                        {movies.filter(movie => movie.title.toLowerCase().includes(searchValue.toLowerCase())).map(movie => (
+                    <div className="movie-grid-genre-page">
+                        {movies.map(movie => (
                             <MovieCard key={movie.id} movie={movie}/>
                         ))}
                     </div>
                     {!loading && (
                         <div className="load-more-container-genre-page">
-                            <button onClick={handleLoadMore} className="load-more-button">
+                            <button onClick={handleLoadMore} className="load-more-button-genre-page">
                                 Load More
                             </button>
                         </div>
