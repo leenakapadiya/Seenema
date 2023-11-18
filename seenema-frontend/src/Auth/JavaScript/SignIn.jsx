@@ -1,9 +1,10 @@
-import React, {useState} from "react"
+import React, {useContext, useState} from "react"
 import {signIn} from "./Auth"
 import {useForm} from "react-hook-form";
 import "../CSS/Form.css";
 import seenemaLogo from '../../assets/SeenemaLogo.png';
 import {Link, Navigate} from "react-router-dom";
+import { AuthContext } from "./AuthContext"
 
 // component for user SignIn
 export default function SignIn() {
@@ -13,6 +14,7 @@ export default function SignIn() {
     const [error, setError] = useState("")
     const [success, setSuccess] = useState(false)
     const {register} = useForm();
+    const { user, signIn } = useContext(AuthContext)
 
     // handles the submission of the form
     const handleSubmit = async (e) => {
@@ -28,6 +30,11 @@ export default function SignIn() {
             // Set the error message
             setError(err.message)
         }
+    }
+
+    if (user) {
+        // Redirect to the home page
+        return <Navigate to="/Homepage" />
     }
 
     // renders signIn component

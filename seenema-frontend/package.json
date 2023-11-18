@@ -16,6 +16,7 @@
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@mui/material": "^5.14.17",
     "@mui/styled-engine-sc": "^6.0.0-alpha.4",
+    "@nextui-org/react": "^2.2.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -23,6 +24,7 @@
     "axios": "^1.6.0",
     "bootstrap": "^5.3.2",
     "dotenv": "^16.3.1",
+    "framer-motion": "^10.16.4",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
@@ -32,10 +34,7 @@
     "react-router-dom": "^6.18.0",
     "react-scripts": "^5.0.1",
     "styled-components": "^6.1.0",
-    "web-vitals": "^2.1.4",
-    "lottie-react": "^2.4.0",
-    "@nextui-org/react": "^2.2.2",
-    "framer-motion": "^10.16.4"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
