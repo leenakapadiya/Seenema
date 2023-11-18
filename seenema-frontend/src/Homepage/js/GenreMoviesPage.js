@@ -23,7 +23,11 @@ const GenreMoviesPage = () => {
                     page: page
                 }
             });
-            setMovies(prev => [...prev, ...response.data.results]);
+            if (page === 1) {
+                setMovies(response.data.results.slice(0, 20));
+            } else {
+                setMovies(prev => [...prev, ...response.data.results]);
+            }
             setLoading(false);
         } catch (error) {
             console.error('Error fetching movies by genre:', error);
