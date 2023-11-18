@@ -1,4 +1,4 @@
-package com.seenema.backend.lambdafunction1.model;
+package com.seenema.backend.CreateSeenemaUserInDDB.model;
 
 import org.testng.annotations.Test;
 

@@ -1,5 +1,7 @@
 package com.seenema.backend.lambdafunction2.model;
 
+import java.util.Objects;
+
 public class Response {
 
     private String message;
@@ -19,5 +21,18 @@ public class Response {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Response response = (Response) o;
+        return message.equals(response.message);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(message);
     }
 }
