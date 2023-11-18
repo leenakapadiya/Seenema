@@ -1,3 +1,24 @@
-.home {
-    background-color: #1a1820;
+.home-layout {
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.homepage-sidebar {
+    width: 15rem; /* Adjust the width as needed */
+    flex-shrink: 0; /* Prevents the sidebar from shrinking */
+    position: fixed; /* Fix the sidebar position */
+    overflow-y: auto; /* Enable vertical scrolling for sidebar if needed */
+}
+
+.homepage-main-content {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - (var(--headerHeight)));
+}
+
+.main-content-area {
+    flex-grow: 1; /* Takes the remaining space */
+    overflow-x: auto; /* Enables horizontal scrolling */
+    margin-left: 15rem; /* Same as the sidebar width */
 }
