@@ -5,7 +5,7 @@
 }
 
 .homepage-sidebar {
-    width: 15rem; /* Adjust the width as needed */
+    width: 14rem; /* Adjust the width as needed */
     flex-shrink: 0; /* Prevents the sidebar from shrinking */
     position: fixed; /* Fix the sidebar position */
     overflow-y: auto; /* Enable vertical scrolling for sidebar if needed */
@@ -22,6 +22,6 @@
 .main-content-area {
     flex-grow: 1; /* Takes the remaining space */
     overflow-x: auto; /* Enables horizontal scrolling */
-    margin-left: 15rem; /* Same as the sidebar width */
+    margin-left: 14.5rem; /* Same as the sidebar width */
     margin-top: 6px;
 }
