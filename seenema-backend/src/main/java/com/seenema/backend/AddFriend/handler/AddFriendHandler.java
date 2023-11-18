@@ -1,27 +1,23 @@
-package com.seenema.backend.lambdafunction2.handler;
+package com.seenema.backend.AddFriend.handler;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
-import com.seenema.backend.lambdafunction2.model.RequestBody;
-import com.seenema.backend.lambdafunction2.model.Response;
+import com.seenema.backend.AddFriend.model.RequestBody;
+import com.seenema.backend.AddFriend.model.Response;
 import com.google.gson.Gson;
 import com.seenema.backend.utils.Constants;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
-import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.GetItemResponse;
-import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
-import software.amazon.awssdk.services.dynamodb.model.QueryRequest;
-import software.amazon.awssdk.services.dynamodb.model.Update;
 import software.amazon.awssdk.services.dynamodb.model.UpdateItemRequest;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class LambdaFunction2Handler implements RequestHandler<APIGatewayV2HTTPEvent, Response> {
+public class AddFriendHandler implements RequestHandler<APIGatewayV2HTTPEvent, Response> {
 
     Gson gson = new Gson();
     DynamoDbClient dynamoDbClient = DynamoDbClient.builder().build();

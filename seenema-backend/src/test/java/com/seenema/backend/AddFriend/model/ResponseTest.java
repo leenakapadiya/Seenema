@@ -1,8 +1,8 @@
-package com.seenema.backend.lambdafunction2.model;
+package com.seenema.backend.AddFriend.model;
 
 import org.testng.annotations.Test;
 
-public class RequestBodyTest {
+public class ResponseTest {
 
     @Test
     public void testGetterAndSetter() {

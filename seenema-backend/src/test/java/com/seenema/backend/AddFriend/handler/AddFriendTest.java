@@ -1,15 +1,12 @@
-package com.seenema.backend.lambdafunction2.handler;
+package com.seenema.backend.AddFriend.handler;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
-import com.google.gson.Gson;
-import com.seenema.backend.lambdafunction2.model.RequestBody;
-import com.seenema.backend.lambdafunction2.model.Response;
+import com.seenema.backend.AddFriend.model.Response;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
 
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
@@ -20,15 +17,12 @@ import software.amazon.awssdk.services.dynamodb.model.UpdateItemResponse;
 
 import static org.mockito.ArgumentMatchers.any;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.powermock.api.mockito.PowerMockito.when;
 import static org.testng.AssertJUnit.assertEquals;
 
-public class LambdaFunction2HandlerTest {
+public class AddFriendTest {
     @Mock
     private DynamoDbClient mockDynamoDbClient;
 
@@ -66,7 +60,7 @@ public class LambdaFunction2HandlerTest {
                 .thenReturn(UpdateItemResponse.builder().build());
 
         // Create an instance of the Lambda function
-        LambdaFunction2Handler lambdaFunctionHandler = new LambdaFunction2Handler();
+        AddFriendHandler lambdaFunctionHandler = new AddFriendHandler();
         lambdaFunctionHandler.dynamoDbClient = mockDynamoDbClient;
 //        lambdaFunctionHandler.gson = new Gson();
 
