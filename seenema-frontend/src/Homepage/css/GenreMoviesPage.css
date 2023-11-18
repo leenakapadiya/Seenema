@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500&display=swap');
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust size as needed */
+    gap: 20px; /* Adjust gap as needed */
+    padding: 20px;
+    margin-left: -1.5%;
+}
+
+.main-content-area-GenrePage {
+    flex-grow: 1; /* Takes the remaining space */
+    overflow-x: auto; /* Enables horizontal scrolling */
+    margin-left:15rem; /* Same as the sidebar width */
+    margin-top: 6px;
+}
+
+.genre-heading-GenreMoviePage {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--white-text);
+    font-weight: 1000;
+    margin-bottom: -1.6%;
+    margin-left: 2.5%;
+    margin-top: 1.6%;
+
+
+}

@@ -14,7 +14,8 @@ const NavigationBar = ({onChange}) => {
     return (
         <div className="bg-navbar">
             <Navbar expand="lg">
-                <Navbar.Brand href="#home">
+                <Navbar.Brand>
+                    <Link to= "/">
                     <img
                         src={logo}
                         width="65"
@@ -22,6 +23,7 @@ const NavigationBar = ({onChange}) => {
                         className="d-inline-block align-top"
                         alt="Logo"
                     />
+                    </Link>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">

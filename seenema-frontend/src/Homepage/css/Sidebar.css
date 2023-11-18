@@ -47,3 +47,8 @@
     width: 80px; /* Adjust the width as needed */
     height: auto; /* Keeps the aspect ratio of the image */
 }
+
+.genre-item {
+    cursor: pointer;
+}
+
