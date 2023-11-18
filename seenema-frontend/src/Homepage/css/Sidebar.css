@@ -8,6 +8,7 @@
 .genre-main {
     font-family: 'DM Sans', sans-serif;
     color: var(--white-text);
+    margin-top: 10px;
 }
 
 .genre-list {
@@ -46,3 +47,8 @@
     width: 80px; /* Adjust the width as needed */
     height: auto; /* Keeps the aspect ratio of the image */
 }
+
+.genre-item {
+    cursor: pointer;
+}
+

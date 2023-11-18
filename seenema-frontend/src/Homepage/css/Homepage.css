@@ -5,20 +5,22 @@
 }
 
 .homepage-sidebar {
-    width: 15rem; /* Adjust the width as needed */
-    flex-shrink: 0; /* Prevents the sidebar from shrinking */
-    position: fixed; /* Fix the sidebar position */
-    overflow-y: auto; /* Enable vertical scrolling for sidebar if needed */
+    width: 14rem;
+    flex-shrink: 0;
+    position: fixed;
+    overflow-y: auto;
+    margin-top: -9px;
 }
 
 .homepage-main-content {
     display: flex;
     flex-direction: row;
-    height: calc(100vh - (var(--headerHeight)));
+    margin-top: 100px;
 }
 
 .main-content-area {
-    flex-grow: 1; /* Takes the remaining space */
-    overflow-x: auto; /* Enables horizontal scrolling */
-    margin-left: 15rem; /* Same as the sidebar width */
+    flex-grow: 1;
+    overflow-x: auto;
+    margin-left: 14.5rem;
+    margin-top: 6px;
 }

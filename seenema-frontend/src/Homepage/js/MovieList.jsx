@@ -19,7 +19,7 @@ const MovieList = (searchValue) => {
             const title = searchValue.searchValue;
             console.log(typeof title)
             console.log(title);
-            try{
+            try {
                 console.log(searchValue);
                 const {data} = await api.get("search/movie", {
                     params: {
@@ -27,7 +27,7 @@ const MovieList = (searchValue) => {
                     },
                 })
                 setSearchResults(data.results);
-            } catch (error){
+            } catch (error) {
                 console.error('Failed to fetch the searched movie:', error);
             }
         }
@@ -72,7 +72,7 @@ const MovieList = (searchValue) => {
             }
         };
 
-        if(searchValue !== ''){
+        if (searchValue !== '') {
             fetchSearchMovies(searchValue);
         }
         fetchTopRatedMovies();
@@ -80,26 +80,25 @@ const MovieList = (searchValue) => {
         fetchPopularMovies();
         fetchNowPlayingMovies();
     }, [searchValue]);
-  
+
     // Rendering the component with movie data
     return (
         <div>
             {(searchResults.length > 0) && (searchValue !== '') ? (
-                <>
-                    <h2 className="header-home">Search Results</h2>
-                    <SearchedCardsPage movies={searchResults} />
+                    <>
+                        <h2 className="header-home">Search Results</h2>
+                        <SearchedCardsPage movies={searchResults}/>
+                    </>
+                ) :
+                <><h2 className="header-home">Now Playing</h2>
+                    <CardRow movies={nowPlayingMovies}/>
+                    <h2 className="header-home">Top Rated Movies</h2>
+                    <CardRow movies={topRatedMovies}/>
+                    <h2 className="header-home">Upcoming Movies</h2>
+                    <CardRow movies={upcomingMovies}/>
+                    <h2 className="header-home">Popular Movies</h2>
+                    <CardRow movies={popularMovies}/>
                 </>
-            ) : 
-            <>
-            `   <h2 className="header-home">Now Playing</h2>
-                <CardRow movies={nowPlayingMovies}/>
-                <h2 className="header-home">Top Rated Movies</h2>
-                <CardRow movies={topRatedMovies}/>
-                <h2 className="header-home">Upcoming Movies</h2>
-                <CardRow movies={upcomingMovies}/>
-                <h2 className="header-home">Popular Movies</h2>
-                <CardRow movies={popularMovies}/>`
-            </>
             }
         </div>
     );
