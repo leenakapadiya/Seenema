@@ -1,0 +1,140 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'Lambda function with API Gateway'
+
+Parameters:
+  EnvType:
+    Description: Environment type.
+    Default: dev
+    Type: String
+    AllowedValues: [ prod, dev ]
+
+Conditions:
+  ShouldUpdateProdVersion: !Equals [ !Ref EnvType, prod ]
+
+Resources:
+  AddFriend:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: build/distributions/seenema-backend.zip
+      PackageType: Zip
+      Handler: com.seenema.backend.AddFriend.handler.AddFriendHandler::handleRequest
+      Runtime: java17
+      Timeout: 30
+      MemorySize: 128
+      Events:
+        HttpPost:
+          Type: Api
+          Properties:
+            RestApiId: !Ref SeenemaApi
+            Path: /addFriend
+            Method: GET
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:BatchGetItem
+                - dynamodb:BatchWriteItem
+                - dynamodb:ConditionCheckItem
+                - dynamodb:PutItem
+                - dynamodb:DescribeTable
+                - dynamodb:DeleteItem
+                - dynamodb:GetItem
+                - dynamodb:Scan
+                - dynamodb:Query
+                - dynamodb:UpdateItem
+              Resource:
+                - !Sub 'arn:aws:dynamodb:us-west-2:${AWS::AccountId}:table/SeenemaUserInfo'
+            - Effect: Allow
+              Action:
+                - logs:CreateLogGroup
+              Resource: !Sub 'arn:aws:logs:us-west-2:${AWS::AccountId}:*'
+            - Effect: Allow
+              Action:
+                - logs:CreateLogStream
+                - logs:PutLogEvents
+              Resource:
+                - !Sub 'arn:aws:logs:us-west-2:${AWS::AccountId}:log-group:/aws/lambda/testCreateSeenemaUserInDDB:*'
+
+  LambdaFunction2:
+    Type: 'AWS::Cloudformation:Stack'
+    Parameters:
+      FunctionName: TestLambda
+      FunctionHandler: com.seenema.backend.AddFriend.handler.AddFriendHandler::handleRequest
+      EnvType: dev
+
+  DevLambdaAlias:
+    Type: 'AWS::Lambda::Alias'
+    Properties:
+      FunctionName: !Ref AddFriend
+      FunctionVersion: $LATEST
+      Name: development
+
+  LambdaVersion:
+    Type: 'AWS::Lambda::Version'
+    Condition: ShouldUpdateProdVersion
+    Properties:
+      FunctionName: !Ref AddFriend
+
+  ProdLambdaAlias:
+    Type: 'AWS::Lambda::Alias'
+    Condition: ShouldUpdateProdVersion
+    Properties:
+      FunctionName: !Ref AddFriend
+      FunctionVersion: !Ref LambdaVersion
+      Name: production
+
+  SeenemaApi:
+    Type: 'AWS::ApiGatewayV2::Api'
+    Properties:
+      Name: SeenemaApi
+      ProtocolType: HTTP
+      Description: Seenema API
+
+  AddFriendIntegration:
+    Type: 'AWS::ApiGatewayV2::Integration'
+    Properties:
+      ApiId: !Ref SeenemaApi
+      IntegrationType: AWS_PROXY
+      PayloadFormatVersion: 2.0
+      IntegrationUri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${AddFriend.Arn}/invocations
+
+  AddFriendRoute:
+    Type: 'AWS::ApiGatewayV2::Route'
+    Properties:
+      ApiId: !Ref SeenemaApi
+      RouteKey: 'GET /addFriend'
+      AuthorizationType: NONE
+      Target: !Sub integrations/${AddFriendIntegration}
+
+#  Route2:
+#    Type: 'AWS::ApiGatewayV2::Route'
+#    Properties:
+#      ApiId: !Ref SeenemaApi
+#      RouteKey: 'GET /route2'
+#      AuthorizationType: NONE
+#      Target: !Sub integrations/${AddFriendIntegration}
+
+  DevelopmentStage:
+    Type: 'AWS::ApiGatewayV2::Stage'
+    Properties:
+      ApiId: !Ref SeenemaApi
+      StageName: 'dev'
+      AutoDeploy: true
+      StageVariables:
+        LambdaAlias: development
+
+  ProductionStage:
+    Type: 'AWS::ApiGatewayV2::Stage'
+    Properties:
+      ApiId: !Ref SeenemaApi
+      StageName: 'prod'
+      AutoDeploy: false
+      StageVariables:
+        LambdaAlias: production
+
+Outputs:
+  BetaApiGatewayEndpoint:
+    Value: !Sub 'https://${SeenemaApi}.execute-api.${AWS::Region}.amazonaws.com/beta'
+  ProdApiGatewayEndpoint:
+    Value: !Sub 'https://${SeenemaApi}.execute-api.${AWS::Region}.amazonaws.com/prod'

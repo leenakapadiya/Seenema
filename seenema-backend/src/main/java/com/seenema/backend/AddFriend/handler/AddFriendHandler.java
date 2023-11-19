@@ -45,6 +45,7 @@ public class AddFriendHandler implements RequestHandler<APIGatewayV2HTTPEvent, R
             return new Response("Either username or friendUsername does not exist in the DynamoDB table.");
         }
     }
+
     // Helper method to check if a user exists in the DynamoDB table
     private boolean userExists(String email) {
         GetItemResponse getItemResponse = dynamoDbClient.getItem(GetItemRequest.builder()
@@ -61,14 +62,14 @@ public class AddFriendHandler implements RequestHandler<APIGatewayV2HTTPEvent, R
         key.put("Email", AttributeValue.builder().s(username).build());
 
         Map<String, AttributeValue> expressionAttributeValues = new HashMap<>();
-        expressionAttributeValues.put(":friend", AttributeValue.builder().s(friendUsername).build());
+        expressionAttributeValues.put(":friend", AttributeValue.builder().ss(friendUsername).build());
 
         UpdateItemRequest updateItemRequest = UpdateItemRequest.builder()
                 .tableName(Constants.DYNAMODB_TABLE)
                 .key(key)
                 .updateExpression("ADD Friends :friend")
-                .expressionAttributeValues(expressionAttributeValues)
-                .expressionAttributeNames(Map.of("#Friends", "Friends"))
+                .expressionAttributeValues(Map.of(
+                        ":friend", AttributeValue.builder().ss(friendUsername).build()))
                 .build();
 
         dynamoDbClient.updateItem(updateItemRequest);
