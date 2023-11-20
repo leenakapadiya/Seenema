@@ -1,7 +1,5 @@
-
 .page {
     margin: 10% 10% 20%;
-    /*border: 2px solid rgb(209, 225, 250);*/
     padding-bottom: 50px;
 }
 
@@ -11,28 +9,40 @@
 }
 
 .button-profile {
-    color: var(--surface-color);
+    color: white;
     border: 1px solid white;
     text-transform: uppercase;
     padding: 5px 20px;
     border-radius: 4px;
     background: rgba(255, 255, 255, 0.1);
     margin-bottom: 8%;
+    /*cursor: pointer; !* Add cursor pointer for better UX *!*/
 }
+
 .main-container {
     text-align: center;
     padding-top: 20px;
     margin: 50px 8% 2%;
     border-radius: 20px;
-    background-color: var(--text-color);
-    width: 50%;
-    height: 70%;
+    background-color: var(--surface-color);
+    width: 80%;
+    /*height: 80%;*/
+    color: white;
+    display: flex;
+    flex-direction: column;
 }
 
-.close {
+
+.close-button {
     margin-left: 90%;
+    color: white;
+    background-color: var(--surface-color);
+    border-color: var(--surface-color);
+    box-shadow: none;
 }
 
-
-
-
+/* Additional styles for the loading animation */
+.loading-container {
+    width: 60%;
+    padding-left: 35%;
+}
