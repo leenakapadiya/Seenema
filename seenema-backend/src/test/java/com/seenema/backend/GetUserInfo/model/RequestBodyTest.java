@@ -1,8 +1,8 @@
-package com.seenema.backend.AddFriend.model;
+package com.seenema.backend.GetUserInfo.model;
 
 import org.testng.annotations.Test;
 
-public class ResponseTest {
+public class RequestBodyTest {
 
     @Test
     public void testGetterAndSetter() {
