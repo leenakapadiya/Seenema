@@ -15,7 +15,7 @@ function Homepage() {
     return (
         <div className="home-layout">
             {/*Header Component */}
-            <div><Header onChange={handleSearchChange}/>
+            <div><Header onSearch={handleSearchChange}/>
             </div>
             <div className="homepage-main-content">
                 {/* Sidebar */}
