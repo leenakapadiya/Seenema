@@ -1,5 +1,4 @@
 import React, {useContext, useState} from "react"
-import {signIn} from "./Auth"
 import {useForm} from "react-hook-form";
 import "../CSS/Form.css";
 import seenemaLogo from '../../assets/SeenemaLogo.png';
