@@ -16,18 +16,17 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-public class GetUserInfoHandler implements RequestHandler<APIGatewayV2HTTPEvent, Response> {
+public class GetUserInfoHandler implements RequestHandler<APIGatewayV2HTTPEvent, String> {
 
     Gson gson = new Gson();
     DynamoDbClient dynamoDbClient = DynamoDbClient.builder().build();
 
     @Override
-    public Response handleRequest(APIGatewayV2HTTPEvent input, Context context) {
+    public String handleRequest(APIGatewayV2HTTPEvent input, Context context) {
         try {
             // Assuming you've defined RequestBody and Response classes
             RequestBody requestBody = gson.fromJson(input.getBody(), RequestBody.class);
             String userEmail = requestBody.getEmail();
-            //TODO: changed this - didn't work- still getting 200 OK without any output
             CompletableFuture<GetItemResponse> future = CompletableFuture.supplyAsync(() -> {
                 Map<String, AttributeValue> key = new HashMap<>();
                 key.put("Email", AttributeValue.builder().s(userEmail).build());
@@ -50,15 +49,15 @@ public class GetUserInfoHandler implements RequestHandler<APIGatewayV2HTTPEvent,
                 List<String> Friends = item.get("Friends").ss();
 
                 // Assuming you have a constructor in the Response class
-                return new Response(Email, LastName, FirstName, Friends);
+                return gson.toJson(new Response(Email, LastName, FirstName, Friends));
             } else {
-                return new Response("User not found");
+                return gson.toJson(new Response("User not found"));
             }
 
         } catch (DynamoDbException e) {
             context.getLogger().log("Error: " + e.getMessage());
             // Assuming you have an error constructor in the Response class
-            return new Response("Error retrieving user information");
+            return gson.toJson(new Response("Error retrieving user information"));
         } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }

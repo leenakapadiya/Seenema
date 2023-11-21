@@ -3,6 +3,7 @@ package com.seenema.backend.GetUserInfo.handler;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
+import com.google.gson.Gson;
 import com.seenema.backend.GetUserInfo.model.Response;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -27,6 +28,8 @@ public class GetUserInfoHandlerTest {
 
     @Mock
     private Context mockContext;
+
+    private Gson gson = new Gson();
 
     @Test
     public void testHandleRequest() {
@@ -66,7 +69,8 @@ public class GetUserInfoHandlerTest {
         lambdaFunctionHandler.dynamoDbClient = mockDynamoDbClient;
 
         // Call the handleRequest method
-        Response response = lambdaFunctionHandler.handleRequest(apiGatewayEvent, mockContext);
+        String responseStr = lambdaFunctionHandler.handleRequest(apiGatewayEvent, mockContext);
+        Response response = gson.fromJson(responseStr, Response.class);
 
 
         // Assert the expected result based on your logic

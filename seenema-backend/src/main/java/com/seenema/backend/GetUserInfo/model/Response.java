@@ -5,16 +5,13 @@ import java.util.Objects;
 
 public class Response {
 
-    private String Email;
-    private String FirstName;
-
-    private String LastName;
-
+    private String       Email;
+    private String       FirstName;
+    private String       LastName;
     private List<String> Friends;
-    private String message;
+    private String       message;
 
     // Constructors, getter, and setter methods
-
     public Response() {
 
     }
@@ -29,6 +26,7 @@ public class Response {
     public Response(String message) {
         this.message = message;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
