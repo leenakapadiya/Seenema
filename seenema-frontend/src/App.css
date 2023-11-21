@@ -7,5 +7,8 @@
     --background-color: #1a1820; /* Header color and sidebar color */
     --surface-color: #0f1115; /* Background color */
     --white-text: white;
+    --gray-text: #808080; /* Define gray color */
+    --button-bg-color: #1d3557; /* Button background color */
+    --button-text-color: #F1FAEE; /* Button text color */
 }
 
