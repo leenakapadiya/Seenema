@@ -18,12 +18,13 @@ const MovieList = (searchValue) => {
         const fetchSearchMovies = async (searchValue) => {
             const title = searchValue.searchValue;
             try{
-                console.log(searchValue);
                 const {data} = await api.get("search/movie", {
                     params: {
-                        query: title
+                        query: title,
+                        page: 1
                     },
                 })
+                console.log(data)
                 setSearchResults(data.results);
             } catch (error) {
                 console.error('Failed to fetch the searched movie:', error);

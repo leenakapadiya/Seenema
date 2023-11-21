@@ -2,8 +2,8 @@
 
 .movie-grid-genre-page {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 0px;
+    grid-template-columns: repeat(5, 1fr); /* Five columns */
+    gap: 15px; /* Gap between items */
     padding: 20px;
     margin-left: -1.5%;
 }
