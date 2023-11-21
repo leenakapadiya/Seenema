@@ -90,7 +90,7 @@ const GenreMoviesPage = () => {
 
     return (
         <div className="home-layout">
-            <div><Header onChange={handleSearchChange}/></div>
+            <div><Header onSearch={handleSearchChange}/></div>
             <div className="homepage-main-content">
                 <div className="homepage-sidebar">
                     <Sidebar activeGenreId={parseInt(genreId)}/>
