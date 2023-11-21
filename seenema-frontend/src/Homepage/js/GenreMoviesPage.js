@@ -131,7 +131,7 @@ const GenreMoviesPage = () => {
                         </>
                     ) : (
                         <>
-                        <h2 className="genre-heading-GenreMoviePage">{genreName + ' Movies'}</h2>
+                        <h2 className="genre-heading-GenreMoviePage">{'All ' + genreName + ' Movies'}</h2>
                         <div className="movie-grid-genre-page">
                             {movies.map(movie => (
                                 <MovieCard key={movie.id} movie={movie}/>
