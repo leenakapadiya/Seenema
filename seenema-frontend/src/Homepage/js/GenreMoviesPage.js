@@ -40,12 +40,14 @@ const GenreMoviesPage = () => {
                 searchResults = data.results;
                 for(var i = 0; i < searchResults.length; i++){
                     const genre_ids = searchResults[i].genre_ids;
-                    const movieIsInGenre = genre_ids.some(genre_id => genre_id === Number(genreId));
-                    console.log(movieIsInGenre)
-                    if(movieIsInGenre){
-                        console.log(num_movies);
-                        num_movies++;
-                        result = result.concat(searchResults[i]);
+                    if(genre_ids !== undefined){
+                        const movieIsInGenre = genre_ids.some(genre_id => genre_id === Number(genreId));
+                        console.log(movieIsInGenre)
+                        if(movieIsInGenre){
+                            console.log(num_movies);
+                            num_movies++;
+                            result = result.concat(searchResults[i]);
+                        }
                     }
                 }
             }
