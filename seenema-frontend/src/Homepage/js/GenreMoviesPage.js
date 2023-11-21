@@ -27,7 +27,6 @@ const GenreMoviesPage = () => {
             });
             var searchResults = data.results;
             console.log(data)
-            var length = searchResults.length;
             var result = [];
             console.log(data.total_pages)
             while(page <= data.total_pages && num_movies <= 20){
@@ -41,7 +40,7 @@ const GenreMoviesPage = () => {
                 searchResults = data.results;
                 for(var i = 0; i < searchResults.length; i++){
                     const genre_ids = searchResults[i].genre_ids;
-                    const movieIsInGenre = genre_ids.some(genre_id => genre_id == genreId)
+                    const movieIsInGenre = genre_ids.some(genre_id => genre_id === Number(genreId));
                     console.log(movieIsInGenre)
                     if(movieIsInGenre){
                         console.log(num_movies);
@@ -120,7 +119,7 @@ const GenreMoviesPage = () => {
                     <Sidebar activeGenreId={parseInt(genreId)}/>
                 </div>
                 <div className="main-content-area-GenrePage">
-                    {(isSearchActive) && (movies.length == 0) ? (
+                    {(isSearchActive) && (movies.length === 0) ? (
                         <>
                             <h2 className="genre-heading-GenreMoviePage">{'No ' + genreName + ' Movies Found'}</h2>
                             <div className="movie-grid-genre-page">

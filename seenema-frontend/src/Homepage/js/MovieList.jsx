@@ -88,7 +88,7 @@ const MovieList = (searchValue) => {
                     <h2 className="header-home">Search Results</h2>
                     <SearchedCardsPage movies={searchResults} />
                 </>
-            ) : (searchValue.searchValue == "") ? (
+            ) : (searchValue.searchValue === "") ? (
                 <>
                     <h2 className="header-home">Now Playing</h2>
                     <CardRow movies={nowPlayingMovies}/>
@@ -99,7 +99,7 @@ const MovieList = (searchValue) => {
                     <h2 className="header-home">Popular Movies</h2>
                     <CardRow movies={popularMovies}/>`
                 </>
-                ) : (searchResults.length == 0) ? (
+                ) : (searchResults.length === 0) ? (
                     <>
                     <h2 className="header-home">No Results Found </h2>
                     <SearchedCardsPage movies={searchResults} />
