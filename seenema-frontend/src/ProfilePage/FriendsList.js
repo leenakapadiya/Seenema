@@ -1,17 +1,14 @@
-// FriendsList.js
-import React, { useState } from "react";
-import Lottie from "lottie-react";
-import Loading from "../assets/loading.json";
 import "./UserProfilePage.css";
 
-const FriendsList = ({ friendEmail, setFriendEmail, handleAddFriend, loading, friendsList }) => {
+const FriendsList = ({ friendsList }) => {
     return (
         <div className="main-container">
             <h3>Friends List</h3>
-            <hr/>
-            <ul>
-                {Array.from(friendsList).map((friend, index) => (
-                    <li key={index}>{friend}</li>
+            <hr />
+            <ul className="list-group">
+                {friendsList.map((friend) => (
+                    <li key={friend} className="list-group-item "
+                        style={{backgroundColor: "rgba(149,148,153,0.94)", borderColor: "#F1FAEE"}}>{friend}</li>
                 ))}
             </ul>
         </div>

@@ -14,9 +14,8 @@
     text-transform: uppercase;
     padding: 5px 20px;
     border-radius: 4px;
-    background: rgba(255, 255, 255, 0.1);
+    background: #0F11152D;
     margin-bottom: 8%;
-    /*cursor: pointer; !* Add cursor pointer for better UX *!*/
 }
 
 .main-container {
@@ -26,10 +25,13 @@
     border-radius: 20px;
     background-color: var(--surface-color);
     width: 80%;
+    height: inherit;
     /*height: 80%;*/
     color: white;
     display: flex;
     flex-direction: column;
+    border-style: solid;
+    border-color: var(--text-color);
 }
 
 
@@ -45,4 +47,17 @@
 .loading-container {
     width: 60%;
     padding-left: 35%;
+}
+
+.add-friend-field {
+    /*background-color: rgba(149,148,153,0.94);*/
+    border-color: #F1FAEE;
+    border-radius: 5px;
+}
+
+.add-friend-input {
+    margin-right: 30px;
+    border-radius: 10px;
+    background-color: rgba(224,222,227,0.94);
+    margin-top: 5%;
 }

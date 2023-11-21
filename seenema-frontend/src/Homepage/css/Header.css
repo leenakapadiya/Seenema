@@ -36,3 +36,14 @@
 .profile-logo {
     color: #959499;
 }
+
+.navbar-button {
+    text-decoration: none;
+    color: var(--white-text);
+    background: rgb(47, 45, 45);
+    padding: 8px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.53);
+
+}

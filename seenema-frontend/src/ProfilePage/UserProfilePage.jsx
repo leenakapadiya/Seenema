@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useContext, useState } from "react";
-import {NavLink, useNavigate} from "react-router-dom";
+import React, {useContext, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import "./UserProfilePage.css";
 import { AuthContext } from "../Auth/JavaScript/AuthContext";
 import FriendsList from "./FriendsList";
@@ -9,7 +9,7 @@ import Lottie from "lottie-react";
 
 const UserProfilePage = () => {
     const navigate = useNavigate();
-    const { user, signOut } = useContext(AuthContext);
+    const {user} = useContext(AuthContext);
     const [friendEmail, setFriendEmail] = useState("");
     const [friendsList, setFriendsList] = useState(new Set());
     const [loading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ const UserProfilePage = () => {
     const handleAddFriend = async () => {
         try {
             setLoading(true);
-            const response = await fetch("https://qr6gmhloff.execute-api.us-west-2.amazonaws.com/dev/addFriend", {
+            const response = await fetch("https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/addFriend", {
                 method: "POST",
                 body: JSON.stringify({
                     username: user.email,
@@ -31,7 +31,8 @@ const UserProfilePage = () => {
 
             if (response.ok) {
                 console.log("Friend added successfully!");
-                setFriendsList((prevFriendsList) => new Set([...prevFriendsList, friendEmail]));
+                // setFriendsList((prevFriendsList) => new Set([...prevFriendsList, friendEmail]));
+                // handleGetFriendsList();
                 setFriendEmail("");
             } else {
                 console.error("Failed to add friend:", response.status, response.statusText);
@@ -42,6 +43,46 @@ const UserProfilePage = () => {
             setLoading(false);
         }
     };
+
+    const handleGetFriendsList = async () => {
+        try {
+            setLoading(true);
+            const response = await fetch("https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/getUserInfo", {
+                method: "POST",
+                body: JSON.stringify({
+                    Email: user.email
+                }),
+            });
+
+            if (response.ok) {
+                console.log("Friend list fetched successfully!");
+                const userData = await response.json();
+
+                // Check if Friends array exists before using map
+                if (userData.Friends && Array.isArray(userData.Friends)) {
+                    const friendEmails = userData.Friends;
+                    setFriendsList(new Set(friendEmails));
+                } else {
+                    console.error("Invalid friend list data:", userData);
+                }
+            } else {
+                console.error("Failed to fetch friend list:", response.status, response.statusText);
+
+                // Log the response when it's not OK
+                const errorResponse = await response.text();
+                console.error("Error response:", errorResponse);
+            }
+        } catch (error) {
+            console.error("Error fetching friend list:", error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Fetch friends list on component mount
+    useEffect(() => {
+        handleGetFriendsList();
+    }, []); // Empty dependency array ensures it runs only once on mount
 
     return (
         <div style={{marginTop: "10%"}}>
@@ -65,19 +106,19 @@ const UserProfilePage = () => {
                         <div className="row">
                             <div className="main-container">
                                 <h3> Add Friend </h3>
-                                <hr/>
+                                <hr />
                                 {loading ? (
                                     <div className="loading-container">
                                         <Lottie loop={true} animationData={Loading} />
                                     </div>
                                 ) : (
-                                    <div>
+                                    <div className= "add-friend-field">
                                         <input
                                             type="text"
                                             placeholder="  Friend's Email"
                                             value={friendEmail}
                                             onChange={(e) => setFriendEmail(e.target.value)}
-                                            style={{marginRight: "30px" , borderRadius: "10px"}}
+                                            className={"add-friend-input"}
                                         />
                                         <button onClick={handleAddFriend} className="button-profile" disabled={loading}>
                                             Add Friend
@@ -89,11 +130,7 @@ const UserProfilePage = () => {
                         <div className="row">
                             {friendsList.size > 0 && (
                                 <FriendsList
-                                    friendEmail={friendEmail}
-                                    setFriendEmail={setFriendEmail}
-                                    handleAddFriend={handleAddFriend}
-                                    loading={loading}
-                                    friendsList={friendsList}
+                                    friendsList={Array.from(friendsList)}
                                 />
                             )}
                         </div>

@@ -7,6 +7,7 @@ import {NavLink} from "react-router-dom";
 import '../../Auth/JavaScript/SignIn';
 import SearchBar from './SearchBar';
 import {AuthContext} from "../../Auth/JavaScript/AuthContext";
+import {Button} from "@mui/material";
 
 // NavigationBar component
 const NavigationBar = ({onChange}) => {
@@ -37,6 +38,7 @@ const NavigationBar = ({onChange}) => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <SearchBar onChange={onChange}/>
                 </Navbar.Collapse>
+                {user ? (
                 <NavDropdown title={
                     <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor  "
                          className="bi bi-person-circle profile-logo" viewBox="0 0 16 16" onClick={handleDropdownToggle}>
@@ -45,15 +47,12 @@ const NavigationBar = ({onChange}) => {
                               d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                     </svg>
                 } id="nav-dropdown" align="end" onClick={handleDropdownClose}>
-                    {/* If User is logged in, show dropdown for logged-in user else show dropdown for not logged in user*/}
-                    {user ? (
-                        <div>
-                            <LoggedInOptions />
-                        </div>
-                    ) : (
-                        <NotLoggedOptions />
-                    )}
+                    <LoggedInOptions />
                 </NavDropdown>
+                ) : (
+                    <NotLoggedOptions />
+                )}
+
             </Navbar>
         </div>
     );
@@ -63,12 +62,16 @@ const NavigationBar = ({onChange}) => {
 const NotLoggedOptions = () => {
     return (
         <div>
-            <NavDropdown.Item>
-                <NavLink to="/signIn" style={{textDecoration: 'none', color: 'inherit'}}>Sign In</NavLink>
-            </NavDropdown.Item>
-            <NavDropdown.Item>
-                <NavLink to="/signUp" style={{textDecoration: 'none', color: 'inherit'}}>Sign Up</NavLink>
-            </NavDropdown.Item>
+            <Button>
+                <NavLink to="/signIn" className="navbar-button">
+                    Sign In
+                </NavLink>
+            </Button>
+            <Button className="navbar-button">
+                <NavLink to="/signUp" className="navbar-button" style={{ marginRight: "20px"}}>
+                    Sign Up
+                </NavLink>
+            </Button>
         </div>
     );
 };
