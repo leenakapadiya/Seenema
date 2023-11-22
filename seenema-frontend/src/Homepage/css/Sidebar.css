@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500&display=swap');
+
+.sidebar-homepage {
+    background-color: var(--surface-color) !important;
+    height: calc(100vh - 1rem);
+}
+
+.genre-main {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--white-text);
+    margin-top: 10px;
+}
+
+.genre-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.genre-list li {
+    margin-bottom: 10px;
+}
+
+.genre-heading {
+    margin-bottom: 20px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.sidebar-separator {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 0;
+    border-top: 1px solid #ddd; /* Adjust the color as needed */
+}
+
+.sidebar-footer {
+    text-align: center;
+    font-size: 14px; /* Adjust the size as needed */
+    color: #aaa; /* Adjust the color as needed */
+    margin-bottom: 10px; /* Space at the bottom */
+}
+
+.tmdb-logo {
+    display: block; /* Ensures the image is a block-level element */
+    margin: 10px auto; /* Centers the image and adds margin */
+    width: 80px; /* Adjust the width as needed */
+    height: auto; /* Keeps the aspect ratio of the image */
+}
+
+.clickable-genre {
+    cursor: pointer;
+
+}
+
+.clickable-genre:hover, .selected-genre {
+    color: #e44c54;
+}
+
