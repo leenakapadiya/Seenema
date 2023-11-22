@@ -3,7 +3,7 @@
 .movie-grid-genre-page {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 0px;
+    gap: 15px;
     padding: 20px;
     margin-left: -1.5%;
 }
@@ -11,7 +11,7 @@
 .main-content-area-GenrePage {
     flex-grow: 1;
     overflow-x: auto;
-    margin-left: 14.35rem;
+    margin-left: 14.50rem;
     margin-top: 6px;
 }
 
@@ -19,9 +19,9 @@
     font-family: 'DM Sans', sans-serif;
     color: var(--white-text);
     font-weight: 1000;
-    margin-bottom: -1.6%;
-    margin-left: 2.5%;
-    margin-top: 1.6%;
+    margin-bottom: -18.5px;
+    margin-left: 30px;
+    margin-top: 18px;
 }
 
 .load-more-button-genre-page {

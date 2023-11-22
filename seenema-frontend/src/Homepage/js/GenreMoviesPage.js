@@ -17,16 +17,41 @@ const GenreMoviesPage = () => {
     const searchMoviesByGenreAndName = useCallback(async (searchTerm) => {
         setLoading(true);
         try {
-            const response = await api.get(`/search/movie`, {
+            var page = 1;
+            var num_movies = 0;
+            const {data} = await api.get(`/search/movie`, {
                 params: {
                     query: searchTerm,
-                    with_genres: genreId // This should ensure that the search is constrained to the selected genre
+                    page: page
                 }
             });
-            // If necessary, further filter the results to ensure they belong to the selected genre
-            const filteredResults = response.data.results.filter(movie => movie.genre_ids.includes(parseInt(genreId)));
-            setMovies(filteredResults);
-            setLoading(false);
+            var searchResults = data.results;
+            console.log(data)
+            var result = [];
+            console.log(data.total_pages)
+            while (page <= data.total_pages && num_movies <= 20) {
+                const {data} = await api.get(`/search/movie`, {
+                    params: {
+                        query: searchTerm,
+                        page: page
+                    }
+                });
+                page++;
+                searchResults = data.results;
+                for (var i = 0; i < searchResults.length; i++) {
+                    const genre_ids = searchResults[i].genre_ids;
+                    if (genre_ids !== undefined) {
+                        const movieIsInGenre = genre_ids.some(genre_id => genre_id === Number(genreId));
+                        console.log(movieIsInGenre)
+                        if (movieIsInGenre) {
+                            console.log(num_movies);
+                            num_movies++;
+                            result = result.concat(searchResults[i]);
+                        }
+                    }
+                }
+            }
+            setMovies(result.splice(0, 20))
         } catch (error) {
             console.error('Error searching movies:', error);
             setLoading(false);
@@ -90,18 +115,32 @@ const GenreMoviesPage = () => {
 
     return (
         <div className="home-layout">
-            <div><Header onChange={handleSearchChange}/></div>
+            <div><Header onSearch={handleSearchChange}/></div>
             <div className="homepage-main-content">
                 <div className="homepage-sidebar">
                     <Sidebar activeGenreId={parseInt(genreId)}/>
                 </div>
                 <div className="main-content-area-GenrePage">
-                    <h2 className="genre-heading-GenreMoviePage">{'All ' + genreName + ' Movies'}</h2>
-                    <div className="movie-grid-genre-page">
-                        {movies.map(movie => (
-                            <MovieCard key={movie.id} movie={movie}/>
-                        ))}
-                    </div>
+                    {(isSearchActive) && (movies.length === 0) ? (
+                        <>
+                            <h2 className="genre-heading-GenreMoviePage">{'No ' + genreName + ' Movies Found'}</h2>
+                            <div className="movie-grid-genre-page">
+                                {movies.map(movie => (
+                                    <MovieCard key={movie.id} movie={movie}/>
+                                ))}
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <h2 className="genre-heading-GenreMoviePage">{'All ' + genreName + ' Movies'}</h2>
+                            <div className="movie-grid-genre-page">
+                                {movies.map(movie => (
+                                    <MovieCard key={movie.id} movie={movie}/>
+                                ))}
+                            </div>
+                        </>
+                    )}
+
                     {!loading && !isSearchActive && (
                         <div className="load-more-container-genre-page">
                             <button onClick={handleLoadMore} className="load-more-button-genre-page">
