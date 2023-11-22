@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Link, useParams} from 'react-router-dom';
 import api from '../Homepage/js/api'; // API import for fetching movie details
 import './DetailPage.css'; // Importing CSS for styling
 import starImage from '../assets/Star.png'; // Star icon for rating display
@@ -12,9 +12,11 @@ const DetailPage = () => {
     const [movie, setMovie] = useState(null);
     const [cast, setCast] = useState([]);
     const [director, setDirector] = useState('');
-    const [rating, setRating] = useState('');
+    const [ageRating, setAgeRating] = useState('');
     const [videos, setVideos] = useState([]);
     const [streamingServices, setStreamingServices] = useState(null);
+
+    let rating = "";
 
     useEffect(() => {
         const fetchMovieDetails = async () => {
@@ -34,8 +36,7 @@ const DetailPage = () => {
 
                 // Extract the MPA rating for the US (if available)
                 const usReleaseDates = releaseDatesData.results.find(r => r.iso_3166_1 === 'US');
-                const mpaRating = usReleaseDates ? usReleaseDates.release_dates[0].certification : 'Rating not available';
-                setRating(mpaRating);
+                setAgeRating(usReleaseDates ? usReleaseDates.release_dates[0].certification : 'Rating not available');
 
                 // Fetch cast and director details
                 const creditsResponse = await api.get(`/movie/${movieId}/credits`);
@@ -66,10 +67,10 @@ const DetailPage = () => {
         return <div>Loading...</div>;
     }
     // Calculating average rating of movie, setting it 'N/A' if avg rating is < 0
-    setRating(movie.vote_average && movie.vote_average >= 1 ? movie.vote_average.toFixed(1) : 'N/A');
+    rating = movie.vote_average && movie.vote_average >= 1 ? movie.vote_average.toFixed(1) : 'N/A'
 
     // Formatted data for display
-    const formattedRating = movie.vote_average.toFixed(1);
+    // const formattedRating = movie.vote_average.toFixed(1);
     const formattedReleaseYear = new Date(movie.release_date).getFullYear();
     const formattedRuntime = movie.runtime;
     const formattedGenres = movie.genres.map((genre) => genre.name).join(', ');
@@ -78,20 +79,22 @@ const DetailPage = () => {
     // Main return statement for rendering the detail page
     return (
         <div>
-            <Header /> {/* Include the Header component */}
-            <div className="detail-page-wrapper" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})` }}>
-                <div className="detail-movie-overlay" />
+            <Header/> {/* Include the Header component */}
+            <div className="detail-page-wrapper"
+                 style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`}}>
+                <div className="detail-movie-overlay"/>
                 <div className="detail-movie-container">
-                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="detail-movie-poster" />
+                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}
+                         className="detail-movie-poster"/>
                     <h1 className="detail-movie-title">{movie.title}</h1>
                     <div className="detail-movie-info">
                         <div className="detail-user-rating-box">
-                            <img src={starImage} alt="Star" className="detail-user-rating-star" />
-                            <span>{formattedRating}</span>
+                            <img src={starImage} alt="Star" className="detail-user-rating-star"/>
+                            <span>{rating}</span>
                         </div>
                         <span className="detail-year">{formattedReleaseYear}</span>
                         <span className="detail-movie-runtime">{formattedRuntime} min</span>
-                        <span className="detail-movie-MPArating">{rating}</span>
+                        <span className="detail-movie-MPArating">{ageRating}</span>
                     </div>
                     <div className="detail-movie-genre-list">
                         {formattedGenres}
@@ -115,7 +118,8 @@ const DetailPage = () => {
                         <div className="services-container">
                             {streamingServices && streamingServices.US && streamingServices.US.flatrate && streamingServices.US.flatrate.map((service) => (
                                 <div key={service.provider_id} className="service">
-                                    <img src={`https://image.tmdb.org/t/p/w500${service.logo_path}`} alt={service.provider_name} />
+                                    <img src={`https://image.tmdb.org/t/p/w500${service.logo_path}`}
+                                         alt={service.provider_name}/>
                                 </div>
                             ))}
                         </div>
