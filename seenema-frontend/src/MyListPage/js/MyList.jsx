@@ -6,11 +6,12 @@ import Lottie from "lottie-react";
 import '../../Homepage/css/MovieList.css';
 import '../../Auth/JavaScript/Auth';
 import MoviesList from "./MoviesList";
+import '../css/MyList.css';
 const MyList = () => {
     const navigate = useNavigate();
     const {user} = useContext(AuthContext);
     const [moviesList, setMoviesList] = useState(new Set());
-    // const [movieId, setMovieId] = useState("");
+    // const[movieId, setMovieId] = useState("");
     const [loading, setLoading] = useState(false);
 
     const handleGoBack = () => {
@@ -54,24 +55,23 @@ const MyList = () => {
     useEffect(() => {
         handleGetMoviesList();
     }, []);
-
-    // const handleAddMoviesToMyList = async (movieId) => {
+    // const handleAddMovie = async () => {
     //     try {
     //         setLoading(true);
-    //         const response = await fetch("https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/addFriend", {
+    //         const response = await fetch("https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/addMovieToMyList", {
     //             method: "POST",
     //             body: JSON.stringify({
     //                 username: user.email,
-    //                 movieId: movieId
+    //                 movieId: movieId,
     //             }),
     //         });
     //
     //         if (response.ok) {
-    //             console.log("Movie added successfully!");
+    //             console.log("Friend added successfully!");
     //             setMoviesList((prevMoviesList) => new Set([...prevMoviesList, movieId]));
     //             setMovieId("");
     //         } else {
-    //             console.error("Failed to add Movie:", response.status, response.statusText);
+    //             console.error("Failed to add movie:", response.status, response.statusText);
     //         }
     //     } catch (error) {
     //         console.error("Error adding movie:", error.message);
@@ -81,28 +81,26 @@ const MyList = () => {
     // };
 
     return (
-
-        <div style={{marginTop: "10%"}}>
-            <h2 className="header-home">My List</h2>
+        <div style={{marginTop: "3%"}}>
+            <h2 className="header-mylist">My List</h2>
             <div style={{ width: "5px", alignContent: "end", marginLeft: "95%" }}>
                 <span onClick={handleGoBack} style={{ cursor: "pointer", textDecoration: 'none', color: "white" }}>X</span>
             </div>
-            <div className="row">
+            <div>
                 {loading ? (
                     <div className="loading-container">
                         <Lottie loop={true} animationData={Loading} />
                     </div>
                 ) : (
-                    <div className="row">
+                    <div>
                         {moviesList.size > 0 && (
                                 <MoviesList
                                     moviesList={Array.from(moviesList)}
-                                    // onAddToMyList={handleAddMoviesToMyList}
                                 />
                         )}
                     </div>
                 )}
-                </div>
+            </div>
         </div>
     );
 };

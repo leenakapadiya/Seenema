@@ -13,6 +13,10 @@ import RouteGuard from "./Auth/JavaScript/RouteGuard";
 
 
 function App() {
+    // const handleAddMoviesToMyList = (movieId) => {
+    //     // Your logic to add the movie to the list
+    //     console.log(`Adding movie ${movieId} to My List`);
+    // };
     return (
         <AuthProvider>
             <Router>
