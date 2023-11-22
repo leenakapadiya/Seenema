@@ -7,23 +7,26 @@ import {Link} from "react-router-dom";
 import '../../Auth/JavaScript/SignIn';
 import SearchBar from './SearchBar';
 
+
 // NavigationBar component
-const NavigationBar = ({onChange}) => {
+const NavigationBar = ({onSearch}) => {
     return (
         <div className="bg-navbar">
             <Navbar expand="lg">
-                <Navbar.Brand href="#home">
-                    <img
-                        src={logo}
-                        width="65"
-                        height="65"
-                        className="d-inline-block align-top"
-                        alt="Logo"
-                    />
+                <Navbar.Brand>
+                    <Link to="/">
+                        <img
+                            src={logo}
+                            width="65"
+                            height="65"
+                            className="d-inline-block align-top"
+                            alt="Logo"
+                        />
+                    </Link>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <SearchBar onChange={onChange}/>
+                    <SearchBar onSearch={onSearch}/>
                     <NavDropdown title={
                         <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor  "
                              className="bi bi-person-circle profile-logo" viewBox="0 0 16 16">
