@@ -32,7 +32,6 @@ const UserProfilePage = () => {
             if (response.ok) {
                 console.log("Friend added successfully!");
                 setFriendsList((prevFriendsList) => new Set([...prevFriendsList, friendEmail]));
-                // handleGetFriendsList();
                 setFriendEmail("");
             } else {
                 console.error("Failed to add friend:", response.status, response.statusText);
