@@ -5,14 +5,13 @@
 .movie-container-searched {
     -ms-overflow-style: none;
     scrollbar-width: none;
-    
+
 }
 
-.movie-container-searched { 
-  margin-left: 6%; /* to center the cards */
-  display: grid;
-  grid-template-columns: repeat(5, 1fr); /* Five columns */
-  gap: 15px; /* Gap between items */
+.movie-container-searched {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Five columns */
+    gap: 15px; /* Gap between items */
 }
 
 .movie-container-searched::-webkit-scrollbar {

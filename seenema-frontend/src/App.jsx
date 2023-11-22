@@ -9,6 +9,7 @@ import DetailPage from './DetailPage/DetailPage';
 import UserProfilePage from './ProfilePage/UserProfilePage';
 import { AuthProvider } from "./Auth/JavaScript/AuthContext"
 import RouteGuard from "./Auth/JavaScript/RouteGuard";
+import GenreMoviesPage from "./Homepage/js/GenreMoviesPage";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                     <Route path="/forgotPassword" element={<ForgotPassword/>}/>
                     <Route path="/resetPassword" element={<ResetPassword/>}/>
                     <Route path="/movie/:movieId" element={<DetailPage/>}/>
+                    <Route path="/genre/:genreId" element={<GenreMoviesPage/>}/>
                     <Route path="*" element={<Navigate to="/Homepage"/>}/>
                     <Route
                         path="/profile"
