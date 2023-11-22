@@ -29,7 +29,7 @@ const GenreMoviesPage = () => {
             console.log(data)
             var result = [];
             console.log(data.total_pages)
-            while(page <= data.total_pages && num_movies <= 20){
+            while (page <= data.total_pages && num_movies <= 20) {
                 const {data} = await api.get(`/search/movie`, {
                     params: {
                         query: searchTerm,
@@ -38,12 +38,12 @@ const GenreMoviesPage = () => {
                 });
                 page++;
                 searchResults = data.results;
-                for(var i = 0; i < searchResults.length; i++){
+                for (var i = 0; i < searchResults.length; i++) {
                     const genre_ids = searchResults[i].genre_ids;
-                    if(genre_ids !== undefined){
+                    if (genre_ids !== undefined) {
                         const movieIsInGenre = genre_ids.some(genre_id => genre_id === Number(genreId));
                         console.log(movieIsInGenre)
-                        if(movieIsInGenre){
+                        if (movieIsInGenre) {
                             console.log(num_movies);
                             num_movies++;
                             result = result.concat(searchResults[i]);
@@ -132,15 +132,15 @@ const GenreMoviesPage = () => {
                         </>
                     ) : (
                         <>
-                        <h2 className="genre-heading-GenreMoviePage">{'All ' + genreName + ' Movies'}</h2>
-                        <div className="movie-grid-genre-page">
-                            {movies.map(movie => (
-                                <MovieCard key={movie.id} movie={movie}/>
-                            ))}
-                        </div>
+                            <h2 className="genre-heading-GenreMoviePage">{'All ' + genreName + ' Movies'}</h2>
+                            <div className="movie-grid-genre-page">
+                                {movies.map(movie => (
+                                    <MovieCard key={movie.id} movie={movie}/>
+                                ))}
+                            </div>
                         </>
                     )}
-                   
+
                     {!loading && !isSearchActive && (
                         <div className="load-more-container-genre-page">
                             <button onClick={handleLoadMore} className="load-more-button-genre-page">

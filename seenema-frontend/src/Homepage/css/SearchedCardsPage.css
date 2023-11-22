@@ -5,13 +5,13 @@
 .movie-container-searched {
     -ms-overflow-style: none;
     scrollbar-width: none;
-    
+
 }
 
-.movie-container-searched { 
-  display: grid;
-  grid-template-columns: repeat(5, 1fr); /* Five columns */
-  gap: 15px; /* Gap between items */
+.movie-container-searched {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Five columns */
+    gap: 15px; /* Gap between items */
 }
 
 .movie-container-searched::-webkit-scrollbar {

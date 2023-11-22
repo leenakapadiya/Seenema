@@ -14,14 +14,14 @@ const NavigationBar = ({onSearch}) => {
         <div className="bg-navbar">
             <Navbar expand="lg">
                 <Navbar.Brand>
-                    <Link to= "/">
-                    <img
-                        src={logo}
-                        width="65"
-                        height="65"
-                        className="d-inline-block align-top"
-                        alt="Logo"
-                    />
+                    <Link to="/">
+                        <img
+                            src={logo}
+                            width="65"
+                            height="65"
+                            className="d-inline-block align-top"
+                            alt="Logo"
+                        />
                     </Link>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>

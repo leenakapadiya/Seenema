@@ -48,7 +48,12 @@
     height: auto; /* Keeps the aspect ratio of the image */
 }
 
-.genre-item {
+.clickable-genre {
     cursor: pointer;
+
+}
+
+.clickable-genre:hover, .selected-genre {
+    color: #e44c54;
 }
 

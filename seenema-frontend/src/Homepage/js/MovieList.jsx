@@ -17,7 +17,7 @@ const MovieList = (searchValue) => {
         // Async func to fetch the searched movies
         const fetchSearchMovies = async (searchValue) => {
             const title = searchValue.searchValue;
-            try{
+            try {
                 const {data} = await api.get("search/movie", {
                     params: {
                         query: title,
@@ -86,7 +86,7 @@ const MovieList = (searchValue) => {
             {(searchResults.length > 0) && (searchValue.searchValue !== '') ? (
                 <>
                     <h2 className="header-home">Search Results</h2>
-                    <SearchedCardsPage movies={searchResults} />
+                    <SearchedCardsPage movies={searchResults}/>
                 </>
             ) : (searchValue.searchValue === "") ? (
                 <>
@@ -99,18 +99,18 @@ const MovieList = (searchValue) => {
                     <h2 className="header-home">Popular Movies</h2>
                     <CardRow movies={popularMovies}/>`
                 </>
-                ) : (searchResults.length === 0) ? (
-                    <>
+            ) : (searchResults.length === 0) ? (
+                <>
                     <h2 className="header-home">No Results Found </h2>
-                    <SearchedCardsPage movies={searchResults} />
+                    <SearchedCardsPage movies={searchResults}/>
                 </>
-                ) : (
-            
+            ) : (
+
                 <>
                     <h2 className="header-home">Search Results </h2>
-                    <SearchedCardsPage movies={searchResults} />
+                    <SearchedCardsPage movies={searchResults}/>
                 </>
-                )
+            )
             }
         </div>
     );
