@@ -31,7 +31,7 @@ const UserProfilePage = () => {
 
             if (response.ok) {
                 console.log("Friend added successfully!");
-                // setFriendsList((prevFriendsList) => new Set([...prevFriendsList, friendEmail]));
+                setFriendsList((prevFriendsList) => new Set([...prevFriendsList, friendEmail]));
                 // handleGetFriendsList();
                 setFriendEmail("");
             } else {
@@ -43,7 +43,8 @@ const UserProfilePage = () => {
             setLoading(false);
         }
     };
-
+    //TODO: when user has no friends it should show the message "No friends yet"
+    //TODO: when user enters friend's email which does not exist in the database, it should return an error message
     const handleGetFriendsList = async () => {
         try {
             setLoading(true);
@@ -107,11 +108,11 @@ const UserProfilePage = () => {
                             <div className="main-container">
                                 <h3> Add Friend </h3>
                                 <hr />
-                                {loading ? (
-                                    <div className="loading-container">
-                                        <Lottie loop={true} animationData={Loading} />
-                                    </div>
-                                ) : (
+                                {/*{loading ? (*/}
+                                {/*    <div className="loading-container">*/}
+                                {/*        <Lottie loop={true} animationData={Loading} />*/}
+                                {/*    </div>*/}
+                                {/*) : (*/}
                                     <div className= "add-friend-field">
                                         <input
                                             type="text"
@@ -124,9 +125,14 @@ const UserProfilePage = () => {
                                             Add Friend
                                         </button>
                                     </div>
-                                )}
+                                {/*)}*/}
                             </div>
                         </div>
+                        {loading ? (
+                            <div className="loading-container">
+                                <Lottie loop={true} animationData={Loading} />
+                            </div>
+                        ) : (
                         <div className="row">
                             {friendsList.size > 0 && (
                                 <FriendsList
@@ -134,6 +140,7 @@ const UserProfilePage = () => {
                                 />
                             )}
                         </div>
+                        )}
                     </div>
 
                 {/*</div>*/}

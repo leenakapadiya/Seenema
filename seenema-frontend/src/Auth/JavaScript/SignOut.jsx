@@ -1,5 +1,3 @@
-//TODO: Remove this file
-
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {signOut} from "./Auth";
@@ -16,6 +14,7 @@ function SignOut() {
         try {
             // try to confirm signOut and then navigate to sign in page
             await signOut();
+            //TODO: when user sign out it should go to the default home page
             navigate("/signIn");
         } catch (err) {
             // Set the error message
