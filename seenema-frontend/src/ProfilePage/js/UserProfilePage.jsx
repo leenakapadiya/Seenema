@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "../css/UserProfilePage.css";
-import { AuthContext } from "../../Auth/JavaScript/AuthContext";
+import {AuthContext} from "../../Auth/JavaScript/AuthContext";
 import FriendsList from "./FriendsList";
 import Loading from "../../assets/loading.json";
 import Lottie from "lottie-react";
@@ -86,52 +86,53 @@ const UserProfilePage = () => {
 
     return (
         <div style={{marginTop: "10%"}}>
-            <div style={{ width: "5px", alignContent: "end", marginLeft: "95%" }}>
-                <span onClick={handleGoBack} style={{ cursor: "pointer", textDecoration: 'none', color: "white" }}>X</span>
+            <div style={{width: "5px", alignContent: "end", marginLeft: "95%"}}>
+                <span onClick={handleGoBack}
+                      style={{cursor: "pointer", textDecoration: 'none', color: "white"}}>X</span>
             </div>
             <div className="row">
                 {/*<div className="page">*/}
-                    <div className="col">
-                        <div className="main-container" style={{marginTop: "20%"}}>
-                            <div className="header">
-                                <h3>Profile</h3>
-                                <hr/>
+                <div className="col">
+                    <div className="main-container" style={{marginTop: "20%"}}>
+                        <div className="header">
+                            <h3>Profile</h3>
+                            <hr/>
+                        </div>
+                        <p>Name: {`${user.given_name} ${user.family_name}`}</p>
+                        <p>Email: {user.email}</p>
+                        <br/>
+                    </div>
+                </div>
+                <div className="col">
+                    <div className="row">
+                        <div className="main-container">
+                            <h3> Add Friend </h3>
+                            <hr/>
+                            {/*{loading ? (*/}
+                            {/*    <div className="loading-container">*/}
+                            {/*        <Lottie loop={true} animationData={Loading} />*/}
+                            {/*    </div>*/}
+                            {/*) : (*/}
+                            <div className="add-friend-field">
+                                <input
+                                    type="text"
+                                    placeholder="  Friend's Email"
+                                    value={friendEmail}
+                                    onChange={(e) => setFriendEmail(e.target.value)}
+                                    className={"add-friend-input"}
+                                />
+                                <button onClick={handleAddFriend} className="button-profile" disabled={loading}>
+                                    Add Friend
+                                </button>
                             </div>
-                            <p>Name: {`${user.given_name} ${user.family_name}`}</p>
-                            <p>Email: {user.email}</p>
-                            <br />
+                            {/*)}*/}
                         </div>
                     </div>
-                    <div className="col">
-                        <div className="row">
-                            <div className="main-container">
-                                <h3> Add Friend </h3>
-                                <hr />
-                                {/*{loading ? (*/}
-                                {/*    <div className="loading-container">*/}
-                                {/*        <Lottie loop={true} animationData={Loading} />*/}
-                                {/*    </div>*/}
-                                {/*) : (*/}
-                                    <div className= "add-friend-field">
-                                        <input
-                                            type="text"
-                                            placeholder="  Friend's Email"
-                                            value={friendEmail}
-                                            onChange={(e) => setFriendEmail(e.target.value)}
-                                            className={"add-friend-input"}
-                                        />
-                                        <button onClick={handleAddFriend} className="button-profile" disabled={loading}>
-                                            Add Friend
-                                        </button>
-                                    </div>
-                                {/*)}*/}
-                            </div>
+                    {loading ? (
+                        <div className="loading-container">
+                            <Lottie loop={true} animationData={Loading}/>
                         </div>
-                        {loading ? (
-                            <div className="loading-container">
-                                <Lottie loop={true} animationData={Loading} />
-                            </div>
-                        ) : (
+                    ) : (
                         <div className="row">
                             {friendsList.size > 0 && (
                                 <FriendsList
@@ -139,8 +140,8 @@ const UserProfilePage = () => {
                                 />
                             )}
                         </div>
-                        )}
-                    </div>
+                    )}
+                </div>
 
                 {/*</div>*/}
             </div>

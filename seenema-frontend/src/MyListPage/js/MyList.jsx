@@ -1,12 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../Auth/JavaScript/AuthContext";
+import React, {useContext, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../../Auth/JavaScript/AuthContext";
 import Loading from "../../assets/loading.json";
 import Lottie from "lottie-react";
 import '../../Homepage/css/MovieList.css';
 import '../../Auth/JavaScript/Auth';
 import MoviesList from "./MoviesList";
 import '../css/MyList.css';
+
 const MyList = () => {
     const navigate = useNavigate();
     const {user} = useContext(AuthContext);
@@ -83,20 +84,21 @@ const MyList = () => {
     return (
         <div style={{marginTop: "3%"}}>
             <h2 className="header-mylist">My List</h2>
-            <div style={{ width: "5px", alignContent: "end", marginLeft: "95%" }}>
-                <span onClick={handleGoBack} style={{ cursor: "pointer", textDecoration: 'none', color: "white" }}>X</span>
+            <div style={{width: "5px", alignContent: "end", marginLeft: "95%"}}>
+                <span onClick={handleGoBack}
+                      style={{cursor: "pointer", textDecoration: 'none', color: "white"}}>X</span>
             </div>
             <div>
                 {loading ? (
                     <div className="loading-container">
-                        <Lottie loop={true} animationData={Loading} />
+                        <Lottie loop={true} animationData={Loading}/>
                     </div>
                 ) : (
                     <div>
                         {moviesList.size > 0 && (
-                                <MoviesList
-                                    moviesList={Array.from(moviesList)}
-                                />
+                            <MoviesList
+                                moviesList={Array.from(moviesList)}
+                            />
                         )}
                     </div>
                 )}
