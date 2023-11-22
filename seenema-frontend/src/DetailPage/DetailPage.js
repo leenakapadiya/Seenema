@@ -66,7 +66,7 @@ const DetailPage = () => {
         return <div>Loading...</div>;
     }
     // Calculating average rating of movie, setting it 'N/A' if avg rating is < 0
-    rating = movie.vote_average && movie.vote_average >= 1 ? movie.vote_average.toFixed(1) : 'N/A';
+    setRating(movie.vote_average && movie.vote_average >= 1 ? movie.vote_average.toFixed(1) : 'N/A');
 
     // Formatted data for display
     const formattedRating = movie.vote_average.toFixed(1);
