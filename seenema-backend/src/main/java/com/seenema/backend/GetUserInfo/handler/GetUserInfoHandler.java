@@ -47,9 +47,10 @@ public class GetUserInfoHandler implements RequestHandler<APIGatewayV2HTTPEvent,
                 String LastName = item.get("LastName").s();
                 String FirstName = item.get("FirstName").s();
                 List<String> Friends = item.get("Friends").ss();
+                List<String> Movies = item.get("Movies").ss();
 
                 // Assuming you have a constructor in the Response class
-                return gson.toJson(new Response(Email, LastName, FirstName, Friends));
+                return gson.toJson(new Response(Email, LastName, FirstName, Friends, Movies));
             } else {
                 return gson.toJson(new Response("User not found"));
             }

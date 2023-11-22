@@ -9,6 +9,8 @@ public class Response {
     private String       FirstName;
     private String       LastName;
     private List<String> Friends;
+
+    private List<String> Movies;
     private String       message;
 
     // Constructors, getter, and setter methods
@@ -16,11 +18,12 @@ public class Response {
 
     }
 
-    public Response(String Email, String FirstName, String LastName, List<String> Friends) {
+    public Response(String Email, String FirstName, String LastName, List<String> Friends, List<String> Movies) {
         this.Email = Email;
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.Friends = Friends;
+        this.Movies = Movies;
     }
 
     public Response(String message) {
@@ -35,11 +38,12 @@ public class Response {
         return Objects.equals(Email, response.Email) &&
                 Objects.equals(FirstName, response.FirstName) &&
                 Objects.equals(LastName, response.LastName) &&
-                Objects.equals(Friends, response.Friends);
+                Objects.equals(Friends, response.Friends) &&
+                Objects.equals(Movies, response.Movies);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Email, LastName, FirstName, Friends);
+        return Objects.hash(Email, LastName, FirstName, Friends, Movies);
     }
 }
