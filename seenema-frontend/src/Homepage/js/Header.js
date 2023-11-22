@@ -84,7 +84,7 @@ const LoggedInOptions = () => {
                 Profile
                 {/*<NavLink to="/profile" style={{textDecoration: 'none', color: 'inherit'}}>Profile</NavLink>*/}
             </NavDropdown.Item>
-            <NavDropdown.Item>My List</NavDropdown.Item>
+            <NavDropdown.Item href={"/myList"}>My List</NavDropdown.Item>
             <NavDropdown.Divider/>
             <NavDropdown.Item href={"/signOut"}>
                 Sign Out

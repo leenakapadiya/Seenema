@@ -1,4 +1,4 @@
-import "./UserProfilePage.css";
+import "../css/UserProfilePage.css";
 
 const FriendsList = ({ friendsList }) => {
     return (

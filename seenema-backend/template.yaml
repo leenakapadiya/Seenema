@@ -99,6 +99,48 @@ Resources:
               Resource:
                 - !Sub 'arn:aws:logs:us-west-2:${AWS::AccountId}:log-group:/aws/lambda/testGetUserInfo:*'
 
+  AddMoviesToMyList:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: build/distributions/seenema-backend.zip
+      PackageType: Zip
+      Handler: com.seenema.backend.AddMoviesToMyList.handler.AddMoviesToMyListHandler::handleRequest
+      Runtime: java17
+      Timeout: 30
+      MemorySize: 128
+      Events:
+        HttpPost:
+          Type: Api
+          Properties:
+            RestApiId: !Ref SeenemaApi
+            Path: /addMovieToMyList
+            Method: POST
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:BatchGetItem
+                - dynamodb:BatchWriteItem
+                - dynamodb:ConditionCheckItem
+                - dynamodb:PutItem
+                - dynamodb:DescribeTable
+                - dynamodb:DeleteItem
+                - dynamodb:GetItem
+                - dynamodb:Scan
+                - dynamodb:Query
+                - dynamodb:UpdateItem
+              Resource:
+                - !Sub 'arn:aws:dynamodb:us-west-2:${AWS::AccountId}:table/SeenemaUserInfo'
+            - Effect: Allow
+              Action:
+                - logs:CreateLogGroup
+              Resource: !Sub 'arn:aws:logs:us-west-2:${AWS::AccountId}:*'
+            - Effect: Allow
+              Action:
+                - logs:CreateLogStream
+                - logs:PutLogEvents
+              Resource:
+                - !Sub 'arn:aws:logs:us-west-2:${AWS::AccountId}:log-group:/aws/lambda/testAddMoviesToMyList:*'
 
   DevLambdaAlias:
     Type: 'AWS::Lambda::Alias'
@@ -114,6 +156,13 @@ Resources:
       FunctionVersion: $LATEST
       Name: development
 
+  DevAddMoviesToMyListLambdaAlias:
+    Type: 'AWS::Lambda::Alias'
+    Properties:
+      FunctionName: !Ref AddMoviesToMyList
+      FunctionVersion: $LATEST
+      Name: development
+
   LambdaVersion:
     Type: 'AWS::Lambda::Version'
     Condition: ShouldUpdateProdVersion
@@ -125,6 +174,12 @@ Resources:
     Condition: ShouldUpdateProdVersion
     Properties:
       FunctionName: !Ref GetUserInfo
+
+  LambdaVersionForAddMoviesToMyList:
+    Type: 'AWS::Lambda::Version'
+    Condition: ShouldUpdateProdVersion
+    Properties:
+      FunctionName: !Ref AddMoviesToMyList
 
   ProdLambdaAlias:
     Type: 'AWS::Lambda::Alias'
@@ -140,6 +195,14 @@ Resources:
     Properties:
       FunctionName: !Ref GetUserInfo
       FunctionVersion: !Ref LambdaVersionForGetUserInfo
+      Name: production
+
+  ProdAddMoviesToMyListLambdaAlias:
+    Type: 'AWS::Lambda::Alias'
+    Condition: ShouldUpdateProdVersion
+    Properties:
+      FunctionName: !Ref AddMoviesToMyList
+      FunctionVersion: !Ref LambdaVersionForAddMoviesToMyList
       Name: production
 
   SeenemaApi:
@@ -168,6 +231,14 @@ Resources:
       PayloadFormatVersion: 2.0
       IntegrationUri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUserInfo.Arn}/invocations
 
+  AddMoviesToMyListIntegration:
+    Type: 'AWS::ApiGatewayV2::Integration'
+    Properties:
+      ApiId: !Ref SeenemaApi
+      IntegrationType: AWS_PROXY
+      PayloadFormatVersion: 2.0
+      IntegrationUri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${AddMoviesToMyList.Arn}/invocations
+
   AddFriendRoute:
     Type: 'AWS::ApiGatewayV2::Route'
     Properties:
@@ -183,6 +254,14 @@ Resources:
       RouteKey: 'POST /getUserInfo'
       AuthorizationType: NONE
       Target: !Sub integrations/${GetUserInfoIntegration}
+
+  AddMoviesToMyListRoute:
+    Type: 'AWS::ApiGatewayV2::Route'
+    Properties:
+      ApiId: !Ref SeenemaApi
+      RouteKey: 'POST /addMovieToMyList'
+      AuthorizationType: NONE
+      Target: !Sub integrations/${AddMoviesToMyListIntegration}
 
   DevelopmentStage:
     Type: 'AWS::ApiGatewayV2::Stage'

@@ -9,7 +9,6 @@ function SignOut() {
     const navigate = useNavigate();
     const [error, setError] = useState("")
     let {user} = useContext(AuthContext);
-    user = null;
 
 
     // handles the signOut of the user
@@ -17,6 +16,7 @@ function SignOut() {
         try {
             // try to confirm signOut and then navigate to sign in page
             await signOut();
+            user = null;
 
             //TODO: when user sign out it should go to the default home page
         } catch (err) {

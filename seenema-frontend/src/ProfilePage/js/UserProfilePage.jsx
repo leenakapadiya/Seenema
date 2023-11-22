@@ -1,10 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import "./UserProfilePage.css";
-import { AuthContext } from "../Auth/JavaScript/AuthContext";
+import "../css/UserProfilePage.css";
+import { AuthContext } from "../../Auth/JavaScript/AuthContext";
 import FriendsList from "./FriendsList";
-import Loading from "../assets/loading.json";
+import Loading from "../../assets/loading.json";
 import Lottie from "lottie-react";
 
 const UserProfilePage = () => {
