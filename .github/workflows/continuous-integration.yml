@@ -49,6 +49,7 @@ jobs:
         with:
           arguments: build
           build-root-directory: seenema-backend
+          cache-disabled: true
       - name: Test with Gradle
         uses: gradle/gradle-build-action@v2.9.0
         with:
