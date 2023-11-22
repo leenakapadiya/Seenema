@@ -20,26 +20,33 @@
 }
 
 .search-input::placeholder {
-color: #73727a;
-padding-right: 150px;
+    color: #73727a;
+    padding-right: 150px;
 }
 
 .search-input:focus {
-outline: none;
-box-shadow: 0 0 0 0.10rem #959499;
+    outline: none;
+    box-shadow: 0 0 0 0.10rem #959499;
+}
+
+.search-input:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.71)
 }
 
 .profile-logo {
-color: #959499;
+    color: #959499;
 }
 
 .navbar-button {
-text-decoration: none;
-color: var(--white-text);
-background: rgb(47, 45, 45);
-padding: 8px;
-border-radius: 5px;
-border-style: solid;
-border-color: rgba(255, 255, 255, 0.53);
+    text-decoration: none;
+    color: var(--white-text);
+    background: var(--accent-color);
+    padding: 8px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.53);
+}
 
+.navbar-button:hover {
+    background-color: #C62828;
 }

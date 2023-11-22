@@ -74,13 +74,19 @@ p::before {
     box-sizing: border-box;
     width: calc(100% - 30px);
     border-radius: 4px;
-    border: 1px solid white;
+    border: 2px solid rgba(255, 255, 255, 0.71);
     padding: 10px 15px;
     /*margin-bottom: 10px;*/
     font-size: 14px;
     background: rgba(255, 255, 255, 0.1);
     color: white;
 }
+
+.auth-input:hover {
+    /*border-color: #C62828; !* Change border color on hover *!*/
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.71); /* Add a subtle box shadow on hover */
+}
+
 
 .label-names {
     line-height: 2;
@@ -100,7 +106,7 @@ input[type="submit"] {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    background: #bf1650;
+    /*background: #bf1650;*/
     color: white;
     text-transform: uppercase;
     border: none;
@@ -139,7 +145,12 @@ hr {
     text-transform: uppercase;
     padding: 5px 20px;
     border-radius: 4px;
-    background: rgba(255, 255, 255, 0.1);
+    background:var(--accent-color);
+}
+
+.button-auth:hover {
+    background-color: #C62828;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.71)
 }
 
 .logo-auth {
