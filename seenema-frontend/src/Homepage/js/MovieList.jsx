@@ -17,6 +17,7 @@ const MovieList = (searchValue) => {
         // Async func to fetch the searched movies
         const fetchSearchMovies = async (searchValue) => {
             const title = searchValue.searchValue;
+
             try {
                 const {data} = await api.get("search/movie", {
                     params: {

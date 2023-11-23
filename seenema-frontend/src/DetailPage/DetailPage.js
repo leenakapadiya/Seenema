@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import api from '../Homepage/js/api'; // API import for fetching movie details
 import './DetailPage.css'; // Importing CSS for styling
 import starImage from '../assets/Star.png'; // Star icon for rating display
 import Header from '../Homepage/js/Header'; // Header component import
+import {AuthContext} from "../Auth/JavaScript/AuthContext";
 
 const DetailPage = () => {
-    const {movieId} = useParams(); // Getting movie ID from URL params
-
     // State variables for storing movie data
     const [movie, setMovie] = useState(null);
     const [cast, setCast] = useState([]);
@@ -15,6 +14,10 @@ const DetailPage = () => {
     const [ageRating, setAgeRating] = useState('');
     const [videos, setVideos] = useState([]);
     const [streamingServices, setStreamingServices] = useState(null);
+    const {user} = useContext(AuthContext);
+    const [loading, setLoading] = useState(false);
+    const [isAddedToMyList, setIsAddedToMyList] = useState(false);
+    const {movieId} = useParams(); // Getting movie ID from URL params
 
     let rating = "";
 
@@ -61,6 +64,30 @@ const DetailPage = () => {
 
         fetchMovieDetails();
     }, [movieId]); // Effect dependency on movieId
+
+    const handleAddToMyList = async () => {
+        try {
+            setLoading(true);
+            const response = await fetch('https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/addMovieToMyList', {
+                method: 'POST',
+                body: JSON.stringify({
+                    username: user.email,
+                    movieId: movieId,
+                }),
+            });
+
+            if (response.ok) {
+                console.log('Movie added to My List successfully!');
+            } else {
+                console.error('Failed to add movie to My List:', response.status, response.statusText);
+            }
+        } catch (error) {
+            console.error('Error adding movie to My List:', error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
 
     // Render loading text if data is not yet loaded
     if (!movie || cast.length === 0 || !director) {
@@ -110,7 +137,9 @@ const DetailPage = () => {
                     </div>
                     <div className="button-container">
                         <Link to="/Homepage" className="generic-button button-back">Back</Link>
-                        <button className="generic-button button-watchlist">Add to Watchlist</button>
+                        <button className="generic-button button-watchlist" onClick={handleAddToMyList}>Add to
+                            Watchlist
+                        </button>
                         <button className="generic-button button-friends-watchlist">Add to Friend's Watchlist</button>
                     </div>
                     <div className="watch-on-services">

@@ -17,7 +17,10 @@
 /* Background styling */
 .detail-movie-background {
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0; /* Position to cover the entire parent element */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; /* Position to cover the entire parent element */
     z-index: 0; /* Layered behind all other content */
     background-size: cover; /* Background image covers the entire element */
     background-position: center; /* Centers the background image */
@@ -27,7 +30,10 @@
 /* Overlay for the background image */
 .detail-movie-overlay {
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0; /* Position to cover the entire parent element */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; /* Position to cover the entire parent element */
     background-color: rgba(0, 0, 0, 0.88); /* Semi-transparent black overlay */
     z-index: 1; /* Above the background, below the content */
 }
@@ -46,9 +52,11 @@
 /* Styling for the movie poster */
 .detail-movie-poster {
     position: absolute;
-    top: 10px; left: 10px; /* Positioning */
+    top: 10px;
+    left: 10px; /* Positioning */
     width: 30%; /* Width relative to the container */
-    max-width: 680px; min-width: 120px; /* Maximum and minimum width */
+    max-width: 680px;
+    min-width: 120px; /* Maximum and minimum width */
     border-radius: 10px; /* Rounded corners */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Shadow for depth */
     z-index: 3; /* Above the overlay */
@@ -70,7 +78,8 @@
 
 /* Star icon for user rating */
 .detail-star-icon {
-    width: 30px; height: 30px; /* Size of the icon */
+    width: 30px;
+    height: 30px; /* Size of the icon */
 }
 
 /* Shared styles for rating and year */
@@ -146,7 +155,8 @@
 
 /* User rating star icon styling */
 .detail-user-rating-star {
-    width: 20px; height: 20px; /* Size of the icon */
+    width: 20px;
+    height: 20px; /* Size of the icon */
     margin-right: 5px; /* Right margin */
 }
 

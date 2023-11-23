@@ -7,15 +7,25 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.amazonaws:aws-lambda-java-core:1.2.1'
+    // General dependencies
     implementation 'org.slf4j:slf4j-nop:2.0.6'
+    implementation 'com.google.code.gson:gson:2.10.1'
 
-    testImplementation 'org.testng:testng:7.4.0'
-    testImplementation 'org.testng:testng:7.1.0'
+    // AWS dependencies
+    implementation 'com.amazonaws:aws-lambda-java-core:1.2.1'
+    implementation 'com.amazonaws:aws-lambda-java-events:3.11.0'
+    implementation platform('software.amazon.awssdk:bom:2.21.1')
+    implementation 'software.amazon.awssdk:dynamodb'
+
+    // Test dependencies
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-inline:3.12.4'
+    testImplementation 'org.powermock:powermock-module-junit4:2.0.9'
+    testImplementation 'org.powermock:powermock-api-mockito2:2.0.9'
 }
 
 test {
-    useTestNG()
+    useJUnit()
 }
 
 task buildZip(type: Zip) {

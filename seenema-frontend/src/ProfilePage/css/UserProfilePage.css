@@ -1,0 +1,63 @@
+.page {
+    margin: 10% 10% 20%;
+    padding-bottom: 50px;
+}
+
+.profile-component {
+    text-align: center;
+    color: var(--surface-color);
+}
+
+.button-profile {
+    color: white;
+    border: 1px solid white;
+    text-transform: uppercase;
+    padding: 5px 20px;
+    border-radius: 4px;
+    background: #0F11152D;
+    margin-bottom: 8%;
+}
+
+.main-container {
+    text-align: center;
+    padding-top: 20px;
+    margin: 50px 8% 2%;
+    border-radius: 20px;
+    background-color: var(--surface-color);
+    width: 80%;
+    height: inherit;
+    /*height: 80%;*/
+    color: white;
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-color: var(--text-color);
+}
+
+
+.close-button {
+    margin-left: 90%;
+    color: white;
+    background-color: var(--surface-color);
+    border-color: var(--surface-color);
+    box-shadow: none;
+}
+
+/* Additional styles for the loading animation */
+.loading-container {
+    width: 60%;
+    padding-left: 35%;
+}
+
+.add-friend-field {
+    /*background-color: rgba(149,148,153,0.94);*/
+    border-color: #F1FAEE;
+    border-radius: 5px;
+}
+
+.add-friend-input {
+    margin-right: 30px;
+    border-radius: 10px;
+    background-color: rgba(224, 222, 227, 0.94);
+    margin-top: 5%;
+}

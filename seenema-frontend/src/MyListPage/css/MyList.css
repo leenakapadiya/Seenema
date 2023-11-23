@@ -1,0 +1,8 @@
+.header-mylist {
+    margin-left: 30px;
+    /*margin-top: 18px;*/
+    margin-bottom: 0;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--white-text);
+    font-weight: bolder;
+}

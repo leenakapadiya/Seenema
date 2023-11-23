@@ -128,3 +128,51 @@ export function signOut() {
     }
 }
 
+// gets the current user
+export function getCurrentUser() {
+    return new Promise((resolve, reject) => {
+        const cognitoUser = userPool.getCurrentUser()
+
+        if (!cognitoUser) {
+            reject(new Error("No user found"))
+            return
+        }
+
+        cognitoUser.getSession((err, session) => {
+            if (err) {
+                reject(err)
+                return
+            }
+            cognitoUser.getUserAttributes((err, attributes) => {
+                if (err) {
+                    reject(err)
+                    return
+                }
+                const userData = attributes.reduce((acc, attribute) => {
+                    acc[attribute.Name] = attribute.Value
+                    return acc
+                }, {})
+
+                resolve({...userData, email: userData.email})
+            })
+        })
+    })
+}
+
+export function getSession() {
+    const cognitoUser = userPool.getCurrentUser()
+    return new Promise((resolve, reject) => {
+        if (!cognitoUser) {
+            reject(new Error("No user found"))
+            return
+        }
+        cognitoUser.getSession((err, session) => {
+            if (err) {
+                reject(err)
+                return
+            }
+            resolve(session)
+        })
+    })
+}
+

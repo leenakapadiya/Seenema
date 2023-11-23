@@ -6,10 +6,6 @@
     margin-right: 10px;
 }
 
-.form-control {
-    width: 500px;
-}
-
 .bg-navbar {
     background-color: #0f1115;
     position: fixed; /* Add this line */
@@ -24,13 +20,13 @@
     border: none;
     border-radius: 4px;
     font-size: 16px;
-    display: flex;
-    margin-left: 23%;
-    margin-right: auto;
+    margin-right: 20%;
+    width: 70%;
 }
 
 .search-input::placeholder {
     color: #73727a;
+    padding-right: 150px;
 }
 
 .search-input:focus {
@@ -38,6 +34,24 @@
     box-shadow: 0 0 0 0.10rem #959499;
 }
 
+.search-input:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.71)
+}
+
 .profile-logo {
     color: #959499;
+}
+
+.navbar-button {
+    text-decoration: none;
+    color: var(--white-text);
+    background: var(--accent-color);
+    padding: 8px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.53);
+}
+
+.navbar-button:hover {
+    background-color: #C62828;
 }
