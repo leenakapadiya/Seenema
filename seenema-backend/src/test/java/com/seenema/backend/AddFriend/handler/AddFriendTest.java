@@ -6,12 +6,10 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 import com.seenema.backend.AddFriend.model.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-
 import org.mockito.MockitoAnnotations;
-import org.testng.annotations.BeforeClass;
+import org.mockito.Spy;
+import org.powermock.reflect.Whitebox;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
@@ -19,14 +17,14 @@ import software.amazon.awssdk.services.dynamodb.model.GetItemResponse;
 import software.amazon.awssdk.services.dynamodb.model.UpdateItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.UpdateItemResponse;
 
-import static org.mockito.ArgumentMatchers.any;
-
 import java.util.Map;
 
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.testng.AssertJUnit.assertEquals;
 
 public class AddFriendTest {
+
     @Mock
     private DynamoDbClient mockDynamoDbClient;
 
@@ -36,13 +34,14 @@ public class AddFriendTest {
     @Mock
     private LambdaLogger mockLambdaLogger;
 
-    @InjectMocks
+    @Spy
     private AddFriendHandler mockAddFriendHandler;
 
     @BeforeEach
     public void setUp() {
-        // Initialize mocks
         MockitoAnnotations.initMocks(this);
+        // Manually inject the DynamoDbClient mock into the AddFriendHandler
+        Whitebox.setInternalState(mockAddFriendHandler, "dynamoDbClient", mockDynamoDbClient);
     }
 
     @Test
@@ -50,8 +49,8 @@ public class AddFriendTest {
         // Create a sample valid APIGatewayV2HTTPEvent
         APIGatewayV2HTTPEvent apiGatewayEvent = APIGatewayV2HTTPEvent.builder()
                 .withBody("{" +
-                            "\"username\": \"lpagdar@uw.edu\"," +
-                            "\"friendUsername\": \"dgpagdar@uw.edu\"" +
+                        "\"username\": \"lpagdar@uw.edu\"," +
+                        "\"friendUsername\": \"dgpagdar@uw.edu\"" +
                         "}")
                 .build();
 
