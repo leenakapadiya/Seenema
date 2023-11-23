@@ -4,10 +4,14 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 import com.seenema.backend.AddFriend.model.Response;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import org.mockito.MockitoAnnotations;
+import org.testng.annotations.BeforeClass;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
@@ -29,17 +33,20 @@ public class AddFriendTest {
     @Mock
     private Context mockContext;
 
+    @Mock
+    private LambdaLogger mockLambdaLogger;
+
+    @InjectMocks
+    private AddFriendHandler mockAddFriendHandler;
+
+    @BeforeEach
+    public void setUp() {
+        // Initialize mocks
+        MockitoAnnotations.initMocks(this);
+    }
+
     @Test
     public void testHandleRequest() {
-        // Create a mock DynamoDbClient
-        mockDynamoDbClient = Mockito.mock(DynamoDbClient.class);
-
-        // Create a mock context
-        mockContext = Mockito.mock(Context.class);
-
-        // Create a mock LambdaLogger
-        LambdaLogger mockLambdaLogger = Mockito.mock(LambdaLogger.class);
-
         // Create a sample valid APIGatewayV2HTTPEvent
         APIGatewayV2HTTPEvent apiGatewayEvent = APIGatewayV2HTTPEvent.builder()
                 .withBody("{" +
@@ -59,14 +66,8 @@ public class AddFriendTest {
         when(mockDynamoDbClient.updateItem(any(UpdateItemRequest.class)))
                 .thenReturn(UpdateItemResponse.builder().build());
 
-        // Create an instance of the Lambda function
-        AddFriendHandler lambdaFunctionHandler = new AddFriendHandler();
-        lambdaFunctionHandler.dynamoDbClient = mockDynamoDbClient;
-//        lambdaFunctionHandler.gson = new Gson();
-
         // Call the handleRequest method
-        Response response = lambdaFunctionHandler.handleRequest(apiGatewayEvent, mockContext);
-
+        Response response = mockAddFriendHandler.handleRequest(apiGatewayEvent, mockContext);
 
         // Assert the expected result based on your logic
         assertEquals(response, new Response("Friend added successfully."));
