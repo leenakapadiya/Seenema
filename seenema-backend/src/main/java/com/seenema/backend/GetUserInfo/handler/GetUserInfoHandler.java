@@ -8,17 +8,18 @@ import com.seenema.backend.GetUserInfo.model.RequestBody;
 import com.seenema.backend.GetUserInfo.model.Response;
 import com.seenema.backend.utils.Constants;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-import software.amazon.awssdk.services.dynamodb.model.*;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
+import software.amazon.awssdk.services.dynamodb.model.GetItemResponse;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public class GetUserInfoHandler implements RequestHandler<APIGatewayV2HTTPEvent, String> {
 
-    Gson gson = new Gson();
+    Gson           gson           = new Gson();
     DynamoDbClient dynamoDbClient = DynamoDbClient.builder().build();
 
     @Override
@@ -27,19 +28,15 @@ public class GetUserInfoHandler implements RequestHandler<APIGatewayV2HTTPEvent,
             // Assuming you've defined RequestBody and Response classes
             RequestBody requestBody = gson.fromJson(input.getBody(), RequestBody.class);
             String userEmail = requestBody.getEmail();
-            CompletableFuture<GetItemResponse> future = CompletableFuture.supplyAsync(() -> {
-                Map<String, AttributeValue> key = new HashMap<>();
-                key.put("Email", AttributeValue.builder().s(userEmail).build());
+            Map<String, AttributeValue> key = new HashMap<>();
+            key.put("Email", AttributeValue.builder().s(userEmail).build());
 
-                GetItemRequest getItemRequest = GetItemRequest.builder()
-                        .tableName(Constants.DYNAMODB_TABLE)
-                        .key(key)
-                        .build();
+            GetItemRequest getItemRequest = GetItemRequest.builder()
+                    .tableName(Constants.DYNAMODB_TABLE)
+                    .key(key)
+                    .build();
 
-                return dynamoDbClient.getItem(getItemRequest);
-            });
-
-            GetItemResponse response = future.get();
+            GetItemResponse response = dynamoDbClient.getItem(getItemRequest);
 
             if (response.hasItem()) {
                 Map<String, AttributeValue> item = response.item();
@@ -59,8 +56,6 @@ public class GetUserInfoHandler implements RequestHandler<APIGatewayV2HTTPEvent,
             context.getLogger().log("Error: " + e.getMessage());
             // Assuming you have an error constructor in the Response class
             return gson.toJson(new Response("Error retrieving user information"));
-        } catch (ExecutionException | InterruptedException e) {
-            throw new RuntimeException(e);
         }
     }
 }

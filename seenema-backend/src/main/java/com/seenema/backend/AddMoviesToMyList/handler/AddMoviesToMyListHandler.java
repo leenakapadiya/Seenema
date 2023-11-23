@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class AddMoviesToMyListHandler implements RequestHandler<APIGatewayV2HTTPEvent, Response> {
 
-    Gson gson = new Gson();
+    Gson           gson           = new Gson();
     DynamoDbClient dynamoDbClient = DynamoDbClient.builder().build();
 
     @Override

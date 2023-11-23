@@ -4,17 +4,15 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 import com.seenema.backend.AddMoviesToMyList.model.Response;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
+import org.mockito.MockedStatic;
 import org.mockito.MockitoAnnotations;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.reflect.Whitebox;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClientBuilder;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.GetItemResponse;
@@ -23,13 +21,18 @@ import software.amazon.awssdk.services.dynamodb.model.UpdateItemResponse;
 
 import java.util.Map;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mockStatic;
+import static org.mockito.Mockito.when;
 
+@PrepareForTest({DynamoDbClient.class})
 public class AddMoviesToMyListTest {
     @Mock
     private DynamoDbClient mockDynamoDbClient;
+
+    @Mock
+    private DynamoDbClientBuilder mockDynamoDbClientBuilder;
 
     @Mock
     private Context mockContext;
@@ -37,15 +40,26 @@ public class AddMoviesToMyListTest {
     @Mock
     private LambdaLogger mockLambdaLogger;
 
-    @InjectMocks
-    private AddMoviesToMyListHandler mockAddMoviesHandler;
+    private AddMoviesToMyListHandler     addMoviesToMyListHandler;
+    private MockedStatic<DynamoDbClient> mockedStaticDDBClient;
 
-//    @Before
+    @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
+
+        mockedStaticDDBClient = mockStatic(DynamoDbClient.class);
+        when(DynamoDbClient.builder()).thenReturn(mockDynamoDbClientBuilder);
+        when(mockDynamoDbClientBuilder.build()).thenReturn(mockDynamoDbClient);
+
+        addMoviesToMyListHandler = new AddMoviesToMyListHandler();
     }
 
-//    @Test
+    @After
+    public void tearDown() {
+        mockedStaticDDBClient.close();
+    }
+
+    @Test
     public void testHandleRequest() {
 
         // Create a sample valid APIGatewayV2HTTPEvent
@@ -69,7 +83,7 @@ public class AddMoviesToMyListTest {
 
 
         // Call the handleRequest method
-        Response response = mockAddMoviesHandler.handleRequest(apiGatewayEvent, mockContext);
+        Response response = addMoviesToMyListHandler.handleRequest(apiGatewayEvent, mockContext);
 
 
         // Assert the expected result based on your logic

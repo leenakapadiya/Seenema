@@ -9,12 +9,12 @@ import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 
-
 import java.util.Map;
 
 
 public class CreateSeenemaUserInDDB implements RequestHandler<CognitoUserPoolPostConfirmationEvent, CognitoUserPoolPostConfirmationEvent> {
     DynamoDbClient dynamoDbClient = DynamoDbClient.builder().build();
+
     @Override
     public CognitoUserPoolPostConfirmationEvent handleRequest(CognitoUserPoolPostConfirmationEvent event, Context context) {
         context.getLogger().log("Received Cognito event: " + event);

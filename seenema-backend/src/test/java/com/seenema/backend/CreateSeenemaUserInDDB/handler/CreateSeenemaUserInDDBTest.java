@@ -3,13 +3,15 @@ package com.seenema.backend.CreateSeenemaUserInDDB.handler;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.events.CognitoUserPoolPostConfirmationEvent;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.MockitoAnnotations;
-import org.powermock.reflect.Whitebox;
+import org.powermock.core.classloader.annotations.PrepareForTest;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClientBuilder;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
 
@@ -17,13 +19,18 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@PrepareForTest({DynamoDbClient.class})
 public class CreateSeenemaUserInDDBTest {
 
     @Mock
     private DynamoDbClient mockDynamoDbClient;
+
+    @Mock
+    private DynamoDbClientBuilder mockDynamoDbClientBuilder;
 
     @Mock
     private Context mockContext;
@@ -31,15 +38,26 @@ public class CreateSeenemaUserInDDBTest {
     @Mock
     private LambdaLogger mockLambdaLogger;
 
-    @InjectMocks
-    private CreateSeenemaUserInDDB CreateSeenemaUserInDDBHandler;
+    private CreateSeenemaUserInDDB       createSeenemaUserInDDBHandler;
+    private MockedStatic<DynamoDbClient> mockedStaticDDBClient;
 
-//    @Before
+    @Before
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+
+        mockedStaticDDBClient = mockStatic(DynamoDbClient.class);
+        when(DynamoDbClient.builder()).thenReturn(mockDynamoDbClientBuilder);
+        when(mockDynamoDbClientBuilder.build()).thenReturn(mockDynamoDbClient);
+
+        createSeenemaUserInDDBHandler = new CreateSeenemaUserInDDB();
     }
 
-//    @Test
+    @After
+    public void tearDown() {
+        mockedStaticDDBClient.close();
+    }
+
+    @Test
     public void testHandleRequest() {
 
         // Mock the Lambda context
@@ -61,7 +79,7 @@ public class CreateSeenemaUserInDDBTest {
                 .build();
 
         // Invoke the Lambda function
-        CognitoUserPoolPostConfirmationEvent result = CreateSeenemaUserInDDBHandler.handleRequest(event, mockContext);
+        CognitoUserPoolPostConfirmationEvent result = createSeenemaUserInDDBHandler.handleRequest(event, mockContext);
 
         // Verify the method was called with the expected arguments
         verify(mockDynamoDbClient).putItem(any(PutItemRequest.class));

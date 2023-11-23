@@ -1,7 +1,6 @@
 package com.seenema.backend.AddMoviesToMyList.model;
 
 
-
 public class RequestBody {
     private String username;
     private String movieId;

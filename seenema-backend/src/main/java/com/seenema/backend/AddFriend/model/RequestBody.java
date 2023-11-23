@@ -1,7 +1,6 @@
 package com.seenema.backend.AddFriend.model;
 
 
-
 public class RequestBody {
     private String username;
     private String friendUsername;

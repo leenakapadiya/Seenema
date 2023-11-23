@@ -4,9 +4,11 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 import com.seenema.backend.AddFriend.model.Response;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.MockitoAnnotations;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -19,10 +21,10 @@ import software.amazon.awssdk.services.dynamodb.model.UpdateItemResponse;
 
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
-import static org.junit.Assert.assertEquals;
 
 @PrepareForTest({DynamoDbClient.class})
 public class AddFriendTest {
@@ -39,15 +41,23 @@ public class AddFriendTest {
     @Mock
     private LambdaLogger mockLambdaLogger;
 
-    private final AddFriendHandler addFriendHandler = new AddFriendHandler();
+    private AddFriendHandler             addFriendHandler;
+    private MockedStatic<DynamoDbClient> mockedStaticDDBClient;
 
     @Before
     public void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        mockStatic(DynamoDbClient.class);
+        mockedStaticDDBClient = mockStatic(DynamoDbClient.class);
         when(DynamoDbClient.builder()).thenReturn(mockDynamoDbClientBuilder);
         when(mockDynamoDbClientBuilder.build()).thenReturn(mockDynamoDbClient);
+
+        addFriendHandler = new AddFriendHandler();
+    }
+
+    @After
+    public void tearDown() {
+        mockedStaticDDBClient.close();
     }
 
     @Test

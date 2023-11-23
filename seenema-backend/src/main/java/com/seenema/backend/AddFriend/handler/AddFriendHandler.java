@@ -3,9 +3,9 @@ package com.seenema.backend.AddFriend.handler;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
+import com.google.gson.Gson;
 import com.seenema.backend.AddFriend.model.RequestBody;
 import com.seenema.backend.AddFriend.model.Response;
-import com.google.gson.Gson;
 import com.seenema.backend.utils.Constants;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
@@ -19,13 +19,11 @@ import java.util.Map;
 
 public class AddFriendHandler implements RequestHandler<APIGatewayV2HTTPEvent, Response> {
 
-    Gson gson = new Gson();
-    DynamoDbClient dynamoDbClient;
+    Gson           gson           = new Gson();
+    DynamoDbClient dynamoDbClient = DynamoDbClient.builder().build();
 
     @Override
     public Response handleRequest(APIGatewayV2HTTPEvent input, Context context) {
-        dynamoDbClient = DynamoDbClient.builder().build();
-
         RequestBody requestBody = gson.fromJson(input.getBody(), RequestBody.class);
 
         // Check if both username and friendUsername exist
