@@ -1,6 +1,6 @@
 package com.seenema.backend.AddFriend.model;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 public class RequestBodyTest {
 

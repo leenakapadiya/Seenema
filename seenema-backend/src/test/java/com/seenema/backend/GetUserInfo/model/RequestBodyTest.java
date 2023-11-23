@@ -1,6 +1,7 @@
 package com.seenema.backend.GetUserInfo.model;
 
-import org.testng.annotations.Test;
+
+import org.junit.Test;
 
 public class RequestBodyTest {
 

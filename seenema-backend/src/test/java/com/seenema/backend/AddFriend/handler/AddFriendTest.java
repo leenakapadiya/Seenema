@@ -4,11 +4,15 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 import com.seenema.backend.AddFriend.model.Response;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
+import org.mockito.MockitoAnnotations;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
@@ -21,7 +25,7 @@ import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.testng.AssertJUnit.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 public class AddFriendTest {
 
@@ -34,14 +38,12 @@ public class AddFriendTest {
     @Mock
     private LambdaLogger mockLambdaLogger;
 
-    @Spy
+    @InjectMocks
     private AddFriendHandler mockAddFriendHandler;
 
-    @BeforeEach
+    @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        // Manually inject the DynamoDbClient mock into the AddFriendHandler
-        Whitebox.setInternalState(mockAddFriendHandler, "dynamoDbClient", mockDynamoDbClient);
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test

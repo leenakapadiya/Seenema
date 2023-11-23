@@ -3,11 +3,17 @@ package com.seenema.backend.AddMoviesToMyList.handler;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
-import com.seenema.backend.AddFriend.handler.AddFriendHandler;
 import com.seenema.backend.AddMoviesToMyList.model.Response;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.Spy;
+import org.mockito.MockitoAnnotations;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
@@ -18,8 +24,8 @@ import software.amazon.awssdk.services.dynamodb.model.UpdateItemResponse;
 import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.powermock.api.mockito.PowerMockito.when;
-import static org.testng.AssertJUnit.assertEquals;
+import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
 
 public class AddMoviesToMyListTest {
     @Mock
@@ -28,22 +34,25 @@ public class AddMoviesToMyListTest {
     @Mock
     private Context mockContext;
 
+    @Mock
+    private LambdaLogger mockLambdaLogger;
+
+    @InjectMocks
+    private AddMoviesToMyListHandler mockAddMoviesHandler;
+
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
+
     @Test
     public void testHandleRequest() {
-        // Create a mock DynamoDbClient
-        mockDynamoDbClient = Mockito.mock(DynamoDbClient.class);
-
-        // Create a mock context
-        mockContext = Mockito.mock(Context.class);
-
-        // Create a mock LambdaLogger
-        LambdaLogger mockLambdaLogger = Mockito.mock(LambdaLogger.class);
 
         // Create a sample valid APIGatewayV2HTTPEvent
         APIGatewayV2HTTPEvent apiGatewayEvent = APIGatewayV2HTTPEvent.builder()
                 .withBody("{" +
-                            "\"username\": \"lpagdar@uw.edu\"," +
-                            "\"movieId\": \"54545\"" +
+                        "\"username\": \"lpagdar@uw.edu\"," +
+                        "\"movieId\": \"54545\"" +
                         "}")
                 .build();
 
@@ -58,13 +67,9 @@ public class AddMoviesToMyListTest {
         when(mockDynamoDbClient.updateItem(any(UpdateItemRequest.class)))
                 .thenReturn(UpdateItemResponse.builder().build());
 
-        // Create an instance of the Lambda function
-        AddMoviesToMyListHandler lambdaFunctionHandler = new AddMoviesToMyListHandler();
-        lambdaFunctionHandler.dynamoDbClient = mockDynamoDbClient;
-//        lambdaFunctionHandler.gson = new Gson();
 
         // Call the handleRequest method
-        Response response = lambdaFunctionHandler.handleRequest(apiGatewayEvent, mockContext);
+        Response response = mockAddMoviesHandler.handleRequest(apiGatewayEvent, mockContext);
 
 
         // Assert the expected result based on your logic

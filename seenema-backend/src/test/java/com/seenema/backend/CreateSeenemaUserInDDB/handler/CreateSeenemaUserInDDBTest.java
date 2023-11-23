@@ -3,51 +3,53 @@ package com.seenema.backend.CreateSeenemaUserInDDB.handler;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.events.CognitoUserPoolPostConfirmationEvent;
-import com.seenema.backend.utils.Constants;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
+import org.powermock.reflect.Whitebox;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
 
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.hamcrest.MockitoHamcrest.argThat;
-import static org.testng.AssertJUnit.assertEquals;
 
 public class CreateSeenemaUserInDDBTest {
 
+    @Mock
     private DynamoDbClient mockDynamoDbClient;
 
     @Mock
     private Context mockContext;
 
-    @BeforeEach
+    @Mock
+    private LambdaLogger mockLambdaLogger;
+
+    @InjectMocks
+    private CreateSeenemaUserInDDB CreateSeenemaUserInDDBHandler;
+
+    @Before
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+        // Manually inject the DynamoDbClient mock into the AddFriendHandler
+        Whitebox.setInternalState(CreateSeenemaUserInDDBHandler, "dynamoDbClient", mockDynamoDbClient);
     }
 
     @Test
     public void testHandleRequest() {
-        // Create a mock DynamoDbClient
-        mockDynamoDbClient = Mockito.mock(DynamoDbClient.class);
+
+        // Mock the Lambda context
+        when(mockContext.getLogger()).thenReturn(mockLambdaLogger);
+
         // Mock DynamoDBClient and PutItemResponse
         when(mockDynamoDbClient.putItem(any(PutItemRequest.class)))
                 .thenReturn(PutItemResponse.builder().build());
-
-        // Create a mock LambdaLogger
-        LambdaLogger mockLambdaLogger = Mockito.mock(LambdaLogger.class);
-
-        // Mock the Lambda context
-        PowerMockito.when(mockContext.getLogger()).thenReturn(mockLambdaLogger);
 
         // Create a sample Cognito event
         CognitoUserPoolPostConfirmationEvent event = CognitoUserPoolPostConfirmationEvent.builder()
@@ -60,12 +62,8 @@ public class CreateSeenemaUserInDDBTest {
                         .build())
                 .build();
 
-        // Create the Lambda function instance
-        CreateSeenemaUserInDDB lambda = new CreateSeenemaUserInDDB();
-        lambda.dynamoDbClient = mockDynamoDbClient;
-
         // Invoke the Lambda function
-        CognitoUserPoolPostConfirmationEvent result = lambda.handleRequest(event, mockContext);
+        CognitoUserPoolPostConfirmationEvent result = CreateSeenemaUserInDDBHandler.handleRequest(event, mockContext);
 
         // Verify the method was called with the expected arguments
         verify(mockDynamoDbClient).putItem(any(PutItemRequest.class));
