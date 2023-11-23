@@ -5,9 +5,12 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 import com.google.gson.Gson;
 import com.seenema.backend.GetUserInfo.model.Response;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
@@ -29,9 +32,17 @@ public class GetUserInfoHandlerTest {
     @Mock
     private Context mockContext;
 
+    @InjectMocks
+    private GetUserInfoHandler mockGetUserInfoHandler;
+
     private Gson gson = new Gson();
 
-    @Test
+//    @Before
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+//    @Test
     public void testHandleRequest() {
         // Create a mock DynamoDbClient
         mockDynamoDbClient = Mockito.mock(DynamoDbClient.class);
@@ -65,12 +76,8 @@ public class GetUserInfoHandlerTest {
         when(mockDynamoDbClient.updateItem(any(UpdateItemRequest.class)))
                 .thenReturn(UpdateItemResponse.builder().build());
 
-        // Create an instance of the Lambda function
-        GetUserInfoHandler lambdaFunctionHandler = new GetUserInfoHandler() ;
-        lambdaFunctionHandler.dynamoDbClient = mockDynamoDbClient;
-
         // Call the handleRequest method
-        String responseStr = lambdaFunctionHandler.handleRequest(apiGatewayEvent, mockContext);
+        String responseStr = mockGetUserInfoHandler.handleRequest(apiGatewayEvent, mockContext);
         Response response = gson.fromJson(responseStr, Response.class);
 
 

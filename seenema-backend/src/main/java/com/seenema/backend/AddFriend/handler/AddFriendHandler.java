@@ -20,10 +20,12 @@ import java.util.Map;
 public class AddFriendHandler implements RequestHandler<APIGatewayV2HTTPEvent, Response> {
 
     Gson gson = new Gson();
-    DynamoDbClient dynamoDbClient = DynamoDbClient.builder().build();
+    DynamoDbClient dynamoDbClient;
 
     @Override
     public Response handleRequest(APIGatewayV2HTTPEvent input, Context context) {
+        dynamoDbClient = DynamoDbClient.builder().build();
+
         RequestBody requestBody = gson.fromJson(input.getBody(), RequestBody.class);
 
         // Check if both username and friendUsername exist

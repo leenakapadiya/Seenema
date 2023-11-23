@@ -6,15 +6,11 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent;
 import com.seenema.backend.AddFriend.model.Response;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.MockitoAnnotations;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.reflect.Whitebox;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClientBuilder;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.GetItemResponse;
@@ -24,13 +20,18 @@ import software.amazon.awssdk.services.dynamodb.model.UpdateItemResponse;
 import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertEquals;
 
+@PrepareForTest({DynamoDbClient.class})
 public class AddFriendTest {
 
     @Mock
     private DynamoDbClient mockDynamoDbClient;
+
+    @Mock
+    private DynamoDbClientBuilder mockDynamoDbClientBuilder;
 
     @Mock
     private Context mockContext;
@@ -38,12 +39,15 @@ public class AddFriendTest {
     @Mock
     private LambdaLogger mockLambdaLogger;
 
-    @InjectMocks
-    private AddFriendHandler mockAddFriendHandler;
+    private final AddFriendHandler addFriendHandler = new AddFriendHandler();
 
     @Before
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+
+        mockStatic(DynamoDbClient.class);
+        when(DynamoDbClient.builder()).thenReturn(mockDynamoDbClientBuilder);
+        when(mockDynamoDbClientBuilder.build()).thenReturn(mockDynamoDbClient);
     }
 
     @Test
@@ -68,7 +72,7 @@ public class AddFriendTest {
                 .thenReturn(UpdateItemResponse.builder().build());
 
         // Call the handleRequest method
-        Response response = mockAddFriendHandler.handleRequest(apiGatewayEvent, mockContext);
+        Response response = addFriendHandler.handleRequest(apiGatewayEvent, mockContext);
 
         // Assert the expected result based on your logic
         assertEquals(response, new Response("Friend added successfully."));
