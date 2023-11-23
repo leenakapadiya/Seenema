@@ -283,6 +283,6 @@ Resources:
 
 Outputs:
   BetaApiGatewayEndpoint:
-    Value: !Sub 'https://${SeenemaApi}.execute-api.${AWS::Region}.amazonaws.com/beta'
+    Value: !Sub 'https://${SeenemaApi}.execute-api.${AWS::Region}.amazonaws.com/dev'
   ProdApiGatewayEndpoint:
     Value: !Sub 'https://${SeenemaApi}.execute-api.${AWS::Region}.amazonaws.com/prod'
