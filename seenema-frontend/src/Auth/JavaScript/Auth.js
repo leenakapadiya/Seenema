@@ -153,7 +153,7 @@ export function getCurrentUser() {
                     return acc
                 }, {})
 
-                resolve({ ...userData, email: userData.email})
+                resolve({...userData, email: userData.email})
             })
         })
     })

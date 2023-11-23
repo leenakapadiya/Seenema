@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useForm} from "react-hook-form";
-import { confirmPassword } from "./Auth"
+import {confirmPassword} from "./Auth"
 import {Link} from "react-router-dom"
 import seenemaLogo from "../../assets/SeenemaLogo.png";
 import "../CSS/Form.css";

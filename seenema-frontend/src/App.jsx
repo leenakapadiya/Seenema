@@ -8,7 +8,7 @@ import ResetPassword from "./Auth/JavaScript/ResetPassword";
 import DetailPage from './DetailPage/DetailPage';
 import UserProfilePage from './ProfilePage/js/UserProfilePage';
 import MyList from './MyListPage/js/MyList';
-import { AuthProvider } from "./Auth/JavaScript/AuthContext"
+import {AuthProvider} from "./Auth/JavaScript/AuthContext"
 import RouteGuard from "./Auth/JavaScript/RouteGuard";
 import GenreMoviesPage from "./Homepage/js/GenreMoviesPage"; // Adjust the path as necessary
 
@@ -36,7 +36,7 @@ function App() {
                         path="/profile"
                         element={
                             <RouteGuard>
-                                <UserProfilePage />
+                                <UserProfilePage/>
                             </RouteGuard>
                         }
                     />
@@ -44,7 +44,7 @@ function App() {
                         path="/myList"
                         element={
                             <RouteGuard>
-                                <MyList />
+                                <MyList/>
                             </RouteGuard>
                         }
                     />

@@ -1,9 +1,9 @@
-import { createContext, useState, useEffect } from "react"
+import {createContext, useEffect, useState} from "react"
 import * as auth from "../../Auth/JavaScript/Auth"
 
 const AuthContext = createContext()
 
-function AuthProvider({ children }) {
+function AuthProvider({children}) {
     const [user, setUser] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
 
@@ -45,4 +45,4 @@ function AuthProvider({ children }) {
     )
 }
 
-export { AuthProvider, AuthContext }
+export {AuthProvider, AuthContext}

@@ -1,10 +1,10 @@
 import "../css/UserProfilePage.css";
 
-const FriendsList = ({ friendsList }) => {
+const FriendsList = ({friendsList}) => {
     return (
         <div className="main-container">
             <h3>Friends List</h3>
-            <hr />
+            <hr/>
             <ul className="list-group">
                 {friendsList.map((friend) => (
                     <li key={friend} className="list-group-item "
