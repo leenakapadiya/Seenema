@@ -71,7 +71,7 @@ export default function SignIn() {
                                                                             style={{color: 'inherit'}}>Forgot your
                         password?</Link></p>
                     {error && <p style={{paddingTop: "20px", color: "#E63946", textAlign: "left"}}>{error}</p>}
-                    <button style={{marginTop: "30px", marginBottom: "20px"}} className="button-auth">Sign In</button>
+                    <button style={{marginTop: "30px", marginBottom: "20px"}} className="generic-button-auth button-auth">Sign In</button>
                 </form>
                 <hr/>
                 <p style={{marginTop: '20px', textAlign: 'left'}}>Don't have an account yet? <Link to="/signUp"

@@ -68,12 +68,12 @@ const NotLoggedOptions = () => {
     return (
         <div>
             <Button>
-                <NavLink to="/signIn" className="navbar-button">
+                <NavLink to="/signIn" className="generic-button-header button-header">
                     Sign In
                 </NavLink>
             </Button>
             <Button className="navbar-button">
-                <NavLink to="/signUp" className="navbar-button" style={{marginRight: "20px"}}>
+                <NavLink to="/signUp" className="generic-button-header button-header" style={{marginRight: "20px"}}>
                     Sign Up
                 </NavLink>
             </Button>

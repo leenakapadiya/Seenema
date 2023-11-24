@@ -52,7 +52,7 @@ export default function ForgotPassword() {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     {error && <p style={{paddingTop: "20px", color: "#E63946", textAlign: "left"}}>{error}</p>}
-                    <button style={{marginTop: "30px", marginBottom: "20px"}} className="button-auth">Submit</button>
+                    <button style={{marginTop: "30px", marginBottom: "20px"}} className="generic-button-auth button-auth">Submit</button>
                 </form>
                 <Link to="/SignIn" style={{color: 'inherit'}}>Back to Sign In</Link>
             </div>

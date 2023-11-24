@@ -143,7 +143,7 @@ const GenreMoviesPage = () => {
 
                     {!loading && !isSearchActive && (
                         <div className="load-more-container-genre-page">
-                            <button onClick={handleLoadMore} className="load-more-button-genre-page">
+                            <button onClick={handleLoadMore} className="generic-button-load-more button-load-more">
                                 Load More
                             </button>
                         </div>

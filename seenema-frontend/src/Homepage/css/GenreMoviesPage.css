@@ -24,36 +24,33 @@
     margin-top: 18px;
 }
 
-.load-more-button-genre-page {
-    background-color: #d01528;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bolder;
-    text-transform: uppercase;
-    cursor: pointer;
-    outline: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-.load-more-button-genre-page:hover,
-.load-more-button-genre-page:focus {
-    background-color: rgba(208, 21, 40, 0.77);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-.load-more-button-genre-page:active {
-    background-color: #d01528;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
 .load-more-container-genre-page {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 5px;
     margin-bottom: 20px;
+}
+
+.generic-button-load-more {
+    padding: 10px 20px; /* Padding */
+    border: none; /* No border */
+    border-radius: 20px; /* Rounded corners */
+    text-transform: uppercase; /* Uppercase text */
+    text-decoration: none; /* No text decoration */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition effect for background color */
+    margin-right: 10px; /* Right margin */
+}
+
+/* Back button specific style */
+.button-load-more {
+    background-color: var(--accent-color);
+    color: var(--white-text);
+}
+
+/* Hover effect for the back button */
+.button-load-more:hover {
+    background-color: #D52B1E; /* Slightly darker red on hover */
 }

@@ -139,20 +139,6 @@ hr {
     margin-top: 30px;
 }
 
-.button-auth {
-    color: white;
-    border: 1px solid white;
-    text-transform: uppercase;
-    padding: 5px 20px;
-    border-radius: 4px;
-    background: var(--accent-color);
-}
-
-.button-auth:hover {
-    background-color: #C62828;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.71)
-}
-
 .logo-auth {
     margin-bottom: 40px;
 }
@@ -161,7 +147,25 @@ hr {
     max-width: 25%; /* Ensure the logo is responsive */
 }
 
-/*Link {*/
-/*    !*color: #E63946 !important;*!*/
-/*    text-decoration: none;*/
-/*}*/
+.generic-button-auth {
+    padding: 10px 20px; /* Padding */
+    border: none; /* No border */
+    border-radius: 20px; /* Rounded corners */
+    text-transform: uppercase; /* Uppercase text */
+    text-decoration: none; /* No text decoration */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition effect for background color */
+    margin-right: 10px; /* Right margin */
+}
+
+/* Back button specific style */
+.button-auth {
+    background-color: var(--accent-color);
+    color: var(--white-text);
+}
+
+/* Hover effect for the back button */
+.button-auth:hover {
+    background-color: #D52B1E; /* Slightly darker red on hover */
+}
