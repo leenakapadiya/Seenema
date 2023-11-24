@@ -16,7 +16,6 @@ const DetailPage = () => {
     const [streamingServices, setStreamingServices] = useState(null);
     const {user} = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
-    const [isAddedToMyList, setIsAddedToMyList] = useState(false);
     const {movieId} = useParams(); // Getting movie ID from URL params
 
     let rating = "";

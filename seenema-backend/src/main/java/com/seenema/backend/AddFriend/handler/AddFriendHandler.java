@@ -16,6 +16,8 @@ import software.amazon.awssdk.services.dynamodb.model.UpdateItemRequest;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.seenema.backend.utils.UserFunctions.userExists;
+
 
 public class AddFriendHandler implements RequestHandler<APIGatewayV2HTTPEvent, Response> {
 
@@ -27,7 +29,8 @@ public class AddFriendHandler implements RequestHandler<APIGatewayV2HTTPEvent, R
         RequestBody requestBody = gson.fromJson(input.getBody(), RequestBody.class);
 
         // Check if both username and friendUsername exist
-        if (userExists(requestBody.getUsername()) && userExists(requestBody.getFriendUsername())) {
+        if (userExists(requestBody.getUsername(), dynamoDbClient)
+                && userExists(requestBody.getFriendUsername(), dynamoDbClient)) {
 
             // Add friend for the main user
             addFriend(requestBody.getUsername(), requestBody.getFriendUsername());
@@ -44,16 +47,6 @@ public class AddFriendHandler implements RequestHandler<APIGatewayV2HTTPEvent, R
             context.getLogger().log("Either username or friendUsername does not exist in the DynamoDB table.");
             return new Response("Either username or friendUsername does not exist in the DynamoDB table.");
         }
-    }
-
-    // Helper method to check if a user exists in the DynamoDB table
-    private boolean userExists(String email) {
-        GetItemResponse getItemResponse = dynamoDbClient.getItem(GetItemRequest.builder()
-                .tableName(Constants.DYNAMODB_TABLE)
-                .key(Map.of("Email", AttributeValue.builder().s(email).build()))
-                .build());
-
-        return getItemResponse.hasItem();
     }
 
     // Common function to add a friend for a user
