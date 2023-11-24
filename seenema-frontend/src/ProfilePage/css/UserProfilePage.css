@@ -1,11 +1,17 @@
-.page {
-    margin: 10% 10% 20%;
-    padding-bottom: 50px;
-}
-
 .profile-component {
     text-align: center;
     color: var(--surface-color);
+}
+
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+    z-index: -1;
 }
 
 .button-profile {
@@ -19,14 +25,12 @@
 }
 
 .main-container {
-    text-align: center;
     padding-top: 20px;
     margin: 50px 8% 2%;
     border-radius: 20px;
     background-color: var(--surface-color);
     width: 80%;
     height: inherit;
-    /*height: 80%;*/
     color: white;
     display: flex;
     flex-direction: column;
@@ -46,11 +50,9 @@
 /* Additional styles for the loading animation */
 .loading-container {
     width: 60%;
-    padding-left: 35%;
 }
 
 .add-friend-field {
-    /*background-color: rgba(149,148,153,0.94);*/
     border-color: #F1FAEE;
     border-radius: 5px;
 }
@@ -60,4 +62,85 @@
     border-radius: 10px;
     background-color: rgba(224, 222, 227, 0.94);
     margin-top: 5%;
+}
+
+.user-profile-page {
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    margin-top: 3%;
+    flex-wrap: wrap;
+    height: auto;
+    overflow-y: hidden;
+}
+
+.left-column, .right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+}
+
+.profile-slab, .add-friend-slab {
+    width: 80%;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--surface-color);
+    color: white;
+    border: 1px solid var(--text-color);
+    text-align: center;
+}
+
+.friends-list-slab {
+    width: 80%;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--surface-color);
+    color: white;
+    border: 1px solid var(--text-color);
+    text-align: center;
+    max-height: 370px;
+}
+
+
+.back-button-profile {
+    display: flex;
+    margin-left: 5%;
+    padding-top: 50px;
+}
+
+.profile-body {
+    overflow-y: auto;
+    height: 100vh;
+}
+
+.No-friends-yet {
+    font-size: 30px;
+    margin-top: 140px;
+}
+
+.friends-list-header {
+    text-align: center;
+}
+
+.friends-list-container {
+    max-height: 260px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.button-add-friend-profile {
+    background-color: #E63946;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 7%;
+    font-size: 13px;
 }
