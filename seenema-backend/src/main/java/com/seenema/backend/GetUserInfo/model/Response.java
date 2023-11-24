@@ -9,7 +9,6 @@ public class Response {
     private String       FirstName;
     private String       LastName;
     private List<String> Friends;
-
     private List<String> Movies;
     private String       message;
 

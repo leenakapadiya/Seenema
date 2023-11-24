@@ -55,3 +55,11 @@
 .navbar-button:hover {
     background-color: #C62828;
 }
+
+.dropdown-toggle::after {
+    color: #959499;
+}
+
+.header-dropdown {
+    color: #959499;
+}

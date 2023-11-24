@@ -16,7 +16,6 @@ const DetailPage = () => {
     const [streamingServices, setStreamingServices] = useState(null);
     const {user} = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
-    const [isAddedToMyList, setIsAddedToMyList] = useState(false);
     const {movieId} = useParams(); // Getting movie ID from URL params
 
     let rating = "";
@@ -105,7 +104,7 @@ const DetailPage = () => {
 
     // Main return statement for rendering the detail page
     return (
-        <div>
+        <div className="detail-page-layout">
             <Header/> {/* Include the Header component */}
             <div className="detail-page-wrapper"
                  style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`}}>

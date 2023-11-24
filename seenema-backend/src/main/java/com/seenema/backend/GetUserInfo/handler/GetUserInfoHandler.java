@@ -13,6 +13,7 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.GetItemResponse;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,11 +41,13 @@ public class GetUserInfoHandler implements RequestHandler<APIGatewayV2HTTPEvent,
 
             if (response.hasItem()) {
                 Map<String, AttributeValue> item = response.item();
+                //TODO: Handle edge cases where Email, LastName and/or FirstName is not present
                 String Email = item.get("Email").s();
                 String LastName = item.get("LastName").s();
                 String FirstName = item.get("FirstName").s();
-                List<String> Friends = item.get("Friends").ss();
-                List<String> Movies = item.get("Movies").ss();
+                //TODO: Write tests for this when user doesn't have any friends or movies added
+                List<String> Friends = item.getOrDefault("Friends", AttributeValue.builder().ss().build()).ss();
+                List<String> Movies = item.getOrDefault("Movies", AttributeValue.builder().ss().build()).ss();
 
                 // Assuming you have a constructor in the Response class
                 return gson.toJson(new Response(Email, LastName, FirstName, Friends, Movies));
