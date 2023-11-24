@@ -56,38 +56,20 @@ const MyList = () => {
     useEffect(() => {
         handleGetMoviesList();
     }, []);
-    // const handleAddMovie = async () => {
-    //     try {
-    //         setLoading(true);
-    //         const response = await fetch("https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/addMovieToMyList", {
-    //             method: "POST",
-    //             body: JSON.stringify({
-    //                 username: user.email,
-    //                 movieId: movieId,
-    //             }),
-    //         });
-    //
-    //         if (response.ok) {
-    //             console.log("Friend added successfully!");
-    //             setMoviesList((prevMoviesList) => new Set([...prevMoviesList, movieId]));
-    //             setMovieId("");
-    //         } else {
-    //             console.error("Failed to add movie:", response.status, response.statusText);
-    //         }
-    //     } catch (error) {
-    //         console.error("Error adding movie:", error.message);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
 
     return (
-        <div style={{marginTop: "3%"}}>
-            <h2 className="header-mylist">My List</h2>
-            <div style={{width: "5px", alignContent: "end", marginLeft: "95%"}}>
-                <span onClick={handleGoBack}
-                      style={{cursor: "pointer", textDecoration: 'none', color: "white"}}>X</span>
+        <div>
+            <div className="mylist-header">
+                <button onClick={handleGoBack} className="generic-button button-back">Back</button>
+                <h2 className="my-list-title">My List</h2>
             </div>
+
+
+            {/*<div style={{width: "5px", alignContent: "end", marginLeft: "95%"}}>*/}
+            {/*    <span onClick={handleGoBack}*/}
+            {/*          style={{cursor: "pointer", textDecoration: 'none', color: "white"}}>X</span>*/}
+            {/*/!*</div>*!/   style={{marginTop: "3%"}}*/}
+
             <div>
                 {loading ? (
                     <div className="loading-container">
