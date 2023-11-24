@@ -6,7 +6,7 @@ import {AuthContext} from "../../Auth/JavaScript/AuthContext";
 import FriendsList from "./FriendsList";
 import Loading from "../../assets/loading.json";
 import Lottie from "lottie-react";
-import backgroundImage from "../../assets/MoviePoster.jpeg";
+import backgroundImage from "../../assets/Profile-Background.png";
 
 const UserProfilePage = () => {
     const navigate = useNavigate();
