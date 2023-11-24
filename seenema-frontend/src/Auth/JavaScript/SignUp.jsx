@@ -85,7 +85,7 @@ export default function SignUp() {
                         })} />
                     </div>
                     {error && <p style={{paddingTop: "10px", textAlign: "left", color: "#E63946"}}>{error}</p>}
-                    <button style={{marginTop: "30px"}} className="button-auth">Sign Up</button>
+                    <button style={{marginTop: "30px"}} className="generic-button-auth button-auth">Sign Up</button>
                 </form>
                 <p style={{marginTop: '20px', textAlign: 'left'}}>Already have an account? <Link to="/signIn"
                                                                                                  style={{color: 'inherit'}}>Sign

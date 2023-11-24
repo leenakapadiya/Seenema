@@ -42,19 +42,19 @@
     color: #959499;
 }
 
-.navbar-button {
-    text-decoration: none;
-    color: var(--white-text);
-    background: var(--accent-color);
-    padding: 8px;
-    border-radius: 5px;
-    border-style: solid;
-    border-color: rgba(255, 255, 255, 0.53);
-}
+/*.navbar-button {*/
+/*    text-decoration: none;*/
+/*    color: var(--white-text);*/
+/*    background: var(--accent-color);*/
+/*    padding: 8px;*/
+/*    border-radius: 5px;*/
+/*    border-style: solid;*/
+/*    border-color: rgba(255, 255, 255, 0.53);*/
+/*}*/
 
-.navbar-button:hover {
-    background-color: #C62828;
-}
+/*.navbar-button:hover {*/
+/*    background-color: #C62828;*/
+/*}*/
 
 .dropdown-toggle::after {
     color: #959499;
@@ -62,4 +62,27 @@
 
 .header-dropdown {
     color: #959499;
+}
+
+.generic-button-header {
+    padding: 10px 20px; /* Padding */
+    border: none; /* No border */
+    border-radius: 20px; /* Rounded corners */
+    text-transform: uppercase; /* Uppercase text */
+    text-decoration: none; /* No text decoration */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition effect for background color */
+    margin-right: 10px; /* Right margin */
+}
+
+/* Back button specific style */
+.button-header {
+    background-color: var(--accent-color);
+    color: var(--white-text);
+}
+
+/* Hover effect for the back button */
+.button-header:hover {
+    background-color: #D52B1E; /* Slightly darker red on hover */
 }
