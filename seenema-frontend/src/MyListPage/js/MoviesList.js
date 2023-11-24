@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import api from '../../Homepage/js/api';
 import MovieCard from '../../Homepage/js/MovieCard';
+import "../css/MovieList.css"
 
 const MoviesList = ({moviesList}) => {
     const [myListMovies, setMyListMovies] = useState([]);

@@ -1,8 +1,25 @@
-.header-mylist {
-    margin-left: 30px;
-    /*margin-top: 18px;*/
+.my-list-title {
     margin-bottom: 0;
     font-family: 'DM Sans', sans-serif;
     color: var(--white-text);
     font-weight: bolder;
+    flex-grow: 1;
+    text-align: center;
+    margin-right: 10%;
+}
+
+.back-button-mylist {
+    display: flex;
+    margin-left: 1.5%;
+    padding-top: 45px;
+}
+
+.mylist-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    margin-left: 1.5%;
+    flex-wrap: wrap;
 }
