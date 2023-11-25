@@ -4,18 +4,13 @@ import {Card,} from "@material-tailwind/react";
 import api from "./api";
 import {useNavigate} from 'react-router-dom';
 
-const SidebarWithContentSeparator = () => {
-    const [selectedGenre, setSelectedGenre] = useState(null);
-
+const SidebarWithContentSeparator = ({selectedGenre}) => {
     const [genres, setGenres] = useState([]);
-
     const navigate = useNavigate();
 
     const handleGenreClick = (genreId) => {
-        setSelectedGenre(genreId);
         navigate(`/genre/${genreId}`);
     };
-
 
     useEffect(() => {
         const fetchGenres = async () => {
@@ -43,7 +38,6 @@ const SidebarWithContentSeparator = () => {
         fetchGenres();
     }, []);
 
-
     return (
         <Card
             className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 sidebar-homepage">
@@ -60,7 +54,6 @@ const SidebarWithContentSeparator = () => {
                         </li>
                     ))}
                 </div>
-
             </div>
         </Card>
 
