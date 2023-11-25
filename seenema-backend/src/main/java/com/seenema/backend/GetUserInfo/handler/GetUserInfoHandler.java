@@ -48,9 +48,10 @@ public class GetUserInfoHandler implements RequestHandler<APIGatewayV2HTTPEvent,
                 //TODO: Write tests for this when user doesn't have any friends or movies added
                 List<String> Friends = item.getOrDefault("Friends", AttributeValue.builder().ss().build()).ss();
                 List<String> Movies = item.getOrDefault("Movies", AttributeValue.builder().ss().build()).ss();
+                List<String> MovieSuggestionsList = item.getOrDefault("MovieSuggestionsList", AttributeValue.builder().ss().build()).ss();
 
                 // Assuming you have a constructor in the Response class
-                return gson.toJson(new Response(Email, LastName, FirstName, Friends, Movies));
+                return gson.toJson(new Response(Email, LastName, FirstName, Friends, Movies, MovieSuggestionsList));
             } else {
                 return gson.toJson(new Response("User not found"));
             }

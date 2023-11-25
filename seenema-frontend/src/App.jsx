@@ -10,7 +10,9 @@ import UserProfilePage from './ProfilePage/js/UserProfilePage';
 import MyList from './MyListPage/js/MyList';
 import {AuthProvider} from "./Auth/JavaScript/AuthContext"
 import RouteGuard from "./Auth/JavaScript/RouteGuard";
-import GenreMoviesPage from "./Homepage/js/GenreMoviesPage"; // Adjust the path as necessary
+import GenreMoviesPage from "./Homepage/js/GenreMoviesPage";
+import SuggestedMoviesList from "./SuggestionsListPage/js/ListOfMovies";
+import MovieSuggestionList from "./SuggestionsListPage/js/MovieSuggestionList"; // Adjust the path as necessary
 
 
 function App() {
@@ -45,6 +47,14 @@ function App() {
                         element={
                             <RouteGuard>
                                 <MyList/>
+                            </RouteGuard>
+                        }
+                    />
+                    <Route
+                        path="/suggestionsList"
+                        element={
+                            <RouteGuard>
+                                <MovieSuggestionList/>
                             </RouteGuard>
                         }
                     />
