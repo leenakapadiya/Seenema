@@ -82,7 +82,8 @@ public class GetUserInfoHandlerTest {
                                 "FirstName", AttributeValue.fromS("John"),
                                 "LastName", AttributeValue.fromS("Doe"),
                                 "Friends", AttributeValue.fromSs(List.of("Friend1", "Friend2", "Friend3")),
-                                "Movies", AttributeValue.fromSs(List.of("12345", "67891", "13425"))))
+                                "Movies", AttributeValue.fromSs(List.of("12345", "67891", "13425")),
+                                "MovieSuggestionsList", AttributeValue.fromSs(List.of("9876", "4657", "3333"))))
                         .build()
                 );
         when(mockDynamoDbClient.updateItem(any(UpdateItemRequest.class)))
@@ -95,6 +96,6 @@ public class GetUserInfoHandlerTest {
 
         // Assert the expected result based on your logic
         assertEquals(response, new Response("test@example.com", "Doe", "John", List.of("Friend1", "Friend2", "Friend3"),
-                List.of("12345", "67891", "13425")));
+                List.of("12345", "67891", "13425"), List.of("9876", "4657", "3333")));
     }
 }

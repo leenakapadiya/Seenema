@@ -5,6 +5,7 @@ import './DetailPage.css'; // Importing CSS for styling
 import starImage from '../assets/Star.png'; // Star icon for rating display
 import Header from '../Homepage/js/Header'; // Header component import
 import {AuthContext} from "../Auth/JavaScript/AuthContext";
+import '../SuggestionsListPage/css/SuggestedMoviesList.css';
 
 const DetailPage = () => {
     // State variables for storing movie data
@@ -17,6 +18,7 @@ const DetailPage = () => {
     const {user} = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
     const {movieId} = useParams(); // Getting movie ID from URL params
+    const [friendEmail, setFriendEmail] = useState("");
 
     let rating = "";
 
@@ -86,6 +88,29 @@ const DetailPage = () => {
             setLoading(false);
         }
     };
+    const handleAddToSuggestionsList = async () => {
+        try {
+            setLoading(true);
+            const response = await fetch('https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/addMoviesToFriendsSuggestionsList', {
+                method: 'POST',
+                body: JSON.stringify({
+                    username: user.email,
+                    friendsUsername: friendUsername,
+                    movieId: movieId,
+                }),
+            });
+
+            if (response.ok) {
+                console.log('Movie added to My List successfully!');
+            } else {
+                console.error('Failed to add movie to My List:', response.status, response.statusText);
+            }
+        } catch (error) {
+            console.error('Error adding movie to My List:', error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
 
     // Render loading text if data is not yet loaded
@@ -139,7 +164,19 @@ const DetailPage = () => {
                         <button className="generic-button button-watchlist" onClick={handleAddToMyList}>Add to
                             Watchlist
                         </button>
-                        <button className="generic-button button-friends-watchlist">Add to Friend's Watchlist</button>
+                        <div className="add-to-friendList-field">
+                            <input
+                                type="text"
+                                placeholder="  Friend's Email"
+                                value={friendEmail}
+                                onChange={(e) => setFriendEmail(e.target.value)}
+                                className={"add-friend-input"}
+                            />
+                            <button onClick={handleAddToSuggestionsList} className="generic-button button-add-friend-suggestions-list">
+                                Add to Friend's Watchlist
+                            </button>
+                        </div>
+                        <button className="generic-button button-friends-watchlist" onClick={handleAddToSuggestionsList}>Add to Friend's Watchlist</button>
                     </div>
                     <div className="watch-on-services">
                         <h2>Available on:</h2>
