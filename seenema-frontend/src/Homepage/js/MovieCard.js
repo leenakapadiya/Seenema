@@ -16,7 +16,7 @@ const MovieCard = ({movie}) => {
     const releaseFullDate = movie.release_date;
 
     // Extracting the release year of a movie
-    const year = releaseFullDate.substring(0, 4);
+    const year = releaseFullDate ? releaseFullDate.substring(0, 4) : 'N/A';
     return (
         <Link to={`/movie/${movie.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
             <div className="container">
