@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500&display=swap');
 
-
 .container {
     margin: 16px;
     display: flex;
@@ -8,8 +7,6 @@
     font-size: 1.2rem;
     font-family: 'DM Sans', sans-serif;
     color: var(--white-text);
-
-
 }
 
 .card {

@@ -18,23 +18,18 @@ const MovieCard = ({movie}) => {
     // Extracting the release year of a movie
     const year = releaseFullDate ? releaseFullDate.substring(0, 4) : 'N/A';
     return (
-        <Link to={`/movie/${movie.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
-            <div className="container">
-
-                {/* Displaying movie poster as a background image */}
+        <div className="container">
+            <Link to={`/movie/${movie.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
                 <Paper className="card" style={{backgroundImage: `url(${posterPath})`}}/>
-
-                {/* Displaying movie title */}
                 <div className="card-name">{movie.title}</div>
+            </Link>
 
-                {/* Displaying movie rating with a star icon and release year */}
-                <div className="card-rating">
-                    {<img src={starImage} alt="Star" className="star-icon"/>}
-                    <span className="rating">{rating}</span>
-                    <div className="year">{year}</div>
-                </div>
+            <div className="card-rating">
+                <img src={starImage} alt="Star" className="star-icon"/>
+                <span className="rating">{rating}</span>
+                <div className="year">{year}</div>
             </div>
-        </Link>
+        </div>
     );
 };
 
