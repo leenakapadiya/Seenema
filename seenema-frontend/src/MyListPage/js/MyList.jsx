@@ -12,7 +12,6 @@ const MyList = () => {
     const navigate = useNavigate();
     const {user} = useContext(AuthContext);
     const [moviesList, setMoviesList] = useState(new Set());
-    // const[movieId, setMovieId] = useState("");
     const [loading, setLoading] = useState(false);
 
     const handleGoBack = () => {
@@ -58,12 +57,13 @@ const MyList = () => {
     }, []);
 
     return (
-        <div>
+        <div className="my-list-whole">
             <div className="mylist-header">
-                <button onClick={handleGoBack} className="generic-button button-back">Back</button>
+                <button onClick={handleGoBack} className="generic-button button-back" style={{marginLeft: '8px'}}>Back
+                </button>
                 <h2 className="my-list-title">My List</h2>
             </div>
-            <div>
+            <div className="list-main-area">
                 {loading ? (
                     <div className="loading-container">
                         <Lottie loop={true} animationData={Loading}/>

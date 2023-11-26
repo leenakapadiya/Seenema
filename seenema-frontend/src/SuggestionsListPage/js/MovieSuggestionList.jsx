@@ -6,7 +6,6 @@ import Lottie from "lottie-react";
 import '../../Homepage/css/MovieList.css';
 import '../../Auth/JavaScript/Auth';
 import '../css/SuggestedMoviesList.css';
-import SuggestedMoviesList from "./ListOfMovies";
 import ListOfMovies from "./ListOfMovies";
 
 const MovieSuggestionList = () => {
@@ -61,10 +60,11 @@ const MovieSuggestionList = () => {
     return (
         <div>
             <div className="mylist-header">
-                <button onClick={handleGoBack} className="generic-button button-back">Back</button>
+                <button onClick={handleGoBack} className="generic-button button-back" style={{marginLeft: '8px'}}>Back
+                </button>
                 <h2 className="my-list-title">Friend Suggestion List</h2>
             </div>
-            <div>
+            <div className="list-main-area">
                 {loading ? (
                     <div className="loading-container">
                         <Lottie loop={true} animationData={Loading}/>
