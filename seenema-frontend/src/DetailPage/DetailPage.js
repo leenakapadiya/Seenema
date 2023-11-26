@@ -15,7 +15,7 @@ const DetailPage = () => {
     const [ageRating, setAgeRating] = useState('');
     const [videos, setVideos] = useState([]);
     const [streamingServices, setStreamingServices] = useState(null);
-    const {user, signOut} = useContext(AuthContext);
+    const {user} = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
     const {movieId} = useParams(); // Getting movie ID from URL params
     const [friendEmail, setFriendEmail] = useState("");
