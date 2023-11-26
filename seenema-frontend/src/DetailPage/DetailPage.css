@@ -52,17 +52,17 @@
     flex-direction: column;
     align-items: flex-start; /* Align children to the left */
     gap: 20px; /* Spacing between child elements */
-    padding-left: 35%; /* Space for the poster */
+    padding-left: 28%; /* Space for the poster */
 }
 
 /* Styling for the movie poster */
 .detail-movie-poster {
     position: absolute;
-    top: 10px;
+    top: 20px;
     left: 10px; /* Positioning */
-    width: 30%; /* Width relative to the container */
-    max-width: 680px;
-    min-width: 120px; /* Maximum and minimum width */
+    width: 25%; /* Width relative to the container */
+    max-width: 500px;
+    min-width: 100px; /* Maximum and minimum width */
     border-radius: 10px; /* Rounded corners */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Shadow for depth */
     z-index: 3; /* Above the overlay */
@@ -70,8 +70,10 @@
 
 /* Movie title styling */
 .detail-movie-title {
-    font-size: 5.5rem; /* Font size */
+    font-size: 4rem; /* Font size */
     color: var(--white-text); /* Text color */
+    margin-right: 250px; /* Adjust this value as needed to match the trailer iframes */
+
 }
 
 /* Container for movie information like rating, year, etc. */
@@ -90,7 +92,7 @@
 
 /* Shared styles for rating and year */
 .detail-rating, .detail-year {
-    font-size: 1.5rem; /* Font size */
+    font-size: 1.25rem; /* Font size */
     color: var(--white-text); /* Text color */
     background: rgb(47, 45, 45); /* Background color */
     padding: 5px 10px; /* Padding */
@@ -100,7 +102,7 @@
 
 /* Additional shared styles for different ratings */
 .detail-movie-rating-box, .detail-movie-USERrating, .detail-movie-MPArating {
-    font-size: 1.5rem; /* Font size */
+    font-size: 1.25rem; /* Font size */
     color: var(--white-text); /* Text color */
     background: rgb(47, 45, 45); /* Background color */
     padding: 5px 10px; /* Padding */
@@ -114,12 +116,13 @@
     line-height: 1.5; /* Line height */
     text-align: left; /* Text alignment */
     color: var(--white-text); /* Text color */
-    max-width: 70%; /* Maximum width */
+    margin-bottom: 0px; /* Reduced bottom margin */
+    max-width: 75%; /* Maximum width */
 }
 
 /* Movie runtime styling */
 .detail-movie-runtime {
-    font-size: 1.5rem; /* Font size */
+    font-size: 1.25rem; /* Font size */
     color: var(--white-text); /* Text color */
     background: rgb(47, 45, 45); /* Background color */
     padding: 5px 10px; /* Padding */
@@ -129,7 +132,7 @@
 
 /* Movie genres styling */
 .detail-movie-genres {
-    font-size: 1.5rem; /* Font size */
+    font-size: 1.25rem; /* Font size */
     color: var(--gray-text); /* Text color */
     margin-bottom: 20px; /* Bottom margin */
 }
@@ -137,9 +140,9 @@
 /* Cast and director styling */
 .detail-movie-cast, .detail-movie-director {
     color: var(--gray-text); /* Text color */
-    font-size: 1.2rem; /* Font size */
+    font-size: 1rem; /* Font size */
     max-width: 70%; /* Maximum width */
-    margin-top: 20px; /* Top margin */
+    margin-top: 0px; /* Top margin */
 }
 
 /* Styling for cast and director titles */
@@ -151,7 +154,7 @@
 
 /* User rating box styling */
 .detail-user-rating-box {
-    font-size: 1.5rem; /* Font size */
+    font-size: 1.25rem; /* Font size */
     display: flex; /* Flex display */
     align-items: center; /* Center align items */
     background: rgb(47, 45, 45); /* Background color */
@@ -168,9 +171,9 @@
 
 /* Movie genre list styling */
 .detail-movie-genre-list {
-    font-size: 1.2rem; /* Font size */
+    font-size: 1rem; /* Font size */
     color: var(--gray-text); /* Text color */
-    margin-top: 10px; /* Top margin */
+    margin-top: 0px; /* Top margin */
 }
 
 /* Font styling for "Starring:" and "Director:" */
@@ -190,8 +193,6 @@
     cursor: pointer; /* Pointer cursor on hover */
     transition: background-color 0.3s; /* Transition effect for background color */
     margin-right: 10px; /* Right margin */
-    background-color: var(--accent-color);
-    color: var(--white-text);
 }
 
 /* Back button specific style */
@@ -200,15 +201,10 @@
     color: var(--white-text);
 }
 
-.added-to-watchlist {
-    background-color: green;
-}
-
 /* Watchlist button styles */
 .button-watchlist,
-.button-friends-watchlist
-.button-add-friend-suggestions-list{
-    /*background-color: var(--button-bg-color);*/
+.button-friends-watchlist {
+    background-color: var(--button-bg-color);
     color: var(--button-text-color);
 }
 
@@ -231,7 +227,7 @@
 }
 
 /* Hover effect for the back button */
-.button-back:hover .button-add-friend-suggestions-list:hover {
+.button-back:hover {
     background-color: #D52B1E; /* Slightly darker red on hover */
 }
 
@@ -239,14 +235,14 @@
 .button-container {
     display: flex; /* Flex display */
     align-items: center; /* Center align items */
-    margin-top: 20px; /* Top margin */
+    margin-left: 40px; /* Top margin */
 }
 
 /* Trailers and clips section header styling */
 .trailers-and-clips h2 {
     color: var(--white-text); /* Text color */
-    font-size: 1.5rem; /* Font size */
-    margin-top: 2rem; /* Top margin */
+    font-size: 1.25rem; /* Font size */
+    margin-top: 15px; /* Top margin */
     margin-bottom: 1rem; /* Bottom margin */
 }
 
@@ -254,20 +250,21 @@
 .videos {
     display: flex; /* Flex display */
     flex-wrap: wrap; /* Wrap content */
-    gap: 1rem; /* Gap between videos */
+    gap: 1.5rem; /* Gap between videos */
 }
 
 /* Video iframe styling */
 .video-iframe {
     border-radius: 15px; /* Rounded corners */
     margin-bottom: 20px; /* Bottom margin */
+    margin-right: 40px; /* Adjust this value as needed to match the trailer iframes */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
 }
 
 /* Watch on services section header styling */
 .watch-on-services h2 {
     color: var(--white-text); /* Text color */
-    font-size: 1.5rem; /* Font size */
+    font-size: 1.25rem; /* Font size */
 }
 
 /* Services container styling */
@@ -279,10 +276,14 @@
 }
 
 .service img {
-    width: 100px; /* Adjust as needed */
+    width: 70px; /* Adjust as needed */
+    border-radius: 15px; /* Rounded corners */
     height: auto;
     /* Add more styles as needed */
 }
+
+
+
 
 
 /* If you add any additional styles, they go here :) */

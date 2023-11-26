@@ -1,25 +1,23 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import api from '../Homepage/js/api'; // API import for fetching movie details
 import './DetailPage.css'; // Importing CSS for styling
 import starImage from '../assets/Star.png'; // Star icon for rating display
-import Header from '../Homepage/js/Header'; // Header component import
-import {AuthContext} from "../Auth/JavaScript/AuthContext";
-import '../SuggestionsListPage/css/SuggestedMoviesList.css';
+
 
 const DetailPage = () => {
+    const {movieId} = useParams(); // Getting movie ID from URL params
+
     // State variables for storing movie data
     const [movie, setMovie] = useState(null);
     const [cast, setCast] = useState([]);
     const [director, setDirector] = useState('');
-    const [ageRating, setAgeRating] = useState('');
+    const [ageRating, setAgeRating] = useState('N/A');
     const [videos, setVideos] = useState([]);
     const [streamingServices, setStreamingServices] = useState(null);
-    const {user} = useContext(AuthContext);
-    const [loading, setLoading] = useState(false);
-    const {movieId} = useParams(); // Getting movie ID from URL params
-    const [friendEmail, setFriendEmail] = useState("");
-    const [addedToWatchlist, setAddedToWatchlist] = useState(false);
+    const posterRef = useRef(null);
+    const genreListRef = useRef(null);
+    const watchOnServicesRef = useRef(null);
 
     let rating = "";
 
@@ -32,8 +30,11 @@ const DetailPage = () => {
 
                 // Fetch and set streaming service details
                 const streamingServicesResponse = await api.get(`/movie/${movieId}/watch/providers`);
-                console.log(streamingServicesResponse.data.results);
-                setStreamingServices(streamingServicesResponse.data.results);
+                if (streamingServicesResponse.data.results && streamingServicesResponse.data.results.US) {
+                    setStreamingServices(streamingServicesResponse.data.results.US.flatrate || []);
+                } else {
+                    setStreamingServices([]);
+                }
 
                 // Fetch and set movie release dates for rating
                 const releaseDatesResponse = await api.get(`/movie/${movieId}/release_dates`);
@@ -65,84 +66,54 @@ const DetailPage = () => {
         };
 
         fetchMovieDetails();
+
     }, [movieId]); // Effect dependency on movieId
 
-    const handleAddToMyList = async () => {
-        try {
-            setLoading(true);
-            const response = await fetch('https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/addMovieToMyList', {
-                method: 'POST',
-                body: JSON.stringify({
-                    username: user.email,
-                    movieId: movieId,
-                }),
-            });
-
-            if (response.ok) {
-                console.log('Movie added to My List successfully!');
-                console.log('Before setting addedToWatchlist:', addedToWatchlist);
-                setAddedToWatchlist(true); // Set the state to indicate that the movie has been added
-                console.log('After setting addedToWatchlist:', addedToWatchlist);
-            } else {
-                console.error('Failed to add movie to My List:', response.status, response.statusText);
+    // New useEffect for adjusting genre list position
+    useEffect(() => {
+        if (posterRef.current) {
+            const posterHeight = posterRef.current.offsetHeight;
+            const genreListTop = 110 + posterHeight; // 110 is the top value of the poster
+            const genreList = document.querySelector('.detail-movie-genre-list');
+            if (genreList) {
+                genreList.style.top = `${genreListTop}px`;
             }
-        } catch (error) {
-            console.error('Error adding movie to My List:', error.message);
-        } finally {
-            setLoading(false);
         }
-    };
-    const handleAddToSuggestionsList = async () => {
-        try {
-            setLoading(true);
-            const response = await fetch(' https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/addMoviesToFriendsSuggestionsList', {
-                method: 'POST',
-                body: JSON.stringify({
-                    username: user.email,
-                    friendUsername: friendEmail,
-                    movieId: movieId,
-                }),
-            });
+    }, []); // Empty dependency array ensures this runs once after initial render
 
-            if (response.ok) {
-                console.log('Movie added to' + friendEmail + 'Suggestions List successfully!');
-            } else {
-                console.error('Failed to add movie to Suggestions List:', response.status, response.statusText);
+    useEffect(() => {
+        const updateGenreListPosition = () => {
+            if (posterRef.current && genreListRef.current) {
+                const posterBottom = posterRef.current.getBoundingClientRect().bottom;
+                const offset = 1; // Reduced offset for closer positioning to the poster
+                genreListRef.current.style.top = `${posterBottom + offset}px`;
             }
-        } catch (error) {
-            console.error('Error adding movie to Suggestions List:', error.message);
-        } finally {
-            setLoading(false);
-        }
-    };
+        };
 
-    const isMovieInMyList = async (friendEmail, movieId) => {
-        try {
-            const response = await fetch(
-                'https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/getUserInfo',
-                {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        Email: user.email
-                    }),
-                }
-            );
+        // Call it initially and on every resize
+        updateGenreListPosition();
+        window.addEventListener('resize', updateGenreListPosition);
 
-            if (response.ok) {
-                const myList = await response.json();
-                return myList.includes(movieId);
-                setAddedToWatchlist(myList.includes(movieId));
-            } else {
-                console.error('Failed to fetch my list:', response.status, response.statusText);
-                return false;
+        return () => {
+            window.removeEventListener('resize', updateGenreListPosition);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (posterRef.current) {
+            const posterHeight = posterRef.current.offsetHeight;
+            const genreList = document.querySelector('.detail-movie-genre-list');
+            const watchOnServices = document.querySelector('.watch-on-services');
+
+            if (genreList && watchOnServices) {
+                const genreListTop = 110 + posterHeight; // Adjust as needed
+                genreList.style.top = `${genreListTop}px`;
+
+                const watchOnServicesTop = genreListTop + genreList.offsetHeight + 20; // Add extra space
+                watchOnServices.style.top = `${watchOnServicesTop}px`;
             }
-        } catch (error) {
-            console.error('Error fetching my list:', error.message);
-            return false;
         }
-    };
-
-
+    }, []); // Empty dependency array ensures this runs once after initial render
 
     // Render loading text if data is not yet loaded
     if (!movie || cast.length === 0 || !director) {
@@ -158,22 +129,21 @@ const DetailPage = () => {
     const formattedGenres = movie.genres.map((genre) => genre.name).join(', ');
     const formattedCastNames = cast.map((actor) => actor.name).join(', ');
 
-    const handleButtonClick = () => {
-        handleAddToMyList();
-        isMovieInMyList();
-    };
-
-
     // Main return statement for rendering the detail page
     return (
-        <div className="detail-page-layout">
-            <Header/> {/* Include the Header component */}
+        <div>
             <div className="detail-page-wrapper"
-                 style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`}}>
-                <div className="detail-movie-overlay"/>
+                 style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})` }}>
+                <div className="detail-movie-overlay" />
                 <div className="detail-movie-container">
-                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}
-                         className="detail-movie-poster"/>
+                    <img ref={posterRef} src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}
+                         className="detail-movie-poster" />
+                    <div className="movie-info-below-poster">
+                        {/* Genre list and streaming services are moved here */}
+
+
+                    </div>
+
                     <h1 className="detail-movie-title">{movie.title}</h1>
                     <div className="detail-movie-info">
                         <div className="detail-user-rating-box">
@@ -183,8 +153,14 @@ const DetailPage = () => {
                         <span className="detail-year">{formattedReleaseYear}</span>
                         <span className="detail-movie-runtime">{formattedRuntime} min</span>
                         <span className="detail-movie-MPArating">{ageRating}</span>
+                        <div className="button-container">
+                            <button className="generic-button button-watchlist">+ Watchlist</button>
+                            <button className="generic-button button-friends-watchlist">+ Friend's Watchlist</button>
+                            <Link to="/Homepage" className="generic-button button-back">Back</Link>
+                        </div>
+
                     </div>
-                    <div className="detail-movie-genre-list">
+                    <div ref={genreListRef} className="detail-movie-genre-list">
                         {formattedGenres}
                     </div>
                     <p className="detail-movie-overview">{movie.overview}</p>
@@ -192,42 +168,23 @@ const DetailPage = () => {
                         <span className="detail-cast-title">Starring : </span>
                         {formattedCastNames}
                     </div>
+
                     <div className="detail-movie-director">
                         <span className="detail-cast-title">Director : </span>
                         <span>{director}</span>
                     </div>
-                    <div className="button-container">
-                        <Link to="/Homepage" className="generic-button button-back">Back</Link>
-                        <button
-                            className={`generic-button button-watchlist ${addedToWatchlist ? 'added-to-watchlist' : ''}`}
-                            onClick={handleButtonClick}
-                            disabled={addedToWatchlist}
-                        >
-                            {isMovieInMyList(user.email, movieId) ? 'Added to Watchlist' : 'Add to Watchlist'}
-                        </button>
-                        <div className="add-to-friendList-field">
-                            <input
-                                type="text"
-                                placeholder="  Friend's Email"
-                                value={friendEmail}
-                                onChange={(e) => setFriendEmail(e.target.value)}
-                                className={"add-friend-input"}
-                            />
-                            <button onClick={handleAddToSuggestionsList} className="generic-button button-add-friend-suggestions-list">
-                                Add to Friend's Watchlist
-                            </button>
-                        </div>
-                        {/*<button className="generic-button button-friends-watchlist" onClick={handleAddToSuggestionsList}>Add to Friend's Watchlist</button>*/}
-                    </div>
-                    <div className="watch-on-services">
+                    <div ref={watchOnServicesRef} className="watch-on-services">
                         <h2>Available on:</h2>
                         <div className="services-container">
-                            {streamingServices && streamingServices.US && streamingServices.US.flatrate && streamingServices.US.flatrate.map((service) => (
-                                <div key={service.provider_id} className="service">
-                                    <img src={`https://image.tmdb.org/t/p/w500${service.logo_path}`}
-                                         alt={service.provider_name}/>
-                                </div>
-                            ))}
+                            {streamingServices && streamingServices.length > 0 ? (
+                                streamingServices.map((service) => (
+                                    <div key={service.provider_id} className="service">
+                                        <img src={`https://image.tmdb.org/t/p/w500${service.logo_path}`} alt={service.provider_name} />
+                                    </div>
+                                ))
+                            ) : (
+                                <p>N/A</p>
+                            )}
                         </div>
                     </div>
                     <div className="trailers-and-clips">
@@ -236,8 +193,8 @@ const DetailPage = () => {
                             {videos.slice(0, 2).map((video) => (
                                 <iframe
                                     key={video.id}
-                                    width="560"
-                                    height="315"
+                                    width="504"
+                                    height="283"
                                     src={`https://www.youtube.com/embed/${video.key}`}
                                     title={video.name}
                                     frameBorder="0"
@@ -252,5 +209,7 @@ const DetailPage = () => {
             </div>
         </div>
     );
+
 };
+
 export default DetailPage;
