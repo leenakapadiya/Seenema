@@ -118,7 +118,8 @@ const GenreMoviesPage = () => {
             <div><Header onSearch={handleSearchChange}/></div>
             <div className="homepage-main-content">
                 <div className="homepage-sidebar">
-                    <Sidebar activeGenreId={parseInt(genreId)}/>
+                    {/* Pass the genreId as selectedGenre */}
+                    <Sidebar activeGenreId={parseInt(genreId)} selectedGenre={parseInt(genreId)}/>
                 </div>
                 <div className="main-content-area-GenrePage">
                     {(isSearchActive) && (movies.length === 0) ? (
@@ -140,7 +141,6 @@ const GenreMoviesPage = () => {
                             </div>
                         </>
                     )}
-
                     {!loading && !isSearchActive && (
                         <div className="load-more-container-genre-page">
                             <button onClick={handleLoadMore} className="generic-button-load-more button-load-more">
