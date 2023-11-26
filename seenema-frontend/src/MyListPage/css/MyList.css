@@ -17,8 +17,33 @@
     padding-left: 1.5%;
     flex-wrap: wrap;
     background-color: var(--surface-color);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
 }
 
 .list-main-area {
-    padding-top: 1%;
+    padding-top: 100px;
+}
+
+/* Mobile Phones */
+@media (max-width: 767px) {
+    .list-main-area {
+        padding-top: 90px; /* Adjust for mobile screens */
+    }
+}
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .list-main-area {
+        padding-top: 95px; /* Adjust for tablet screens */
+    }
+}
+
+/* Desktops */
+@media (min-width: 1024px) {
+    .list-main-area {
+        padding-top: 110px; /* Adjust for desktop screens */
+    }
 }
