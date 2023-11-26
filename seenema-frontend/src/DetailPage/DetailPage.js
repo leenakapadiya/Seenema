@@ -15,11 +15,13 @@ const DetailPage = () => {
     const [ageRating, setAgeRating] = useState('');
     const [videos, setVideos] = useState([]);
     const [streamingServices, setStreamingServices] = useState(null);
-    const {user} = useContext(AuthContext);
+    const {user, signOut} = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
     const {movieId} = useParams(); // Getting movie ID from URL params
     const [friendEmail, setFriendEmail] = useState("");
     const [addedToWatchlist, setAddedToWatchlist] = useState(false);
+    let {userEmail} = useParams();
+    userEmail = user ? user.email : "";
 
     let rating = "";
 
@@ -67,13 +69,61 @@ const DetailPage = () => {
         fetchMovieDetails();
     }, [movieId]); // Effect dependency on movieId
 
+    useEffect(() => {
+        const fetchMovieDetails = async () => {
+            try {
+                // Fetch the user's watchlist information
+                const isMovieInList = user ? await isMovieInMyList(userEmail, movieId): false;
+
+                // Set the state to reflect whether the movie is in the user's watchlist
+                setAddedToWatchlist(isMovieInList);
+
+                // Notify other tabs/windows about the change
+                window.postMessage({ type: 'watchlistUpdated', movieId, isMovieInList }, '*');
+
+            } catch (error) {
+                console.error('Error fetching details:', error);
+            }
+        };
+
+        fetchMovieDetails();
+    }, [movieId, userEmail, user]); // Effect dependency on movieId and userEmail
+
+    const fetchUserInfo = async () => {
+        try {
+            const response = await fetch('https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/getUserInfo', {
+                method: 'POST',
+                body: JSON.stringify({ email: userEmail }), // Replace userEmail with the actual email
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                const userInfo = await response.json();
+                // Update state based on the fetched user information
+                setAddedToWatchlist(userInfo.watchlist.includes(movieId));
+            } else {
+                console.error('Failed to fetch user information:', response.status, response.statusText);
+            }
+        } catch (error) {
+            console.error('Error fetching user information:', error.message);
+        }
+    };
+
+    useEffect(() => {
+        fetchUserInfo();
+    }, [userEmail, movieId]); // Call fetchUserInfo when userEmail or movieId changes
+
+
+
     const handleAddToMyList = async () => {
         try {
             setLoading(true);
             const response = await fetch('https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/addMovieToMyList', {
                 method: 'POST',
                 body: JSON.stringify({
-                    username: user.email,
+                    username: userEmail,
                     movieId: movieId,
                 }),
             });
@@ -82,10 +132,13 @@ const DetailPage = () => {
                 console.log('Movie added to My List successfully!');
                 console.log('Before setting addedToWatchlist:', addedToWatchlist);
                 setAddedToWatchlist(true); // Set the state to indicate that the movie has been added
+                localStorage.setItem('watchlist', JSON.stringify([...(JSON.parse(localStorage.getItem('watchlist')) || []), movieId]));
                 console.log('After setting addedToWatchlist:', addedToWatchlist);
             } else {
                 console.error('Failed to add movie to My List:', response.status, response.statusText);
             }
+            // Notify other tabs/windows about the change
+            window.postMessage({ type: 'watchlistUpdated', movieId, isMovieInList: true }, '*');
         } catch (error) {
             console.error('Error adding movie to My List:', error.message);
         } finally {
@@ -116,31 +169,27 @@ const DetailPage = () => {
         }
     };
 
-    const isMovieInMyList = async (friendEmail, movieId) => {
+    const isMovieInMyList = async (userEmail, movieId) => {
         try {
-            const response = await fetch(
-                'https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/getUserInfo',
-                {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        Email: user.email
-                    }),
-                }
-            );
-
-            if (response.ok) {
-                const myList = await response.json();
-                return myList.includes(movieId);
-                setAddedToWatchlist(myList.includes(movieId));
-            } else {
-                console.error('Failed to fetch my list:', response.status, response.statusText);
-                return false;
-            }
+            // Fetch the user's watchlist information from local storage
+            const watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+            // Check if the current movie is in the user's watchlist
+            const isMovieInList = watchlist.includes(movieId);
+            return isMovieInList;
         } catch (error) {
             console.error('Error fetching my list:', error.message);
             return false;
         }
     };
+
+    useEffect(() => {
+        isMovieInMyList(userEmail, movieId);
+    }, []);
+
+    // Call fetchUserInfo when the component mounts
+    useEffect(() => {
+        fetchUserInfo();
+    }, []); // Call fetchUserInfo on component mount
 
 
 
@@ -158,9 +207,18 @@ const DetailPage = () => {
     const formattedGenres = movie.genres.map((genre) => genre.name).join(', ');
     const formattedCastNames = cast.map((actor) => actor.name).join(', ');
 
-    const handleButtonClick = () => {
-        handleAddToMyList();
-        isMovieInMyList();
+    const handleButtonClick = async () => {
+        try {
+            if (addedToWatchlist) {
+                // Handle the case where the movie is already in the watchlist
+                console.log('Movie is already in the watchlist');
+            } else {
+                // Handle the case where the movie is not in the watchlist
+                await handleAddToMyList();
+            }
+        } catch (error) {
+            console.error('Error handling button click:', error);
+        }
     };
 
 
@@ -203,7 +261,7 @@ const DetailPage = () => {
                             onClick={handleButtonClick}
                             disabled={addedToWatchlist}
                         >
-                            {isMovieInMyList(user.email, movieId) ? 'Added to Watchlist' : 'Add to Watchlist'}
+                            {addedToWatchlist ? 'Added to Watchlist' : 'Add to Watchlist'}
                         </button>
                         <div className="add-to-friendList-field">
                             <input

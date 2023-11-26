@@ -31,7 +31,7 @@ function App() {
                     <Route path="/forgotPassword" element={<ForgotPassword/>}/>
                     <Route path="/resetPassword" element={<ResetPassword/>}/>
                     <Route path="/movie/:movieId" element={<DetailPage/>}/>
-                    <Route path="/movie/:movieId" element={<DetailPage/>}/> {/* Add this line */}
+                    {/*<Route path="/movie/:movieId" element={<DetailPage/>}/> /!* Add this line *!/*/}
                     <Route path="/genre/:genreId" element={<GenreMoviesPage/>}/>
                     <Route path="*" element={<Navigate to="/Homepage"/>}/>
                     <Route
