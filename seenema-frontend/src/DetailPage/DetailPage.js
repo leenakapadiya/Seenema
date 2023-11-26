@@ -19,6 +19,7 @@ const DetailPage = () => {
     const [loading, setLoading] = useState(false);
     const {movieId} = useParams(); // Getting movie ID from URL params
     const [friendEmail, setFriendEmail] = useState("");
+    const [addedToWatchlist, setAddedToWatchlist] = useState(false);
 
     let rating = "";
 
@@ -79,6 +80,9 @@ const DetailPage = () => {
 
             if (response.ok) {
                 console.log('Movie added to My List successfully!');
+                console.log('Before setting addedToWatchlist:', addedToWatchlist);
+                setAddedToWatchlist(true); // Set the state to indicate that the movie has been added
+                console.log('After setting addedToWatchlist:', addedToWatchlist);
             } else {
                 console.error('Failed to add movie to My List:', response.status, response.statusText);
             }
@@ -91,26 +95,53 @@ const DetailPage = () => {
     const handleAddToSuggestionsList = async () => {
         try {
             setLoading(true);
-            const response = await fetch('https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/addMoviesToFriendsSuggestionsList', {
+            const response = await fetch(' https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/addMoviesToFriendsSuggestionsList', {
                 method: 'POST',
                 body: JSON.stringify({
                     username: user.email,
-                    friendsUsername: friendUsername,
+                    friendUsername: friendEmail,
                     movieId: movieId,
                 }),
             });
 
             if (response.ok) {
-                console.log('Movie added to My List successfully!');
+                console.log('Movie added to' + friendEmail + 'Suggestions List successfully!');
             } else {
-                console.error('Failed to add movie to My List:', response.status, response.statusText);
+                console.error('Failed to add movie to Suggestions List:', response.status, response.statusText);
             }
         } catch (error) {
-            console.error('Error adding movie to My List:', error.message);
+            console.error('Error adding movie to Suggestions List:', error.message);
         } finally {
             setLoading(false);
         }
     };
+
+    const isMovieInMyList = async (friendEmail, movieId) => {
+        try {
+            const response = await fetch(
+                'https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/getUserInfo',
+                {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        Email: user.email
+                    }),
+                }
+            );
+
+            if (response.ok) {
+                const myList = await response.json();
+                return myList.includes(movieId);
+                setAddedToWatchlist(myList.includes(movieId));
+            } else {
+                console.error('Failed to fetch my list:', response.status, response.statusText);
+                return false;
+            }
+        } catch (error) {
+            console.error('Error fetching my list:', error.message);
+            return false;
+        }
+    };
+
 
 
     // Render loading text if data is not yet loaded
@@ -126,6 +157,12 @@ const DetailPage = () => {
     const formattedRuntime = movie.runtime;
     const formattedGenres = movie.genres.map((genre) => genre.name).join(', ');
     const formattedCastNames = cast.map((actor) => actor.name).join(', ');
+
+    const handleButtonClick = () => {
+        handleAddToMyList();
+        isMovieInMyList();
+    };
+
 
     // Main return statement for rendering the detail page
     return (
@@ -161,8 +198,12 @@ const DetailPage = () => {
                     </div>
                     <div className="button-container">
                         <Link to="/Homepage" className="generic-button button-back">Back</Link>
-                        <button className="generic-button button-watchlist" onClick={handleAddToMyList}>Add to
-                            Watchlist
+                        <button
+                            className={`generic-button button-watchlist ${addedToWatchlist ? 'added-to-watchlist' : ''}`}
+                            onClick={handleButtonClick}
+                            disabled={addedToWatchlist}
+                        >
+                            {isMovieInMyList(user.email, movieId) ? 'Added to Watchlist' : 'Add to Watchlist'}
                         </button>
                         <div className="add-to-friendList-field">
                             <input
@@ -176,7 +217,7 @@ const DetailPage = () => {
                                 Add to Friend's Watchlist
                             </button>
                         </div>
-                        <button className="generic-button button-friends-watchlist" onClick={handleAddToSuggestionsList}>Add to Friend's Watchlist</button>
+                        {/*<button className="generic-button button-friends-watchlist" onClick={handleAddToSuggestionsList}>Add to Friend's Watchlist</button>*/}
                     </div>
                     <div className="watch-on-services">
                         <h2>Available on:</h2>

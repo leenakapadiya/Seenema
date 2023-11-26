@@ -6,17 +6,3 @@
     color: var(--white-text);
     font-weight: bolder;
 }
-
-.button-add-friend-suggestions-list {
-    background-color: #E63946;
-    color: #FFFFFF;
-    padding: 10px 20px;
-    border-radius: 20px;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-bottom: 7%;
-    font-size: 13px;
-}
