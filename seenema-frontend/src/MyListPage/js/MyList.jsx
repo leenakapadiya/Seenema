@@ -63,13 +63,6 @@ const MyList = () => {
                 <button onClick={handleGoBack} className="generic-button button-back">Back</button>
                 <h2 className="my-list-title">My List</h2>
             </div>
-
-
-            {/*<div style={{width: "5px", alignContent: "end", marginLeft: "95%"}}>*/}
-            {/*    <span onClick={handleGoBack}*/}
-            {/*          style={{cursor: "pointer", textDecoration: 'none', color: "white"}}>X</span>*/}
-            {/*/!*</div>*!/   style={{marginTop: "3%"}}*/}
-
             <div>
                 {loading ? (
                     <div className="loading-container">

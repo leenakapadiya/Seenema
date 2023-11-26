@@ -59,11 +59,10 @@ const MovieSuggestionList = () => {
     }, []);
 
     return (
-        <div style={{marginTop: "3%"}}>
-            <h2 className="header-mylist">Friend Suggestions List</h2>
-            <div style={{width: "5px", alignContent: "end", marginLeft: "95%"}}>
-                <span onClick={handleGoBack}
-                      style={{cursor: "pointer", textDecoration: 'none', color: "white"}}>X</span>
+        <div>
+            <div className="mylist-header">
+                <button onClick={handleGoBack} className="generic-button button-back">Back</button>
+                <h2 className="my-list-title">Friend Suggestion List</h2>
             </div>
             <div>
                 {loading ? (
