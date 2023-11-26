@@ -17,7 +17,7 @@ const SidebarWithContentSeparator = ({selectedGenre}) => {
             try {
                 const response = await api.get('/genre/movie/list', {
                     params: {
-                        language: 'en-US' // Change language code if necessary
+                        language: 'en-US'
                     }
                 });
 
