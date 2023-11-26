@@ -3,7 +3,7 @@
 .movie-grid-genre-page {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 0;
+    gap: 11px;
     padding: 20px;
     margin-left: -1.5%;
 }
