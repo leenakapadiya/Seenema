@@ -190,6 +190,8 @@
     cursor: pointer; /* Pointer cursor on hover */
     transition: background-color 0.3s; /* Transition effect for background color */
     margin-right: 10px; /* Right margin */
+    background-color: var(--accent-color);
+    color: var(--white-text);
 }
 
 /* Back button specific style */
@@ -198,10 +200,15 @@
     color: var(--white-text);
 }
 
+.added-to-watchlist {
+    background-color: green;
+}
+
 /* Watchlist button styles */
 .button-watchlist,
-.button-friends-watchlist {
-    background-color: var(--button-bg-color);
+.button-friends-watchlist
+.button-add-friend-suggestions-list{
+    /*background-color: var(--button-bg-color);*/
     color: var(--button-text-color);
 }
 
@@ -224,7 +231,7 @@
 }
 
 /* Hover effect for the back button */
-.button-back:hover {
+.button-back:hover .button-add-friend-suggestions-list:hover {
     background-color: #D52B1E; /* Slightly darker red on hover */
 }
 
