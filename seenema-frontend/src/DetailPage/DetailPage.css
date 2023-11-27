@@ -197,7 +197,7 @@
     transition: background-color 0.3s; /* Transition effect for background color */
     margin-right: 20px; /* Right margin */
     height: 40px;
-    background-color: var(--accent-color);
+    background-color: var(--button-bg-color);
     color: var(--white-text);
 }
 
@@ -257,7 +257,7 @@
 .add-to-friendList-field {
     display: flex; /* Flex display */
     align-items: center; /* Center align items */
-    gap: 10px;
+
 
 }
 

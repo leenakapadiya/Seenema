@@ -262,8 +262,13 @@ const DetailPage = () => {
                             onClick={handleButtonClick}
                             disabled={addedToWatchlist}
                         >
-                            {addedToWatchlist ? 'Added to Watchlist' : 'Add to Watchlist'}
+                            + WATCHLIST
+                            {addedToWatchlist ? '' : ''}
                         </button>
+
+                            <button onClick={handleAddToSuggestionsList} className="generic-button button-add-friend-suggestions-list">
+                                + FRIEND'S WATCHLIST
+                            </button>
                         <div className="add-to-friendList-field">
                             <input
                                 type="text"
@@ -272,9 +277,6 @@ const DetailPage = () => {
                                 onChange={(e) => setFriendEmail(e.target.value)}
                                 className={"add-friend-input"}
                             />
-                            <button onClick={handleAddToSuggestionsList} className="generic-button button-add-friend-suggestions-list">
-                                Add to Friend's Watchlist
-                            </button>
                             <Link to="/Homepage" className="generic-button button-back">Back</Link>
                         </div>
                         {/*<button className="generic-button button-friends-watchlist" onClick={handleAddToSuggestionsList}>Add to Friend's Watchlist</button>*/}
