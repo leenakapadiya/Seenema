@@ -89,7 +89,7 @@ const UserProfilePage = () => {
     return (
         <div className="profile-body">
             <div className="back-button-profile">
-                <button onClick={handleGoBack} className="generic-button button-back">Back</button>
+                <button onClick={handleGoBack} className="generic-button">Back</button>
             </div>
             <div className="user-profile-page">
                 <img src={backgroundImage} alt="Background" className="background-image"/>

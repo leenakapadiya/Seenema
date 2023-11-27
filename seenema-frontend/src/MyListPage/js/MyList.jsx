@@ -59,7 +59,7 @@ const MyList = () => {
     return (
         <div className="my-list-whole">
             <div className="mylist-header">
-                <button onClick={handleGoBack} className="generic-button button-back" style={{marginLeft: '8px'}}>Back
+                <button onClick={handleGoBack} className="generic-button button-back-mylist">Back
                 </button>
                 <h2 className="my-list-title">My List</h2>
             </div>
