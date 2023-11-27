@@ -12,14 +12,11 @@ import {AuthProvider} from "./Auth/JavaScript/AuthContext"
 import RouteGuard from "./Auth/JavaScript/RouteGuard";
 import GenreMoviesPage from "./Homepage/js/GenreMoviesPage";
 import SuggestedMoviesList from "./SuggestionsListPage/js/ListOfMovies";
-import MovieSuggestionList from "./SuggestionsListPage/js/MovieSuggestionList"; // Adjust the path as necessary
+import MovieSuggestionList from "./SuggestionsListPage/js/MovieSuggestionList";
+import SearchedCardsPage from "./Homepage/js/SearchedCardsPage"; // Adjust the path as necessary
 
 
 function App() {
-    // const handleAddMoviesToMyList = (movieId) => {
-    //     // Your logic to add the movie to the list
-    //     console.log(`Adding movie ${movieId} to My List`);
-    // };
     return (
         <AuthProvider>
             <Router>

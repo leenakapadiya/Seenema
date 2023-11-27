@@ -8,6 +8,8 @@ import {AuthContext} from "../Auth/JavaScript/AuthContext";
 import '../SuggestionsListPage/css/SuggestedMoviesList.css';
 import Select from 'react-select';
 import * as SelectedFriend from "@material-tailwind/react/context/theme";
+// Import necessary libraries for cookie handling
+import { useCookies } from 'react-cookie';
 
 const DetailPage = () => {
     // State variables for storing movie data
@@ -28,6 +30,8 @@ const DetailPage = () => {
     const [friendsList, setFriendsList] = useState(new Set());
     const [selectedFriend, setSelectedFriend] = useState(null);
     let rating = "";
+    const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
+    const userToken = cookies.userToken; // Get the user token from the cookie
 
     const handleToggleDropdown = () => {
         setShowDropdown(!showDropdown);
@@ -87,7 +91,7 @@ const DetailPage = () => {
         const fetchMovieDetails = async () => {
             try {
                 // Fetch the user's watchlist information
-                const isMovieInList = user ? await isMovieInMyList(userEmail, movieId): false;
+                const isMovieInList = user ? await isMovieInMyList(userToken, movieId): false;
 
                 // Set the state to reflect whether the movie is in the user's watchlist
                 setAddedToWatchlist(isMovieInList);
@@ -101,7 +105,7 @@ const DetailPage = () => {
         };
 
         fetchMovieDetails();
-    }, [movieId, userEmail, user]); // Effect dependency on movieId and userEmail
+    }, [movieId, userToken]); // Effect dependency on movieId and userEmail
 
     const fetchUserInfo = async () => {
         try {
