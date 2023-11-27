@@ -256,7 +256,7 @@ const DetailPage = () => {
                         <span>{director}</span>
                     </div>
                     <div className="button-container">
-                        <Link to="/Homepage" className="generic-button button-back">Back</Link>
+
                         <button
                             className={`generic-button button-watchlist ${addedToWatchlist ? 'added-to-watchlist' : ''}`}
                             onClick={handleButtonClick}
@@ -275,6 +275,7 @@ const DetailPage = () => {
                             <button onClick={handleAddToSuggestionsList} className="generic-button button-add-friend-suggestions-list">
                                 Add to Friend's Watchlist
                             </button>
+                            <Link to="/Homepage" className="generic-button button-back">Back</Link>
                         </div>
                         {/*<button className="generic-button button-friends-watchlist" onClick={handleAddToSuggestionsList}>Add to Friend's Watchlist</button>*/}
                     </div>
