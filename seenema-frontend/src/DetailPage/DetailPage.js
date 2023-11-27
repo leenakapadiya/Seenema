@@ -118,7 +118,6 @@ const DetailPage = () => {
         fetchUserInfo();
     }, [userEmail, movieId]); // Call fetchUserInfo when userEmail or movieId changes
 
-
     const handleAddToMyList = async () => {
         try {
             setLoading(true);
@@ -170,7 +169,6 @@ const DetailPage = () => {
             setLoading(false);
         }
     };
-
     const isMovieInMyList = async (userEmail, movieId) => {
         try {
             // Fetch the user's watchlist information from local storage

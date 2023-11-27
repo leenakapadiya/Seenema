@@ -257,8 +257,6 @@
 .add-to-friendList-field {
     display: flex; /* Flex display */
     align-items: center; /* Center align items */
-
-
 }
 
 /* Adjust the input field style to match the height of buttons */
@@ -303,7 +301,6 @@
     display: flex; /* Flex display */
     flex-wrap: wrap; /* Wrap content */
     gap: 10px;
-    /* Add more styles as needed */
 }
 
 .service img {
@@ -312,7 +309,6 @@
     border-radius: 10px; /* Rounded corners */
     /* Add more styles as needed */
 }
-
 
 
 /* If you add any additional styles, they go here :) */
