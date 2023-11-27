@@ -3,7 +3,6 @@ import {Link, useParams} from 'react-router-dom';
 import api from '../Homepage/js/api'; // API import for fetching movie details
 import './DetailPage.css'; // Importing CSS for styling
 import starImage from '../assets/Star.png'; // Star icon for rating display
-import Header from '../Homepage/js/Header'; // Header component import
 import {AuthContext} from "../Auth/JavaScript/AuthContext";
 import '../SuggestionsListPage/css/SuggestedMoviesList.css';
 
@@ -221,11 +220,9 @@ const DetailPage = () => {
         }
     };
 
-
     // Main return statement for rendering the detail page
     return (
         <div className="detail-page-layout">
-            <Header/> {/* Include the Header component */}
             <div className="detail-page-wrapper"
                  style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`}}>
                 <div className="detail-movie-overlay"/>

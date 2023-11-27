@@ -13,7 +13,7 @@
     overflow-x: auto; /* Enable horizontal scrolling for smaller screens */
     margin: auto; /* Center align the content */
     position: relative; /* Positioning context for child elements */
-    padding: 20px; /* Padding around the content */
+    padding: 10px; /* Padding around the content */
     font-family: 'DM Sans', sans-serif; /* Font family for the text */
     color: var(--white-text); /* Text color */
     background-color: #0f1115; /* Background color, can be overridden by an image */
@@ -52,15 +52,15 @@
     flex-direction: column;
     align-items: flex-start; /* Align children to the left */
     gap: 20px; /* Spacing between child elements */
-    padding-left: 35%; /* Space for the poster */
+    padding-left: 28%; /* Space for the poster */
 }
 
 /* Styling for the movie poster */
 .detail-movie-poster {
     position: absolute;
-    top: 10px;
+    top: 15px;
     left: 10px; /* Positioning */
-    width: 30%; /* Width relative to the container */
+    width: 25%; /* Width relative to the container */
     max-width: 680px;
     min-width: 120px; /* Maximum and minimum width */
     border-radius: 10px; /* Rounded corners */
@@ -70,7 +70,7 @@
 
 /* Movie title styling */
 .detail-movie-title {
-    font-size: 5.5rem; /* Font size */
+    font-size: 3.75rem; /* Font size */
     color: var(--white-text); /* Text color */
 }
 
@@ -79,7 +79,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-right: 10px; /* Right margin */
+    margin-right: 0px; /* Right margin */
 }
 
 /* Star icon for user rating */
@@ -90,7 +90,7 @@
 
 /* Shared styles for rating and year */
 .detail-rating, .detail-year {
-    font-size: 1.5rem; /* Font size */
+    font-size: 1.25rem; /* Font size */
     color: var(--white-text); /* Text color */
     background: rgb(47, 45, 45); /* Background color */
     padding: 5px 10px; /* Padding */
@@ -100,7 +100,7 @@
 
 /* Additional shared styles for different ratings */
 .detail-movie-rating-box, .detail-movie-USERrating, .detail-movie-MPArating {
-    font-size: 1.5rem; /* Font size */
+    font-size: 1.25rem; /* Font size */
     color: var(--white-text); /* Text color */
     background: rgb(47, 45, 45); /* Background color */
     padding: 5px 10px; /* Padding */
@@ -111,15 +111,16 @@
 /* Movie overview styling */
 .detail-movie-overview {
     font-size: 1.2rem; /* Font size */
-    line-height: 1.5; /* Line height */
+    line-height: 1.35; /* Line height */
     text-align: left; /* Text alignment */
     color: var(--white-text); /* Text color */
-    max-width: 70%; /* Maximum width */
+    max-width: 90%; /* Maximum width */
+    margin-bottom: 0px; /* Bottom margin */
 }
 
 /* Movie runtime styling */
 .detail-movie-runtime {
-    font-size: 1.5rem; /* Font size */
+    font-size: 1.25rem; /* Font size */
     color: var(--white-text); /* Text color */
     background: rgb(47, 45, 45); /* Background color */
     padding: 5px 10px; /* Padding */
@@ -129,34 +130,38 @@
 
 /* Movie genres styling */
 .detail-movie-genres {
-    font-size: 1.5rem; /* Font size */
+    font-size: 1rem; /* Font size */
     color: var(--gray-text); /* Text color */
-    margin-bottom: 20px; /* Bottom margin */
+    margin-bottom: 0px; /* Bottom margin */
 }
 
 /* Cast and director styling */
 .detail-movie-cast, .detail-movie-director {
     color: var(--gray-text); /* Text color */
-    font-size: 1.2rem; /* Font size */
-    max-width: 70%; /* Maximum width */
-    margin-top: 20px; /* Top margin */
+    font-size: 1rem; /* Font size */
+    line-height: 1.35; /* Line height */
+    max-width: 90%; /* Maximum width */
+    margin-top: 0px; /* Top margin */
+    margin-bottom: 0px; /* Bottom margin */
 }
 
 /* Styling for cast and director titles */
 .detail-cast-title, .detail-director-title {
     display: inline-block; /* Display inline with block properties */
+    font-size: 1.2rem; /* Font size */
     margin-right: 10px; /* Right margin */
     font-weight: bold; /* Bold text */
 }
 
 /* User rating box styling */
 .detail-user-rating-box {
-    font-size: 1.5rem; /* Font size */
+    font-size: 1.25rem; /* Font size */
     display: flex; /* Flex display */
     align-items: center; /* Center align items */
     background: rgb(47, 45, 45); /* Background color */
     padding: 5px 10px; /* Padding */
     border-radius: 4px; /* Rounded corners */
+
 }
 
 /* User rating star icon styling */
@@ -168,9 +173,10 @@
 
 /* Movie genre list styling */
 .detail-movie-genre-list {
-    font-size: 1.2rem; /* Font size */
+    font-size: 1rem; /* Font size */
     color: var(--gray-text); /* Text color */
-    margin-top: 10px; /* Top margin */
+    margin-top: 0px; /* Top margin */
+    margin-bottom: 0px; /* Bottom margin */
 }
 
 /* Font styling for "Starring:" and "Director:" */
@@ -189,7 +195,8 @@
     font-weight: bold; /* Bold text */
     cursor: pointer; /* Pointer cursor on hover */
     transition: background-color 0.3s; /* Transition effect for background color */
-    margin-right: 10px; /* Right margin */
+    margin-right: 20px; /* Right margin */
+    height: 40px;
     background-color: var(--accent-color);
     color: var(--white-text);
 }
@@ -198,6 +205,7 @@
 .button-back {
     background-color: var(--accent-color);
     color: var(--white-text);
+    margin-left: 120px; /* left margin */
 }
 
 .added-to-watchlist {
@@ -206,10 +214,10 @@
 
 /* Watchlist button styles */
 .button-watchlist,
-.button-friends-watchlist
-.button-add-friend-suggestions-list{
+.button-friends-watchlist {
     /*background-color: var(--button-bg-color);*/
     color: var(--button-text-color);
+    background-color: var(--button-bg-color); /* Using the custom color variable */
 }
 
 /* Hover effect for buttons */
@@ -239,14 +247,34 @@
 .button-container {
     display: flex; /* Flex display */
     align-items: center; /* Center align items */
-    margin-top: 20px; /* Top margin */
+    gap: 10px; /* Adjust the gap as needed */
+}
+
+.button-group {
+    display: flex; /* Flex display */
+}
+
+.add-to-friendList-field {
+    display: flex; /* Flex display */
+    align-items: center; /* Center align items */
+    gap: 10px;
+
+}
+
+/* Adjust the input field style to match the height of buttons */
+.add-friend-input {
+    padding: 10px 20px; /* Adjust padding to match the buttons */
+    border-radius: 20px; /* Match the border-radius of buttons if needed */
+    border: none; /* Optional: Adds border to match your design */
+    margin-bottom: 1rem; /* Bottom margin */
+    height: 40px;
 }
 
 /* Trailers and clips section header styling */
 .trailers-and-clips h2 {
     color: var(--white-text); /* Text color */
-    font-size: 1.5rem; /* Font size */
-    margin-top: 2rem; /* Top margin */
+    font-size: 1rem; /* Font size */
+    margin-top: 0rem; /* Top margin */
     margin-bottom: 1rem; /* Bottom margin */
 }
 
@@ -267,7 +295,7 @@
 /* Watch on services section header styling */
 .watch-on-services h2 {
     color: var(--white-text); /* Text color */
-    font-size: 1.5rem; /* Font size */
+    font-size: 1rem; /* Font size */
 }
 
 /* Services container styling */
@@ -279,8 +307,9 @@
 }
 
 .service img {
-    width: 100px; /* Adjust as needed */
+    width: 60px; /* Adjust as needed */
     height: auto;
+    border-radius: 10px; /* Rounded corners */
     /* Add more styles as needed */
 }
 
