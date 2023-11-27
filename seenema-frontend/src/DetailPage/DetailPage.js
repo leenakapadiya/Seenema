@@ -297,8 +297,8 @@ const DetailPage = () => {
                             {videos.slice(0, 2).map((video) => (
                                 <iframe
                                     key={video.id}
-                                    width="560"
-                                    height="315"
+                                    width="504"
+                                    height="284"
                                     src={`https://www.youtube.com/embed/${video.key}`}
                                     title={video.name}
                                     frameBorder="0"
