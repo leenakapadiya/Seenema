@@ -242,6 +242,43 @@
     margin-top: 20px; /* Top margin */
 }
 
+.detail-done-button {
+    margin-left: 3%;
+    border-radius: 40px;
+
+}
+
+.add-to-friendList-field {
+    display: flex;
+    color: black;
+}
+
+.select-friend-detail {
+    width: 300px;
+    margin-top: 1%;
+    color: black;
+}
+
+.css-1fdsijx-ValueContainer {
+    background-color: rgba(224, 222, 227, 0.94) !important;
+}
+
+.css-1xc3v61-indicatorContainer {
+    background-color: rgba(224, 222, 227, 0.94) !important;
+}
+
+.css-tj5bde-Svg {
+    color: black;
+}
+
+.css-13cymwt-control {
+    background-color: rgba(224, 222, 227, 0.94) !important;
+}
+
+.css-15lsz6c-indicatorContainer hover {
+    color: rgba(224, 222, 227, 0.94) !important;
+}
+
 /* Trailers and clips section header styling */
 .trailers-and-clips h2 {
     color: var(--white-text); /* Text color */

@@ -6,6 +6,8 @@ import starImage from '../assets/Star.png'; // Star icon for rating display
 import Header from '../Homepage/js/Header'; // Header component import
 import {AuthContext} from "../Auth/JavaScript/AuthContext";
 import '../SuggestionsListPage/css/SuggestedMoviesList.css';
+import Select from 'react-select';
+import * as SelectedFriend from "@material-tailwind/react/context/theme";
 
 const DetailPage = () => {
     // State variables for storing movie data
@@ -22,8 +24,20 @@ const DetailPage = () => {
     const [addedToWatchlist, setAddedToWatchlist] = useState(false);
     let {userEmail} = useParams();
     userEmail = user ? user.email : "";
-
+    const [showDropdown, setShowDropdown] = useState(false);
+    const [friendsList, setFriendsList] = useState(new Set());
+    const [selectedFriend, setSelectedFriend] = useState(null);
     let rating = "";
+
+    const handleToggleDropdown = () => {
+        setShowDropdown(!showDropdown);
+    };
+
+    const handleFriendClick = (friendEmail) => {
+        // Call the function to add the movie to the friend's suggestion list
+        handleAddToSuggestionsList(SelectedFriend.value);
+        setShowDropdown(false);
+    };
 
     useEffect(() => {
         const fetchMovieDetails = async () => {
@@ -93,16 +107,19 @@ const DetailPage = () => {
         try {
             const response = await fetch('https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/getUserInfo', {
                 method: 'POST',
-                body: JSON.stringify({ email: userEmail }), // Replace userEmail with the actual email
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                body: JSON.stringify({ Email: user.email })
             });
 
             if (response.ok) {
                 const userInfo = await response.json();
                 // Update state based on the fetched user information
-                setAddedToWatchlist(userInfo.watchlist.includes(movieId));
+                setAddedToWatchlist(userInfo.Movies.includes(movieId));
+                if (userInfo.Friends && Array.isArray(userInfo.Friends)) {
+                    const friendEmails = userInfo.Friends;
+                    setFriendsList(new Set(friendEmails));
+                } else {
+                    console.error("Invalid friend list data:", userInfo);
+                }
             } else {
                 console.error('Failed to fetch user information:', response.status, response.statusText);
             }
@@ -110,10 +127,6 @@ const DetailPage = () => {
             console.error('Error fetching user information:', error.message);
         }
     };
-
-    useEffect(() => {
-        fetchUserInfo();
-    }, [userEmail, movieId]); // Call fetchUserInfo when userEmail or movieId changes
 
 
 
@@ -152,7 +165,7 @@ const DetailPage = () => {
                 method: 'POST',
                 body: JSON.stringify({
                     username: user.email,
-                    friendUsername: friendEmail,
+                    friendUsername: selectedFriend.value,
                     movieId: movieId,
                 }),
             });
@@ -263,19 +276,42 @@ const DetailPage = () => {
                         >
                             {addedToWatchlist ? 'Added to Watchlist' : 'Add to Watchlist'}
                         </button>
-                        <div className="add-to-friendList-field">
-                            <input
-                                type="text"
-                                placeholder="  Friend's Email"
-                                value={friendEmail}
-                                onChange={(e) => setFriendEmail(e.target.value)}
-                                className={"add-friend-input"}
-                            />
-                            <button onClick={handleAddToSuggestionsList} className="generic-button button-add-friend-suggestions-list">
-                                Add to Friend's Watchlist
-                            </button>
+                        <div>
+                            {showDropdown ? (
+                                <div>
+                                    <div className="add-to-friendList-field">
+                                        <div className="select-friend-detail">
+                                            <Select
+                                                options={Array.from(friendsList).map((friend) => ({
+                                                    value: friend,
+                                                    label: friend,
+                                                }))}
+                                                value={selectedFriend}
+                                                onChange={(selectedOption) => setSelectedFriend(selectedOption)}
+                                                placeholder="Select friend"
+                                                style={{ color: 'black'}}
+                                            />
+                                        </div>
+                                        <button
+                                            className="generic-button  detail-done-button"
+                                            onClick={() => handleFriendClick(selectedFriend ? selectedFriend.value : '')}
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" fill="currentColor" className="bi bi-check" viewBox="0 0 16 16" >
+                                                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <button
+                                    className="generic-button button-add-friend-suggestions-list"
+                                    onClick={handleToggleDropdown}
+                                    style={{ display: showDropdown ? 'none' : 'block' }}
+                                >
+                                    Suggest to a friend
+                                </button>
+                            )}
                         </div>
-                        {/*<button className="generic-button button-friends-watchlist" onClick={handleAddToSuggestionsList}>Add to Friend's Watchlist</button>*/}
                     </div>
                     <div className="watch-on-services">
                         <h2>Available on:</h2>
