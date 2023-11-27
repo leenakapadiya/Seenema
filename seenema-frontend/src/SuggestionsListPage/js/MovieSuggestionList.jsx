@@ -8,6 +8,7 @@ import '../../Auth/JavaScript/Auth';
 import '../css/SuggestedMoviesList.css';
 import ListOfMovies from "./ListOfMovies";
 
+
 const MovieSuggestionList = () => {
     const navigate = useNavigate();
     const {user} = useContext(AuthContext);
@@ -60,7 +61,7 @@ const MovieSuggestionList = () => {
     return (
         <div>
             <div className="mylist-header">
-                <button onClick={handleGoBack} className="generic-button button-back" style={{marginLeft: '8px'}}>Back
+                <button onClick={handleGoBack} className="generic-button button-back-suggestionList">Back
                 </button>
                 <h2 className="my-list-title">Friend Suggestion List</h2>
             </div>

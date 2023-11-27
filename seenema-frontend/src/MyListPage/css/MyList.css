@@ -49,3 +49,22 @@
         padding-top: 110px; /* Adjust for desktop screens */
     }
 }
+
+/* Specific styling for the back button */
+.button-back-mylist {
+    background-color: #E63946; /* Red background */
+    color: #FFFFFF; /* White text */
+    padding: 10px 20px; /* Padding */
+    border-radius: 20px; /* Rounded corners */
+    text-transform: uppercase; /* Uppercase text */
+    text-decoration: none; /* No text decoration */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition effect for background color */
+    margin-left: 8px;
+}
+
+/* Hover effect for the back button */
+.button-back-mylist:hover .button-add-friend-suggestions-list:hover {
+    background-color: #D52B1E; /* Slightly darker red on hover */
+}
