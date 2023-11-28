@@ -166,6 +166,11 @@ hr {
     background-color: #D52B1E; /* Slightly darker red on hover */
 }
 
+.loading-confirmation {
+    width: 10%;
+    margin-left: 45%;
+    margin-top: 8%;
+}
 
 @media (max-width: 768px) {
     .auth-Form {
