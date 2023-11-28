@@ -47,9 +47,9 @@
     box-shadow: none;
 }
 
-/* Additional styles for the loading animation */
 .loading-container {
     width: 60%;
+    margin-left: 20%;
 }
 
 .add-friend-field {

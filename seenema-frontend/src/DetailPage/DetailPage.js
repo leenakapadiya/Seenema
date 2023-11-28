@@ -10,6 +10,8 @@ import Select from 'react-select';
 import * as SelectedFriend from "@material-tailwind/react/context/theme";
 // Import necessary libraries for cookie handling
 import { useCookies } from 'react-cookie';
+import Loading from "../assets/loading.json";
+import Lottie from "lottie-react";
 
 const DetailPage = () => {
     // State variables for storing movie data
@@ -289,13 +291,19 @@ const DetailPage = () => {
                     </div>
                     <div className="button-container">
                         <Link to="/Homepage" className="generic-button button-back">Back</Link>
-                        <button
-                            className={`generic-button button-watchlist ${addedToWatchlist ? 'added-to-watchlist' : ''}`}
-                            onClick={handleButtonClick}
-                            disabled={addedToWatchlist}
-                        >
-                            {addedToWatchlist ? 'Added to Watchlist' : 'Add to Watchlist'}
+                            {loading ? (
+                                <div className="loading-container-detail-page">
+                                    <Lottie loop={true} animationData={Loading} />
+                                </div>
+                            ) : (
+                                <button
+                                    className={`generic-button button-watchlist ${addedToWatchlist ? 'added-to-watchlist' : ''}`}
+                                    onClick={handleButtonClick}
+                                    disabled={addedToWatchlist}
+                                >
+                                    {addedToWatchlist ? 'Added to Watchlist' : 'Add to Watchlist'}
                         </button>
+                            )}
                         <div>
                             {showDropdown ? (
                                 <div>
