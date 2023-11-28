@@ -8,6 +8,25 @@
     margin-left: -1.5%;
 }
 
+.genre-results-container {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    padding-left: 1.2%;
+    padding-bottom: 0.5%;
+    background-color: var(--background-color);
+    overflow-y: auto;
+    gap: 20%;
+    opacity: 1;
+    flex-wrap: wrap;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
+.results-container ::-webkit-scrollbar {
+    display: none;
+}
 .main-content-area-GenrePage {
     flex-grow: 1;
     overflow-x: auto;
@@ -21,7 +40,6 @@
     font-weight: 1000;
     margin-bottom: -18.5px;
     margin-left: 30px;
-    margin-top: 18px;
 }
 
 .load-more-container-genre-page {

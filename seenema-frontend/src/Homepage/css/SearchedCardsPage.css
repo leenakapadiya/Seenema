@@ -2,10 +2,9 @@
     font-family: sans-serif;
 }
 
-.movie-container-searched {
+.movie-container-searched ::-webkit-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
-
 }
 
 .movie-container-searched {

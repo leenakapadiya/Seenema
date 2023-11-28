@@ -14,6 +14,11 @@ const GenreMoviesPage = () => {
     const {genreId} = useParams();
     const [isSearchActive, setIsSearchActive] = useState(false);
 
+    const handleGoBack = () => {
+        fetchMoviesByGenre(currentPage); // fetch current page of genre when search is cleared
+        setIsSearchActive(false);
+    }
+
     const searchMoviesByGenreAndName = useCallback(async (searchTerm) => {
         setLoading(true);
         try {
@@ -73,6 +78,7 @@ const GenreMoviesPage = () => {
             } else {
                 setMovies(prev => [...prev, ...response.data.results]);
             }
+            setIsSearchActive(false)
             setLoading(false);
         } catch (error) {
             console.error('Error fetching movies by genre:', error);
@@ -124,7 +130,10 @@ const GenreMoviesPage = () => {
                 <div className="main-content-area-GenrePage">
                     {(isSearchActive) && (movies.length === 0) ? (
                         <>
+                        <div className="genre-results-container">
+                            <button onClick={handleGoBack} className="generic-button button-back" style={{marginLeft: '8px'}}>Back</button>
                             <h2 className="genre-heading-GenreMoviePage">{'No ' + genreName + ' Movies Found'}</h2>
+                        </div>
                             <div className="movie-grid-genre-page">
                                 {movies.map(movie => (
                                     <MovieCard key={movie.id} movie={movie}/>
@@ -133,7 +142,10 @@ const GenreMoviesPage = () => {
                         </>
                     ) : (isSearchActive) ? (
                         <>
-                            <h2 className="genre-heading-GenreMoviePage">{ genreName + ' Movies Search Results'}</h2>
+                        <div className="genre-results-container">
+                            <button onClick={handleGoBack} className="generic-button button-back" style={{marginLeft: '8px'}}>Back</button>
+                            <h2 className="genre-heading-GenreMoviePage">{'Search Results for ' + genreName + ' Movies'}</h2>
+                        </div>
                             <div className="movie-grid-genre-page">
                                 {movies.map(movie => (
                                     <MovieCard key={movie.id} movie={movie}/>
