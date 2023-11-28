@@ -10,13 +10,12 @@
 
 .movie-container-searched {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Five columns */
-    gap: 15px; /* Gap between items */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 11px;
+    padding: 20px;
+    margin-left: -1.5%;
 }
 
-.movie-container-searched::-webkit-scrollbar {
-    display: none;
-}
 
 .container-searched {
     width: 205px;

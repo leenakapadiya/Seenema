@@ -5,6 +5,7 @@ import './DetailPage.css'; // Importing CSS for styling
 import starImage from '../assets/Star.png'; // Star icon for rating display
 import {AuthContext} from "../Auth/JavaScript/AuthContext";
 import '../SuggestionsListPage/css/SuggestedMoviesList.css';
+import {useNavigate} from "react-router-dom";
 
 const DetailPage = () => {
     // State variables for storing movie data
@@ -19,10 +20,15 @@ const DetailPage = () => {
     const {movieId} = useParams(); // Getting movie ID from URL params
     const [friendEmail, setFriendEmail] = useState("");
     const [addedToWatchlist, setAddedToWatchlist] = useState(false);
+    const navigate = useNavigate();
     let {userEmail} = useParams();
     userEmail = user ? user.email : "";
 
     let rating = "";
+
+    const handleGoBack = () => {
+        navigate(-1);
+    };
 
     useEffect(() => {
         const fetchMovieDetails = async () => {
@@ -253,7 +259,7 @@ const DetailPage = () => {
                         <span>{director}</span>
                     </div>
                     <div className="button-container">
-                        <Link to="/Homepage" className="generic-button button-back">Back</Link>
+                        <button onClick={handleGoBack} className="generic-button button-back" style={{marginLeft: '8px'}}>Back</button>
                         <button
                             className={`generic-button button-watchlist ${addedToWatchlist ? 'added-to-watchlist' : ''}`}
                             onClick={handleButtonClick}

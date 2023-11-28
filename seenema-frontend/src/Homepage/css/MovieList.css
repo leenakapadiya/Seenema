@@ -8,3 +8,36 @@
     color: var(--white-text);
     font-weight: bolder;
 }
+
+.header-results {
+    margin-bottom: 0;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--white-text);
+    font-weight: bolder;
+    flex-grow: 1;
+    text-align: center;
+    margin-right: 10%;
+}
+
+.results-container {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    padding-right: 20%;
+    gap: 1%;
+    background-color: var(--subtle-color);
+    flex-wrap: wrap;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
+.results-container ::-webkit-scrollbar {
+    display: none;
+}
+
+.movies-container {
+    padding-top: 25px; /* Adjust based on your header's actual height */
+    height: 100vh;
+    overflow-y: auto; /* Adds a scrollbar to this area */
+}

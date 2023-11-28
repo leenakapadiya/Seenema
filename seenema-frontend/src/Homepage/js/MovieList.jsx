@@ -3,12 +3,19 @@ import CardRow from "./CardRow"
 import api from "./api"
 import '../css/MovieList.css'
 import SearchedCardsPage from "./SearchedCardsPage"
+import {useNavigate} from "react-router-dom";
+
 
 const MovieList = (searchValue) => {
     // State Variables for different categories of the movies.
     const [topRatedMovies, setTopRatedMovies] = useState([]);
     const [upcomingMovies, setUpcomingMovies] = useState([]);
     const [popularMovies, setPopularMovies] = useState([]);
+    const navigate = useNavigate();
+
+    const handleGoBack = () => {
+        navigate(-1);
+    };
     const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
     const [searchResults, setSearchResults] = useState([])
 
@@ -86,8 +93,13 @@ const MovieList = (searchValue) => {
         <div>
             {(searchResults.length > 0) && (searchValue.searchValue !== '') ? (
                 <>
-                    <h2 className="header-home">Search Results</h2>
+                <div className="results-container">
+                    <button onClick={handleGoBack} className="generic-button button-back" style={{marginLeft: '8px'}}>Back</button>
+                    <h2 className="header-results">Search Results</h2>
+                </div>
+                <div className="movies-container">
                     <SearchedCardsPage movies={searchResults}/>
+                </div>
                 </>
             ) : (searchValue.searchValue === "") ? (
                 <>

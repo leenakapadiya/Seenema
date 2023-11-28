@@ -131,6 +131,15 @@ const GenreMoviesPage = () => {
                                 ))}
                             </div>
                         </>
+                    ) : (isSearchActive) ? (
+                        <>
+                            <h2 className="genre-heading-GenreMoviePage">{ genreName + ' Movies Search Results'}</h2>
+                            <div className="movie-grid-genre-page">
+                                {movies.map(movie => (
+                                    <MovieCard key={movie.id} movie={movie}/>
+                                ))}
+                            </div>
+                        </>
                     ) : (
                         <>
                             <h2 className="genre-heading-GenreMoviePage">{'All ' + genreName + ' Movies'}</h2>
