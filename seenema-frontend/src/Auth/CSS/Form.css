@@ -14,11 +14,11 @@ html, body {
     background-size: cover;
     color: white;
     font-family: sans-serif;
-    height: 100vh;
-}
-
-.full-form {
-
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .auth-Form {
@@ -28,11 +28,10 @@ html, body {
     transform: translate(-50%, -50%);
     width: 600px;
     background: rgba(0, 0, 0, 0.8);
-    padding: 20px 80px 80px;
+    padding: 40px 80px; /* Adjust padding as needed */
     border-radius: 30px;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
     text-align: center;
-    height: 100vh;
 }
 
 
@@ -168,4 +167,27 @@ hr {
 /* Hover effect for the back button */
 .button-auth:hover {
     background-color: #D52B1E; /* Slightly darker red on hover */
+}
+
+
+@media (max-width: 768px) {
+    .auth-Form {
+        width: 90%;
+        padding: 10px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-Form {
+        width: 80%;
+        padding: 10px 15px;
+    }
+
+    .auth-input, button[type="submit"], input[type="submit"] {
+        width: calc(100% - 30px);
+    }
+
+    .logo-auth img {
+        max-width: 50%;
+    }
 }
