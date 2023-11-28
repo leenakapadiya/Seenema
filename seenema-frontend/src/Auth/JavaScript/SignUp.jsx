@@ -30,7 +30,7 @@ export default function SignUp() {
             setSuccess(true)
         } catch (err) {
             // Set the error message
-            setError(err.message)
+            setError(err.message.replace(/\n/g, '<br />'));
         }
     }
     // if success is true, go to confirmSignUp
@@ -84,7 +84,8 @@ export default function SignUp() {
                             onChange: (e) => setPassword(e.target.value)
                         })} />
                     </div>
-                    {error && <p style={{paddingTop: "10px", textAlign: "left", color: "#E63946"}}>{error}</p>}
+                    {/*{error && <p style={{paddingTop: "10px", textAlign: "left", color: "#E63946"}}>{error}</p>}*/}
+                    {error && <p style={{ paddingTop: "10px", textAlign: "left", color: "#E63946" }} dangerouslySetInnerHTML={{ __html: error }} />}
                     <button style={{marginTop: "30px"}} className="generic-button-auth button-auth">Sign Up</button>
                 </form>
                 <p style={{marginTop: '20px', textAlign: 'left'}}>Already have an account? <Link to="/signIn"
