@@ -28,8 +28,13 @@ export default function ResetPassword(callback) {
             await confirmPassword(email, confirmationCode, newPassword)
             setSuccess(true)
         } catch (err) {
-            // Set the error message
-            setError(err.message)
+            // Check if the error is due to password policy violation
+            if (err.message.startsWith("Your password must meet the following criteria")) {
+                setError(err.message.replace(/\\n/g, '\n'));
+            } else {
+                // Handle other types of errors
+                setError(err.message);
+            }
         }
     }
 
@@ -97,8 +102,8 @@ export default function ResetPassword(callback) {
                             onChange: (e) => setNewPassword(e.target.value)
                         })} />
                     </div>
-                    {error && <p style={{paddingTop: "20px", color: "#E63946", textAlign: "left"}}>{error}</p>}
-                    <button style={{marginTop: "30px", marginBottom: "20px"}} className="button-auth">Reset Password
+                    {error && <p style={{ paddingTop: "20px", color: "#E63946", textAlign: "left", whiteSpace: 'pre-line' }}>{error}</p>}
+                    <button style={{marginTop: "30px", marginBottom: "20px"}} className="generic-button-auth button-auth">Reset Password
                     </button>
                     <br/>
                 </form>

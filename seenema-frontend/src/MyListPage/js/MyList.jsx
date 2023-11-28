@@ -5,7 +5,7 @@ import Loading from "../../assets/loading.json";
 import Lottie from "lottie-react";
 import '../../Homepage/css/MovieList.css';
 import '../../Auth/JavaScript/Auth';
-import MoviesList from "./MoviesList";
+import MyMoviesList from "./MyMoviesList";
 import '../css/MyList.css';
 
 const MyList = () => {
@@ -65,13 +65,13 @@ const MyList = () => {
             </div>
             <div className="list-main-area">
                 {loading ? (
-                    <div className="loading-container">
+                    <div className="loading-container-my-list">
                         <Lottie loop={true} animationData={Loading}/>
                     </div>
                 ) : (
                     <div>
                         {moviesList.size > 0 && (
-                            <MoviesList
+                            <MyMoviesList
                                 moviesList={Array.from(moviesList)}
                             />
                         )}
