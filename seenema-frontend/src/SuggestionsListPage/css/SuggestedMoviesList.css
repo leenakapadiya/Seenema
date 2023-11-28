@@ -25,3 +25,9 @@
 .button-back-suggestionList:hover .button-add-friend-suggestions-list:hover {
     background-color: #D52B1E; /* Slightly darker red on hover */
 }
+
+.loading-container-suggestion-list {
+    width: 20%;
+    margin-left: 40%;
+    margin-top: 10%;
+}

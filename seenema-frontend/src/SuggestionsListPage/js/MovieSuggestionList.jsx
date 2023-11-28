@@ -67,7 +67,7 @@ const MovieSuggestionList = () => {
             </div>
             <div className="list-main-area">
                 {loading ? (
-                    <div className="loading-container">
+                    <div className="loading-container-suggestion-list">
                         <Lottie loop={true} animationData={Loading}/>
                     </div>
                 ) : (
