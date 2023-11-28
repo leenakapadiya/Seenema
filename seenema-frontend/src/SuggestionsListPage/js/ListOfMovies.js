@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import api from '../../Homepage/js/api';
 import MovieCard from '../../Homepage/js/MovieCard';
+import '../../MyListPage/css/MyMovieList.css'
 
 const ListOfMovies = ({moviesList}) => {
     const [suggestedMoviesListMovies, setSuggestedMoviesListMovies] = useState([]);
@@ -37,7 +38,7 @@ const ListOfMovies = ({moviesList}) => {
         <div>
             <div className="Cards">
                 <div style={{width: '100%', overflow: 'auto', display: 'flex'}}>
-                    <div className="movie-container-searched">
+                    <div className="movie-container-mylist">
                         {suggestedMoviesListMovies.map((movie) => (
                             <MovieCard key={movie?.id} movie={movie}/>
                         ))}
