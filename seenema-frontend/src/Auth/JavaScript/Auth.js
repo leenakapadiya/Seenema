@@ -11,6 +11,19 @@ const userPool = new CognitoUserPool({
 // handles user sign up
 export function signUp(firstname, lastname, email, password) {
     return new Promise((resolve, reject) => {
+        // Check if the password meets the criteria
+        if (!isPasswordValid(password)) {
+            const errorMessage = "Your password must meet the following criteria:\n" +
+                "• At least 8 characters long\n" +
+                "• 1 uppercase letter\n" +
+                "• 1 lowercase letter\n" +
+                "• 1 number";
+
+            const error = new Error(errorMessage);
+            reject(error);
+            return;
+        }
+
         // calls signUp function on the user pool instance
         userPool.signUp(
             email,
@@ -175,4 +188,12 @@ export function getSession() {
         })
     })
 }
+
+// Helper function to check if the password meets the criteria
+function isPasswordValid(password) {
+    // Password must be at least 8 characters long, contain 1 uppercase and 1 lowercase character, and 1 number
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    return passwordRegex.test(password);
+}
+
 

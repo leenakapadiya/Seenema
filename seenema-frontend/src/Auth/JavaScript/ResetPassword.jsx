@@ -98,7 +98,7 @@ export default function ResetPassword(callback) {
                         })} />
                     </div>
                     {error && <p style={{paddingTop: "20px", color: "#E63946", textAlign: "left"}}>{error}</p>}
-                    <button style={{marginTop: "30px", marginBottom: "20px"}} className="button-auth">Reset Password
+                    <button style={{marginTop: "30px", marginBottom: "20px"}} className="generic-button-auth button-auth">Reset Password
                     </button>
                     <br/>
                 </form>

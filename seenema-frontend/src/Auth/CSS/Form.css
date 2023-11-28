@@ -22,10 +22,7 @@ html, body {
 }
 
 .auth-Form {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
     width: 600px;
     background: rgba(0, 0, 0, 0.8);
     padding: 40px 80px; /* Adjust padding as needed */
@@ -180,7 +177,7 @@ hr {
 @media (max-width: 480px) {
     .auth-Form {
         width: 80%;
-        padding: 10px 15px;
+        padding: 10px 15px 15px 45px;
     }
 
     .auth-input, button[type="submit"], input[type="submit"] {
