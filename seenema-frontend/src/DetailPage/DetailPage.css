@@ -204,6 +204,10 @@
     background-color: green;
 }
 
+.detail-done-after-suggesting-friend-button {
+    background-color: green;
+}
+
 /* Watchlist button styles */
 .button-watchlist,
 .button-friends-watchlist

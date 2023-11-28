@@ -32,15 +32,30 @@ const DetailPage = () => {
     let rating = "";
     const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
     const userToken = cookies.userToken; // Get the user token from the cookie
+    const [buttonState, setButtonState] = useState("default");
+    const [buttonColor, setButtonColor] = useState("default");
+    const [suggestedMovie, setSuggestedMovie] = useState(false);
 
     const handleToggleDropdown = () => {
         setShowDropdown(!showDropdown);
+        setSuggestedMovie(false);
     };
 
-    const handleFriendClick = (friendEmail) => {
-        // Call the function to add the movie to the friend's suggestion list
-        handleAddToSuggestionsList(SelectedFriend.value);
-        setShowDropdown(false);
+    const handleFriendClick = async (friendEmail) => {
+        try {
+            // Call the function to add the movie to the friend's suggestion list
+            handleAddToSuggestionsList(SelectedFriend.value);
+
+            // Change the button color to "success" for 5 seconds
+            setButtonColor("success");
+            setTimeout(() => {
+                setButtonColor("default");
+                // Close the dropdown after 5 seconds if it is open
+                setShowDropdown(false);
+            }, 2000);
+        } catch (error) {
+            console.error('Error handling friend click:', error);
+        }
     };
 
     useEffect(() => {
@@ -176,8 +191,10 @@ const DetailPage = () => {
 
             if (response.ok) {
                 console.log('Movie added to' + friendEmail + 'Suggestions List successfully!');
+                setSuggestedMovie(true);
             } else {
                 console.error('Failed to add movie to Suggestions List:', response.status, response.statusText);
+                setSuggestedMovie(false);
             }
         } catch (error) {
             console.error('Error adding movie to Suggestions List:', error.message);
@@ -296,12 +313,18 @@ const DetailPage = () => {
                                             />
                                         </div>
                                         <button
-                                            className="generic-button  detail-done-button"
+                                            className={`generic-button  detail-done-button ${suggestedMovie ? 'detail-done-after-suggesting-friend-button' : ''}`}
                                             onClick={() => handleFriendClick(selectedFriend ? selectedFriend.value : '')}
+                                            disabled={suggestedMovie}
                                         >
+                                            {suggestedMovie ?
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" fill="currentColor" className=" bi bi-check detail-done-after-suggesting-friend-button" viewBox="0 0 16 16" >
+                                                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                                                </svg>
+                                                :
                                             <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" fill="currentColor" className="bi bi-check" viewBox="0 0 16 16" >
                                                 <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-                                            </svg>
+                                            </svg> }
                                         </button>
                                     </div>
                                 </div>
