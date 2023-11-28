@@ -1,8 +1,11 @@
-import {useEffect, useState} from "react"
+import React, {useEffect, useState} from "react"
 import CardRow from "./CardRow"
 import api from "./api"
 import '../css/MovieList.css'
 import SearchedCardsPage from "./SearchedCardsPage"
+import Lottie from "lottie-react";
+import NoResultsFound from "../../assets/NoResultsFound.json";
+import Success from "../../assets/Success.json";
 
 const MovieList = (searchValue) => {
     // State Variables for different categories of the movies.
@@ -103,6 +106,9 @@ const MovieList = (searchValue) => {
             ) : (searchResults.length === 0) ? (
                 <>
                     <h2 className="header-home">No Results Found </h2>
+                    <div style={{width: "70%", paddingLeft: "30%", paddingTop: "10%"}}>
+                        <Lottie loop={true} animationData={NoResultsFound}/>
+                    </div>
                     <SearchedCardsPage movies={searchResults}/>
                 </>
             ) : (

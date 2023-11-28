@@ -5,6 +5,8 @@ import api from './api';
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import '../css/GenreMoviesPage.css';
+import Lottie from "lottie-react";
+import NoResultsFound from "../../assets/NoResultsFound.json";
 
 const GenreMoviesPage = () => {
     const [movies, setMovies] = useState([]);
@@ -125,6 +127,9 @@ const GenreMoviesPage = () => {
                     {(isSearchActive) && (movies.length === 0) ? (
                         <>
                             <h2 className="genre-heading-GenreMoviePage">{'No ' + genreName + ' Movies Found'}</h2>
+                            <div style={{width: "70%", paddingLeft: "30%", paddingTop: "10%"}}>
+                                <Lottie loop={true} animationData={NoResultsFound}/>
+                            </div>
                             <div className="movie-grid-genre-page">
                                 {movies.map(movie => (
                                     <MovieCard key={movie.id} movie={movie}/>
