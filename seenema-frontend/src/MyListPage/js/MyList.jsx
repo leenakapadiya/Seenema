@@ -65,7 +65,7 @@ const MyList = () => {
             </div>
             <div className="list-main-area">
                 {loading ? (
-                    <div className="loading-container">
+                    <div className="loading-container-my-list">
                         <Lottie loop={true} animationData={Loading}/>
                     </div>
                 ) : (

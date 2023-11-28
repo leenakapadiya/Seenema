@@ -107,11 +107,6 @@ const UserProfilePage = () => {
                     <div className="add-friend-slab">
                         <h3> Add Friend </h3>
                         <hr/>
-                        {/*{loading ? (*/}
-                        {/*    <div className="loading-container">*/}
-                        {/*        <Lottie loop={true} animationData={Loading} />*/}
-                        {/*    </div>*/}
-                        {/*) : (*/}
                         <div className="add-friend-field">
                             <input
                                 type="text"
