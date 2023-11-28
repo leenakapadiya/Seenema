@@ -16,7 +16,7 @@ const DetailPage = () => {
     const [movie, setMovie] = useState(null);
     const [cast, setCast] = useState([]);
     const [director, setDirector] = useState('');
-    const [ageRating, setAgeRating] = useState('');
+    const [ageRating, setAgeRating] = useState('N/A');
     const [videos, setVideos] = useState([]);
     const [streamingServices, setStreamingServices] = useState(null);
     const {user} = useContext(AuthContext);
@@ -76,7 +76,11 @@ const DetailPage = () => {
 
                 // Extract the MPA rating for the US (if available)
                 const usReleaseDates = releaseDatesData.results.find(r => r.iso_3166_1 === 'US');
-                setAgeRating(usReleaseDates ? usReleaseDates.release_dates[0].certification : 'Rating not available');
+                if (usReleaseDates && usReleaseDates.release_dates.length > 0 && usReleaseDates.release_dates[0].certification) {
+                    setAgeRating(usReleaseDates.release_dates[0].certification);
+                } else {
+                    setAgeRating('N/A');
+                }
 
                 // Fetch cast and director details
                 const creditsResponse = await api.get(`/movie/${movieId}/credits`);
@@ -90,6 +94,8 @@ const DetailPage = () => {
                 // Fetch and set trailers and clips (limited to 2)
                 const videosResponse = await api.get(`/movie/${movieId}/videos`);
                 setVideos(videosResponse.data.results.slice(0, 2)); // Here we slice the array to only get the first two videos
+
+
 
             } catch (error) {
                 console.error('Error fetching details:', error);
@@ -262,7 +268,9 @@ const DetailPage = () => {
             <div className="detail-page-wrapper"
                  style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`}}>
                 <div className="detail-movie-overlay"/>
+
                 <div className="detail-movie-container">
+                    <Link to="/Homepage" className="generic-button button-back">Back</Link>
                     <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}
                          className="detail-movie-poster"/>
                     <h1 className="detail-movie-title">{movie.title}</h1>
@@ -288,7 +296,7 @@ const DetailPage = () => {
                         <span>{director}</span>
                     </div>
                     <div className="button-container">
-                        <Link to="/Homepage" className="generic-button button-back">Back</Link>
+
                         <button
                             className={`generic-button button-watchlist ${addedToWatchlist ? 'added-to-watchlist' : ''}`}
                             onClick={handleButtonClick}
@@ -356,8 +364,8 @@ const DetailPage = () => {
                             {videos.slice(0, 2).map((video) => (
                                 <iframe
                                     key={video.id}
-                                    width="560"
-                                    height="315"
+                                    width="504"
+                                    height="284"
                                     src={`https://www.youtube.com/embed/${video.key}`}
                                     title={video.name}
                                     frameBorder="0"
