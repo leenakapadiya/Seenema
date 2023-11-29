@@ -230,7 +230,7 @@
 /* Watchlist button styles */
 .button-watchlist,
 .button-friends-watchlist
-.button-add-friend-suggestions-list{
+.button-add-friend-suggestions-list {
     /*background-color: var(--button-bg-color);*/
     color: var(--button-text-color);
 }
@@ -345,9 +345,5 @@
     /* Add more styles as needed */
 }
 
-.loading-container-detail-page {
-    width: 6%;
-    margin-left: 10%;
-    margin-right: 10%;
 
-}
+/* If you add any additional styles, they go here :) */
