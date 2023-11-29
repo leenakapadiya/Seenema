@@ -5,6 +5,7 @@ import '../css/MovieList.css'
 import SearchedCardsPage from "./SearchedCardsPage"
 import Lottie from "lottie-react";
 import NoResultsFound from "../../assets/NoResultsFound.json";
+import MovieCard from "./MovieCard"
 import Success from "../../assets/Success.json";
 
 const MovieList = (searchValue, showSearchFlag) => {
@@ -89,7 +90,11 @@ const MovieList = (searchValue, showSearchFlag) => {
             {(searchResults.length > 0) && (searchValue.searchValue !== '') ? (
                 <>
                     <h2 className="header-home">Search Results</h2>
-                    <SearchedCardsPage movies={searchResults}/>
+                    <div className="movie-grid-search">
+                       {searchResults.map(movie => (
+                            <MovieCard key={movie.id} movie={movie}/>
+                        ))}
+                    </div>
                 </>
             ) : (searchValue.searchValue === "") ? (
                 <>
@@ -114,7 +119,11 @@ const MovieList = (searchValue, showSearchFlag) => {
 
                 <>
                     <h2 className="header-home">Search Results </h2>
-                    <SearchedCardsPage movies={searchResults}/>
+                    <div className="movie-grid-search">
+                       {searchResults.map(movie => (
+                            <MovieCard key={movie.id} movie={movie}/>
+                        ))}
+                    </div>
                 </>
             )
             }
