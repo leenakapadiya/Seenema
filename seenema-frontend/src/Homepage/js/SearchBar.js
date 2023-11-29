@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Form, FormControl, Button} from 'react-bootstrap';
-import {X} from 'react-bootstrap-icons'
 
 const SearchBar = ({onSearch}) => {
     const [searchValue, setSearchValue] = useState("")
@@ -27,6 +26,7 @@ const SearchBar = ({onSearch}) => {
     }
 
     const clearSearch = () => {
+        setSearchValue("")
         onSearch("")
     }
 
@@ -41,10 +41,11 @@ const SearchBar = ({onSearch}) => {
                     style={{backgroundColor: '#313036', color: 'white', border: 'none'}}
                     onKeyDown={handleSearchEnter}
                     onChange={handleSearchChange}
+                    value={searchValue}
                 />
                  {searchValue && (
-                    <Button variant="light" onClick={clearSearch} style={{ border: 'none', backgroundColor: 'transparent' }}>
-                        <X size={20} />
+                    <Button type="button" className="clear-search-button" onClick={clearSearch}>
+                       X
                     </Button>
                 )}
             </Form>
