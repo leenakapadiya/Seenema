@@ -29,6 +29,11 @@
     padding-right: 150px;
 }
 
+.search-input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
 .search-input:focus {
     outline: none;
     box-shadow: 0 0 0 0.10rem #959499;

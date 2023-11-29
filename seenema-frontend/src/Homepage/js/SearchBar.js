@@ -1,19 +1,34 @@
-import React from 'react';
-import {Form, FormControl} from 'react-bootstrap';
+import React, {useState} from 'react';
+import {Form, FormControl, Button} from 'react-bootstrap';
 
 const SearchBar = ({onSearch}) => {
-    const handleSearchChange = (e) => {
+    const [searchValue, setSearchValue] = useState("")
+    const handleSearchEnter = (e) => {
         if (e.key === 'Enter') {
             if (e.target.value.trim() === "") {
                 const value = "";
-                onSearch(value);
+                onSearch(value, false);
             } else {
                 e.preventDefault();
                 const value = e.target.value.trim(); // Trim leading/trailing spaces
-                onSearch(value); // Trigger the search only when Enter is pressed
+                setSearchValue(value)
+                onSearch(value, true); // Trigger the search only when Enter is pressed
             }
         }
     };
+
+    const handleSearchChange = (e) => {
+        setSearchValue(e.target.value.trim())
+        if (e.target.value.trim() === "") {
+            const value = "";
+            onSearch(value);
+        }
+    }
+
+    const clearSearch = () => {
+        setSearchValue("")
+        onSearch("")
+    }
 
     return (
         <div className="search-bar-home">
@@ -24,8 +39,15 @@ const SearchBar = ({onSearch}) => {
                     className="me-2 search-input"
                     aria-label="Search"
                     style={{backgroundColor: '#313036', color: 'white', border: 'none'}}
-                    onKeyDown={handleSearchChange}
+                    onKeyDown={handleSearchEnter}
+                    onChange={handleSearchChange}
+                    value={searchValue}
                 />
+                 {searchValue && (
+                    <Button type="button" className="clear-search-button" onClick={clearSearch}>
+                       X
+                    </Button>
+                )}
             </Form>
         </div>
     );
