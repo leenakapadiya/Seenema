@@ -10,6 +10,8 @@ import Select from 'react-select';
 import * as SelectedFriend from "@material-tailwind/react/context/theme";
 // Import necessary libraries for cookie handling
 import { useCookies } from 'react-cookie';
+import Loading from "../assets/loading.json";
+import Lottie from "lottie-react";
 
 const DetailPage = () => {
     // State variables for storing movie data
@@ -35,6 +37,7 @@ const DetailPage = () => {
     const [buttonState, setButtonState] = useState("default");
     const [buttonColor, setButtonColor] = useState("default");
     const [suggestedMovie, setSuggestedMovie] = useState(false);
+    const [friendSuggestionLoading, setFriendSuggestionLoading] = useState(false);
 
     const handleToggleDropdown = () => {
         setShowDropdown(!showDropdown);
@@ -246,6 +249,9 @@ const DetailPage = () => {
 
     const handleButtonClick = async () => {
         try {
+            // Set loading state to true only for the "Add to Watchlist" button
+            setWatchlistButtonLoading(true);
+
             if (addedToWatchlist) {
                 // Handle the case where the movie is already in the watchlist
                 console.log('Movie is already in the watchlist');
@@ -255,6 +261,9 @@ const DetailPage = () => {
             }
         } catch (error) {
             console.error('Error handling button click:', error);
+        } finally {
+            // Reset loading state only for the "Add to Watchlist" button
+            setWatchlistButtonLoading(false);
         }
     };
 
