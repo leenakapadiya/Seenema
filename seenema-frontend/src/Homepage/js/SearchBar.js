@@ -2,18 +2,25 @@ import React from 'react';
 import {Form, FormControl} from 'react-bootstrap';
 
 const SearchBar = ({onSearch}) => {
-    const handleSearchChange = (e) => {
+    const handleSearchEnter = (e) => {
         if (e.key === 'Enter') {
             if (e.target.value.trim() === "") {
                 const value = "";
-                onSearch(value);
+                onSearch(value, false);
             } else {
                 e.preventDefault();
                 const value = e.target.value.trim(); // Trim leading/trailing spaces
-                onSearch(value); // Trigger the search only when Enter is pressed
+                onSearch(value, true); // Trigger the search only when Enter is pressed
             }
         }
     };
+
+    const handleSearchChange = (e) => {
+        if (e.target.value.trim() === "") {
+            const value = "";
+            onSearch(value);
+        }
+    }
 
     return (
         <div className="search-bar-home">
@@ -24,7 +31,8 @@ const SearchBar = ({onSearch}) => {
                     className="me-2 search-input"
                     aria-label="Search"
                     style={{backgroundColor: '#313036', color: 'white', border: 'none'}}
-                    onKeyDown={handleSearchChange}
+                    onKeyDown={handleSearchEnter}
+                    onChange={handleSearchChange}
                 />
             </Form>
         </div>

@@ -7,7 +7,7 @@ import Lottie from "lottie-react";
 import NoResultsFound from "../../assets/NoResultsFound.json";
 import Success from "../../assets/Success.json";
 
-const MovieList = (searchValue) => {
+const MovieList = (searchValue, showSearchFlag) => {
     // State Variables for different categories of the movies.
     const [topRatedMovies, setTopRatedMovies] = useState([]);
     const [upcomingMovies, setUpcomingMovies] = useState([]);
@@ -19,19 +19,19 @@ const MovieList = (searchValue) => {
     useEffect(() => {
         // Async func to fetch the searched movies
         const fetchSearchMovies = async (searchValue) => {
-            const title = searchValue.searchValue;
-
-            try {
-                const {data} = await api.get("search/movie", {
-                    params: {
-                        query: title,
-                        page: 1
-                    },
-                })
-                console.log(data)
-                setSearchResults(data.results);
-            } catch (error) {
-                console.error('Failed to fetch the searched movie:', error);
+            if((searchValue.searchValue !== "") && searchValue.showSearchFlag){
+                const title = searchValue.searchValue;
+                try {
+                    const {data} = await api.get("search/movie", {
+                        params: {
+                            query: title,
+                            page: 1
+                        },
+                    })
+                    setSearchResults(data.results);
+                } catch (error) {
+                    console.error('Failed to fetch the searched movie:', error);
+                }
             }
         }
 
@@ -75,9 +75,8 @@ const MovieList = (searchValue) => {
             }
         };
 
-        if (searchValue !== '') {
-            fetchSearchMovies(searchValue);
-        }
+        console.log(searchValue.searchValue)
+        fetchSearchMovies(searchValue);
         fetchTopRatedMovies();
         fetchUpcomingMovies();
         fetchPopularMovies();
