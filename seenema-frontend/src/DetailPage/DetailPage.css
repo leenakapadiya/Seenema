@@ -15,14 +15,14 @@
     overflow-x: auto; /* Enable horizontal scrolling for smaller screens */
     margin: auto; /* Center align the content */
     position: relative; /* Positioning context for child elements */
-    padding: 20px; /* Padding around the content */
+    padding: 10px; /* Padding around the content */
     font-family: 'DM Sans', sans-serif; /* Font family for the text */
     color: var(--white-text); /* Text color */
     background-color: #0f1115; /* Background color, can be overridden by an image */
     min-height: 100vh; /* Full viewport height */
     background-repeat: no-repeat; /* Prevents the image from repeating */
     background-size: cover; /* Adjusts the size of the background image */
-    background-attachment: scroll; /* Ensures the image scrolls with the page */
+    background-attachment: fixed; /* Ensures the image scrolls with the page */
     width: 100%;
     height: 100%;
 }
@@ -42,13 +42,15 @@
 
 /* Overlay for the background image */
 .detail-movie-overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0; /* Position to cover the entire parent element */
     background-color: rgba(0, 0, 0, 0.88); /* Semi-transparent black overlay */
     z-index: 1; /* Above the background, below the content */
+    background-attachment: fixed; /* Overlay stays fixed during scrolling */
+
 }
 
 /* Container for movie details */
@@ -80,6 +82,8 @@
     font-size: 3.75rem; /* Font size */
     color: var(--white-text); /* Text color */
     max-width: 90%; /* Maximum width */
+    margin-bottom: 0px; /* Top margin */
+    margin-top: 0px; /* Top margin */
 }
 
 /* Container for movie information like rating, year, etc. */
@@ -88,6 +92,8 @@
     align-items: center;
     gap: 10px;
     margin-right: 0px; /* Right margin */
+    margin-top: 0px; /* Top margin */
+    margin-bottom: 0px; /* Top margin */
 }
 
 /* Star icon for user rating */
@@ -98,7 +104,7 @@
 
 /* Shared styles for rating and year */
 .detail-rating, .detail-year {
-    font-size: 1.25rem; /* Font size */
+    font-size: 1rem; /* Font size */
     color: var(--white-text); /* Text color */
     background: rgb(47, 45, 45); /* Background color */
     padding: 5px 10px; /* Padding */
@@ -108,7 +114,7 @@
 
 /* Additional shared styles for different ratings */
 .detail-movie-rating-box, .detail-movie-USERrating, .detail-movie-MPArating {
-    font-size: 1.25rem; /* Font size */
+    font-size: 1rem; /* Font size */
     color: var(--white-text); /* Text color */
     background: rgb(47, 45, 45); /* Background color */
     padding: 5px 10px; /* Padding */
@@ -118,16 +124,19 @@
 
 /* Movie overview styling */
 .detail-movie-overview {
-    font-size: 1.2rem; /* Font size */
+    font-size: 1.1rem; /* Font size */
     line-height: 1.35; /* Line height */
     text-align: left; /* Text alignment */
     color: var(--white-text); /* Text color */
     max-width: 90%; /* Maximum width */
+    margin-bottom: 0px; /* Bottom margin */
+    margin-top: 0px; /* Top margin */
+    padding: 0px 0px; /* Padding */
 }
 
 /* Movie runtime styling */
 .detail-movie-runtime {
-    font-size: 1.25rem; /* Font size */
+    font-size: 1rem; /* Font size */
     color: var(--white-text); /* Text color */
     background: rgb(47, 45, 45); /* Background color */
     padding: 5px 10px; /* Padding */
@@ -153,7 +162,7 @@
 
 /* User rating box styling */
 .detail-user-rating-box {
-    font-size: 1.25rem; /* Font size */
+    font-size: 1rem; /* Font size */
     display: flex; /* Flex display */
     align-items: center; /* Center align items */
     background: rgb(47, 45, 45); /* Background color */
@@ -174,17 +183,21 @@
     color: var(--gray-text); /* Text color */
     margin-top: 0px; /* Top margin */
     margin-bottom: 0px; /* Bottom margin */
+    padding: 0px 0px; /* Padding */
 }
 
 /* Font styling for "Starring:" and "Director:" */
 .detail-cast-title, .detail-director-title {
     color: var(--white-text); /* Set labels to white */
     font-weight: bold; /* Make labels bold */
+    margin-top: 0px; /* Top margin */
+    margin-bottom: 0px; /* Bottom margin */
+    padding: 0px 0px; /* Padding */
 }
 
 /* Generic button styling reused across different buttons */
 .generic-button {
-    padding: 10px 20px; /* Padding */
+    padding: 7px 20px; /* Padding */
     border: none; /* No border */
     border-radius: 20px; /* Rounded corners */
     text-transform: uppercase; /* Uppercase text */
@@ -326,7 +339,7 @@
 }
 
 .service img {
-    width: 60px; /* Adjust as needed */
+    width: 50px; /* Adjust as needed */
     height: auto;
     border-radius: 10px; /* Rounded corners */
     /* Add more styles as needed */

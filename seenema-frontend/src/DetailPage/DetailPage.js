@@ -16,7 +16,7 @@ const DetailPage = () => {
     const [movie, setMovie] = useState(null);
     const [cast, setCast] = useState([]);
     const [director, setDirector] = useState('');
-    const [ageRating, setAgeRating] = useState('N/A');
+    const [ageRating, setAgeRating] = useState('Not Rated');
     const [videos, setVideos] = useState([]);
     const [streamingServices, setStreamingServices] = useState(null);
     const {user} = useContext(AuthContext);
@@ -79,7 +79,7 @@ const DetailPage = () => {
                 if (usReleaseDates && usReleaseDates.release_dates.length > 0 && usReleaseDates.release_dates[0].certification) {
                     setAgeRating(usReleaseDates.release_dates[0].certification);
                 } else {
-                    setAgeRating('N/A');
+                    setAgeRating('Not Rated');
                 }
 
                 // Fetch cast and director details
@@ -364,8 +364,8 @@ const DetailPage = () => {
                             {videos.slice(0, 2).map((video) => (
                                 <iframe
                                     key={video.id}
-                                    width="504"
-                                    height="284"
+                                    width="409"
+                                    height="230"
                                     src={`https://www.youtube.com/embed/${video.key}`}
                                     title={video.name}
                                     frameBorder="0"
