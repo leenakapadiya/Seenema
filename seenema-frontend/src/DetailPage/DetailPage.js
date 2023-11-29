@@ -76,8 +76,11 @@ const DetailPage = () => {
 
                 // Extract the MPA rating for the US (if available)
                 const usReleaseDates = releaseDatesData.results.find(r => r.iso_3166_1 === 'US');
-                setAgeRating(usReleaseDates ? usReleaseDates.release_dates[0].certification : 'Rating not available');
-
+                if (usReleaseDates && usReleaseDates.release_dates[0].certification) {
+                    setAgeRating(usReleaseDates.release_dates[0].certification);
+                } else {
+                    setAgeRating('Not Rated');
+                }
                 // Fetch cast and director details
                 const creditsResponse = await api.get(`/movie/${movieId}/credits`);
                 const castData = creditsResponse.data.cast;
