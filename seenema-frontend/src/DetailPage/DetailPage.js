@@ -274,10 +274,11 @@ const DetailPage = () => {
                         <span className="detail-year">{formattedReleaseYear}</span>
                         <span className="detail-movie-runtime">{formattedRuntime} min</span>
                         <span className="detail-movie-MPArating">{ageRating}</span>
+                        <div className="detail-movie-genre-list">
+                            {formattedGenres}
+                        </div>
                     </div>
-                    <div className="detail-movie-genre-list">
-                        {formattedGenres}
-                    </div>
+
                     <p className="detail-movie-overview">{movie.overview}</p>
                     <div className="detail-movie-cast">
                         <span className="detail-cast-title">Starring : </span>
@@ -356,8 +357,8 @@ const DetailPage = () => {
                             {videos.slice(0, 2).map((video) => (
                                 <iframe
                                     key={video.id}
-                                    width="560"
-                                    height="315"
+                                    width="456"
+                                    height="255"
                                     src={`https://www.youtube.com/embed/${video.key}`}
                                     title={video.name}
                                     frameBorder="0"

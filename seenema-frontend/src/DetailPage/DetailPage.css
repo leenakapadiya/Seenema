@@ -67,7 +67,7 @@
 /* Styling for the movie poster */
 .detail-movie-poster {
     position: absolute;
-    top: 80px;
+    top: 70px;
     left: 10px; /* Positioning */
     width: 25%; /* Width relative to the container */
     max-width: 680px;
@@ -184,6 +184,7 @@
     margin-top: 0px; /* Top margin */
     margin-bottom: 0px; /* Bottom margin */
     padding: 0px 0px; /* Padding */
+    margin-left: 20px; /* Right margin */
 }
 
 /* Font styling for "Starring:" and "Director:" */
@@ -197,7 +198,7 @@
 
 /* Generic button styling reused across different buttons */
 .generic-button {
-    padding: 7px 20px; /* Padding */
+    padding: 5px 10px; /* Padding */
     border: none; /* No border */
     border-radius: 20px; /* Rounded corners */
     text-transform: uppercase; /* Uppercase text */
@@ -244,7 +245,7 @@
 .button-back {
     background-color: #E63946; /* Red background */
     color: #FFFFFF; /* White text */
-    padding: 10px 20px; /* Padding */
+    padding: 5px 10px; /* Padding */
     border-radius: 20px; /* Rounded corners */
     text-transform: uppercase; /* Uppercase text */
     text-decoration: none; /* No text decoration */
