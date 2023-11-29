@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react"
 import CardRow from "./CardRow"
 import api from "./api"
 import '../css/MovieList.css'
-import SearchedCardsPage from "./SearchedCardsPage"
+import MovieCard from "./MovieCard"
 import Lottie from "lottie-react";
 import NoResultsFound from "../../assets/NoResultsFound.json";
 import Success from "../../assets/Success.json";
@@ -14,26 +14,34 @@ const MovieList = (searchValue) => {
     const [popularMovies, setPopularMovies] = useState([]);
     const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
     const [searchResults, setSearchResults] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [isFull, setIsFull] = useState(false);
 
     // useEffect to fetch movie data
-    useEffect(() => {
-        // Async func to fetch the searched movies
-        const fetchSearchMovies = async (searchValue) => {
-            const title = searchValue.searchValue;
+    // Async func to fetch the searched movies
+    const fetchSearchMovies = async (searchValue, page) => {
+        const title = searchValue.searchValue;
 
-            try {
-                const {data} = await api.get("search/movie", {
-                    params: {
-                        query: title,
-                        page: 1
-                    },
-                })
-                console.log(data)
-                setSearchResults(data.results);
-            } catch (error) {
-                console.error('Failed to fetch the searched movie:', error);
+        try {
+            const {data} = await api.get("search/movie", {
+                params: {
+                    query: title,
+                    page: page
+                },
+            })
+            if(data.results.length < 20){
+                setIsFull(true);
             }
+            if (page === 1) {
+                setSearchResults(data.results);
+            } else {
+                setSearchResults(prev => [...prev, ...data.results]);
+            }console.log(data)
+        } catch (error) {
+            console.error('Failed to fetch the searched movie:', error);
         }
+    }
+    useEffect(() => {
 
         // Async func to fetch top-rated movies
         const fetchTopRatedMovies = async () => {
@@ -76,7 +84,7 @@ const MovieList = (searchValue) => {
         };
 
         if (searchValue !== '') {
-            fetchSearchMovies(searchValue);
+            fetchSearchMovies(searchValue, currentPage);
         }
         fetchTopRatedMovies();
         fetchUpcomingMovies();
@@ -84,13 +92,27 @@ const MovieList = (searchValue) => {
         fetchNowPlayingMovies();
     }, [searchValue]);
 
+    const handleLoadMore = () => {
+        const newPage = currentPage + 1;
+        setCurrentPage(newPage);
+        fetchSearchMovies(searchValue, newPage);
+    }
     // Rendering the component with movie data
     return (
-        <div>
-            {(searchResults.length > 0) && (searchValue.searchValue !== '') ? (
+        <>
+            {(searchResults.length > 0) && (searchValue.searchValue !== '') && (!isFull)? (
                 <>
-                    <h2 className="header-home">Search Results</h2>
-                    <SearchedCardsPage movies={searchResults}/>
+                    <h2 className="search-header">Search Results</h2>
+                    <div className="movie-grid-search">
+                       {searchResults.map(movie => (
+                            <MovieCard key={movie.id} movie={movie}/>
+                        ))}
+                    </div>
+                    <div className="load-more-container-movie-page">
+                        <button onClick={handleLoadMore} className="generic-button-load-more-movie button-load-more-search">
+                            Load More
+                        </button>
+                    </div>
                 </>
             ) : (searchValue.searchValue === "") ? (
                 <>
@@ -103,23 +125,25 @@ const MovieList = (searchValue) => {
                     <h2 className="header-home">Popular Movies</h2>
                     <CardRow movies={popularMovies}/>`
                 </>
-            ) : (searchResults.length === 0) ? (
+            ) : (searchResults.length === 0 && searchValue.searchValue !== '') ? (
                 <>
                     <h2 className="header-home">No Results Found </h2>
                     <div style={{width: "70%", paddingLeft: "30%", paddingTop: "10%"}}>
                         <Lottie loop={true} animationData={NoResultsFound}/>
                     </div>
-                    <SearchedCardsPage movies={searchResults}/>
                 </>
             ) : (
-
                 <>
-                    <h2 className="header-home">Search Results </h2>
-                    <SearchedCardsPage movies={searchResults}/>
+                <h2 className="search-header">Search Results</h2>
+                    <div className="movie-grid-search">
+                       {searchResults.map(movie => (
+                            <MovieCard key={movie.id} movie={movie}/>
+                        ))}
+                    </div>
                 </>
-            )
-            }
-        </div>
+            ) 
+        }
+        </>
     );
 };
 

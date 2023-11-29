@@ -1,5 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500&display=swap');
 
+.genre-layout {
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.genrepage-sidebar {
+    width: 14rem;
+    flex-shrink: 0;
+    position: fixed;
+    overflow-y: auto;
+    margin-top: -9px;
+}
+
+.genrepage-main-content {
+    display: flex;
+    flex-direction: row;
+    margin-top: 100px;
+    height: calc(100vh - 100px);
+    overflow: hidden;
+}
+
 .movie-grid-genre-page {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

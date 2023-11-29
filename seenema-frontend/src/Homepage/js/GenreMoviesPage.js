@@ -12,12 +12,16 @@ const GenreMoviesPage = () => {
     const [movies, setMovies] = useState([]);
     const [genreName, setGenreName] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
+    const [currentSearchPage, setCurrentSearchPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const {genreId} = useParams();
     const [isSearchActive, setIsSearchActive] = useState(false);
+    const [value, setValue] = useState('');
+    const [isFull, setIsFull] = useState(false);
 
-    const searchMoviesByGenreAndName = useCallback(async (searchTerm) => {
+    const searchMoviesByGenreAndName = useCallback(async (searchTerm, pages) => {
         setLoading(true);
+        setValue(searchTerm);
         try {
             var page = 1;
             var num_movies = 0;
@@ -31,7 +35,7 @@ const GenreMoviesPage = () => {
             console.log(data)
             var result = [];
             console.log(data.total_pages)
-            while (page <= data.total_pages && num_movies <= 20) {
+            while (page <= data.total_pages && num_movies <= 20*pages) {
                 const {data} = await api.get(`/search/movie`, {
                     params: {
                         query: searchTerm,
@@ -53,7 +57,10 @@ const GenreMoviesPage = () => {
                     }
                 }
             }
-            setMovies(result.splice(0, 20))
+            if(result.length < 20*pages){
+                setIsFull(true);
+            }
+            setMovies(result.splice(0, 20*pages))
         } catch (error) {
             console.error('Error searching movies:', error);
             setLoading(false);
@@ -105,9 +112,14 @@ const GenreMoviesPage = () => {
         fetchMoviesByGenre(newPage);
     }
 
+    const handleLoadMoreSearch = () => {
+        const newSearchPage = currentSearchPage + 1;
+        setCurrentSearchPage(newSearchPage);
+        searchMoviesByGenreAndName(value, newSearchPage)
+    }
     const handleSearchChange = (value) => {
         if (value.trim() !== '') {
-            searchMoviesByGenreAndName(value);
+            searchMoviesByGenreAndName(value, currentSearchPage);
             setIsSearchActive(true);
         } else {
             fetchMoviesByGenre(currentPage); // fetch current page of genre when search is cleared
@@ -116,10 +128,10 @@ const GenreMoviesPage = () => {
     };
 
     return (
-        <div className="home-layout">
+        <div className="genre-layout">
             <div><Header onSearch={handleSearchChange}/></div>
-            <div className="homepage-main-content">
-                <div className="homepage-sidebar">
+            <div className="genrepage-main-content">
+                <div className="genrepage-sidebar">
                     {/* Pass the genreId as selectedGenre */}
                     <Sidebar activeGenreId={parseInt(genreId)} selectedGenre={parseInt(genreId)}/>
                 </div>
@@ -130,6 +142,24 @@ const GenreMoviesPage = () => {
                             <div style={{width: "70%", paddingLeft: "30%", paddingTop: "10%"}}>
                                 <Lottie loop={true} animationData={NoResultsFound}/>
                             </div>
+                        </>
+                    ) : (isSearchActive && !isFull) ? (
+                        <>
+                            <h2 className="genre-heading-GenreMoviePage">{'Searched ' + genreName + ' Movies'}</h2>
+                            <div className="movie-grid-genre-page">
+                                {movies.map(movie => (
+                                    <MovieCard key={movie.id} movie={movie}/>
+                                ))}
+                            </div>
+                            <div className="load-more-container-genre-page">
+                            <button onClick={handleLoadMoreSearch} className="generic-button-load-more button-load-more">
+                                Load More
+                            </button>
+                        </div>
+                        </>
+                    ) : (isSearchActive) ? (
+                        <>
+                        <h2 className="genre-heading-GenreMoviePage">{'Searched ' + genreName + ' Movies'}</h2>
                             <div className="movie-grid-genre-page">
                                 {movies.map(movie => (
                                     <MovieCard key={movie.id} movie={movie}/>

@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500&display=swap');
 
+.search-header {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--white-text);
+    font-weight: 1000;
+    margin-bottom: -18.5px;
+    margin-left: 30px;
+    margin-top: 18px;
+}
+
 .header-home {
     margin-left: 30px;
     margin-top: 18px;
@@ -7,4 +16,43 @@
     font-family: 'DM Sans', sans-serif;
     color: var(--white-text);
     font-weight: bolder;
+}
+
+
+.movie-grid-search {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 11px;
+    padding: 20px;
+    margin-left: -1.5%;
+}
+
+.load-more-container-movie-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.generic-button-load-more-movie {
+    padding: 10px 20px; /* Padding */
+    border: none; /* No border */
+    border-radius: 20px; /* Rounded corners */
+    text-transform: uppercase; /* Uppercase text */
+    text-decoration: none; /* No text decoration */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition effect for background color */
+    margin-right: 10px; /* Right margin */
+}
+
+
+.button-load-more-search {
+    background-color: var(--accent-color);
+    color: var(--white-text);
+}
+
+.button-load-more-search :hover {
+    background-color: #D52B1E; /* Slightly darker red on hover */
 }
