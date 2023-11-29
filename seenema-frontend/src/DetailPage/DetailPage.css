@@ -345,5 +345,9 @@
     /* Add more styles as needed */
 }
 
+.loading-container-detail-page {
+    width: 6%;
+    margin-left: 10%;
+    margin-right: 10%;
 
-/* If you add any additional styles, they go here :) */
+}

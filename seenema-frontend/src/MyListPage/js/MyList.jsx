@@ -2,11 +2,13 @@ import React, {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {AuthContext} from "../../Auth/JavaScript/AuthContext";
 import Loading from "../../assets/loading.json";
+import NoMovieYet from "../../assets/NoDataYet.json";
 import Lottie from "lottie-react";
 import '../../Homepage/css/MovieList.css';
 import '../../Auth/JavaScript/Auth';
 import MyMoviesList from "./MyMoviesList";
 import '../css/MyList.css';
+import FriendsList from "../../ProfilePage/js/FriendsList";
 
 const MyList = () => {
     const navigate = useNavigate();
@@ -70,10 +72,17 @@ const MyList = () => {
                     </div>
                 ) : (
                     <div>
-                        {moviesList.size > 0 && (
+                        {moviesList.size > 0 ? (
                             <MyMoviesList
                                 moviesList={Array.from(moviesList)}
                             />
+                        ) : (
+                            <div>
+                                <p className="No-Movie-Collection-yet">No movie collections yet.</p>
+                                <div className="no-data-yet-my-list">
+                                    <Lottie loop={true} animationData={NoMovieYet}/>
+                                </div>
+                            </div>
                         )}
                     </div>
                 )}

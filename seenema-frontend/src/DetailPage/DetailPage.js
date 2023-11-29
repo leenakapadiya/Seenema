@@ -10,17 +10,19 @@ import Select from 'react-select';
 import * as SelectedFriend from "@material-tailwind/react/context/theme";
 // Import necessary libraries for cookie handling
 import { useCookies } from 'react-cookie';
+import Loading from "../assets/loading.json";
+import Lottie from "lottie-react";
 
 const DetailPage = () => {
     // State variables for storing movie data
     const [movie, setMovie] = useState(null);
     const [cast, setCast] = useState([]);
     const [director, setDirector] = useState('');
-    const [ageRating, setAgeRating] = useState('Not Rated');
+    const [ageRating, setAgeRating] = useState('');
     const [videos, setVideos] = useState([]);
     const [streamingServices, setStreamingServices] = useState(null);
     const {user} = useContext(AuthContext);
-    const [loading, setLoading] = useState(false);
+    const [watchlistButtonLoading, setWatchlistButtonLoading] = useState(false);
     const {movieId} = useParams(); // Getting movie ID from URL params
     const [friendEmail, setFriendEmail] = useState("");
     const [addedToWatchlist, setAddedToWatchlist] = useState(false);
@@ -35,6 +37,7 @@ const DetailPage = () => {
     const [buttonState, setButtonState] = useState("default");
     const [buttonColor, setButtonColor] = useState("default");
     const [suggestedMovie, setSuggestedMovie] = useState(false);
+    const [friendSuggestionLoading, setFriendSuggestionLoading] = useState(false);
 
     const handleToggleDropdown = () => {
         setShowDropdown(!showDropdown);
@@ -76,11 +79,7 @@ const DetailPage = () => {
 
                 // Extract the MPA rating for the US (if available)
                 const usReleaseDates = releaseDatesData.results.find(r => r.iso_3166_1 === 'US');
-                if (usReleaseDates && usReleaseDates.release_dates.length > 0 && usReleaseDates.release_dates[0].certification) {
-                    setAgeRating(usReleaseDates.release_dates[0].certification);
-                } else {
-                    setAgeRating('Not Rated');
-                }
+                setAgeRating(usReleaseDates ? usReleaseDates.release_dates[0].certification : 'Rating not available');
 
                 // Fetch cast and director details
                 const creditsResponse = await api.get(`/movie/${movieId}/credits`);
@@ -94,8 +93,6 @@ const DetailPage = () => {
                 // Fetch and set trailers and clips (limited to 2)
                 const videosResponse = await api.get(`/movie/${movieId}/videos`);
                 setVideos(videosResponse.data.results.slice(0, 2)); // Here we slice the array to only get the first two videos
-
-
 
             } catch (error) {
                 console.error('Error fetching details:', error);
@@ -157,7 +154,7 @@ const DetailPage = () => {
 
     const handleAddToMyList = async () => {
         try {
-            setLoading(true);
+            setWatchlistButtonLoading(true);
             const response = await fetch('https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/addMovieToMyList', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -180,12 +177,12 @@ const DetailPage = () => {
         } catch (error) {
             console.error('Error adding movie to My List:', error.message);
         } finally {
-            setLoading(false);
+            setWatchlistButtonLoading(false);
         }
     };
     const handleAddToSuggestionsList = async () => {
         try {
-            setLoading(true);
+            setFriendSuggestionLoading(true);
             const response = await fetch(' https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/addMoviesToFriendsSuggestionsList', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -205,7 +202,7 @@ const DetailPage = () => {
         } catch (error) {
             console.error('Error adding movie to Suggestions List:', error.message);
         } finally {
-            setLoading(false);
+            setFriendSuggestionLoading(false);
         }
     };
 
@@ -249,6 +246,9 @@ const DetailPage = () => {
 
     const handleButtonClick = async () => {
         try {
+            // Set loading state to true only for the "Add to Watchlist" button
+            setWatchlistButtonLoading(true);
+
             if (addedToWatchlist) {
                 // Handle the case where the movie is already in the watchlist
                 console.log('Movie is already in the watchlist');
@@ -258,6 +258,9 @@ const DetailPage = () => {
             }
         } catch (error) {
             console.error('Error handling button click:', error);
+        } finally {
+            // Reset loading state only for the "Add to Watchlist" button
+            setWatchlistButtonLoading(false);
         }
     };
 
@@ -268,9 +271,7 @@ const DetailPage = () => {
             <div className="detail-page-wrapper"
                  style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`}}>
                 <div className="detail-movie-overlay"/>
-
                 <div className="detail-movie-container">
-                    <Link to="/Homepage" className="generic-button button-back">Back</Link>
                     <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}
                          className="detail-movie-poster"/>
                     <h1 className="detail-movie-title">{movie.title}</h1>
@@ -296,14 +297,20 @@ const DetailPage = () => {
                         <span>{director}</span>
                     </div>
                     <div className="button-container">
-
-                        <button
-                            className={`generic-button button-watchlist ${addedToWatchlist ? 'added-to-watchlist' : ''}`}
-                            onClick={handleButtonClick}
-                            disabled={addedToWatchlist}
-                        >
-                            {addedToWatchlist ? 'Added to Watchlist' : 'Add to Watchlist'}
-                        </button>
+                        <Link to="/Homepage" className="generic-button button-back">Back</Link>
+                            {watchlistButtonLoading ? (
+                                <div className="loading-container-detail-page">
+                                    <Lottie loop={true} animationData={Loading} />
+                                </div>
+                            ) : (
+                                <button
+                                    className={`generic-button button-watchlist ${addedToWatchlist ? 'added-to-watchlist' : ''}`}
+                                    onClick={handleButtonClick}
+                                    disabled={addedToWatchlist}
+                                >
+                                    {addedToWatchlist ? 'Added to Watchlist' : 'Add to Watchlist'}
+                                </button>
+                            )}
                         <div>
                             {showDropdown ? (
                                 <div>
@@ -364,8 +371,8 @@ const DetailPage = () => {
                             {videos.slice(0, 2).map((video) => (
                                 <iframe
                                     key={video.id}
-                                    width="409"
-                                    height="230"
+                                    width="560"
+                                    height="315"
                                     src={`https://www.youtube.com/embed/${video.key}`}
                                     title={video.name}
                                     frameBorder="0"

@@ -44,7 +44,7 @@ const UserProfilePage = () => {
             setLoading(false);
         }
     };
-    //TODO: when user has no friends it should show the message "No friends yet"
+
     //TODO: when user enters friend's email which does not exist in the database, it should return an error message
     const handleGetFriendsList = async () => {
         try {
@@ -93,7 +93,6 @@ const UserProfilePage = () => {
             </div>
             <div className="user-profile-page">
                 <img src={backgroundImage} alt="Background" className="background-image"/>
-                {/*<div className="page">*/}
                 <div className="left-column">
                     <div className="profile-slab" style={{marginTop: "20%"}}>
                         <h3>Profile</h3>
@@ -121,31 +120,51 @@ const UserProfilePage = () => {
                         </div>
                         {/*)}*/}
                     </div>
-                    {loading ? (
-                        <div className="loading-container">
-                            <Lottie loop={true} animationData={Loading}/>
-                        </div>
-                    ) : (
-                        <div
-                            className={`friends-list-slab ${friendsList.size > 0 && friendsList.size > 5 ? 'scrollable' : ''}`}
-                            style={{minHeight: friendsList.size === 0 ? '420px' : 'auto'}}>
-                            {friendsList.size > 0 ? (
-                                <FriendsList friendsList={Array.from(friendsList)}/>
-                            ) : (
-                                <div>
-                                    <h3>Friends List</h3>
-                                    <hr/>
-                                    <p className="No-friends-yet">No friends yet.</p>
-                                </div>
-                            )}
-                        </div>
-                    )}
+                    <FriendsListSlab loading={loading} friendsList={friendsList} />
                 </div>
-
-                {/*</div>*/}
             </div>
         </div>
     );
 };
+const FriendsListSlab = ({ loading, friendsList }) => {
+    const isScrollable = friendsList.size > 0 && friendsList.size > 5;
+
+    return (
+        <div
+            className={`friends-list-slab ${isScrollable ? 'scrollable' : ''}`}
+            style={{ minHeight: friendsList.size === 0 ? '420px' : 'auto' }}
+        >
+            {loading ? (
+                <LoadingSection />
+            ) : (
+                <FriendsListSection friendsList={friendsList} />
+            )}
+        </div>
+    );
+};
+
+const LoadingSection = () => (
+    <>
+        <h3>Friends List</h3>
+        <hr />
+        <div className="loading-container">
+            <Lottie loop={true} animationData={Loading} />
+        </div>
+    </>
+);
+
+const FriendsListSection = ({ friendsList }) => (
+    <>
+        {friendsList.size > 0 ? (
+            <FriendsList friendsList={Array.from(friendsList)} />
+        ) : (
+            <div>
+                <h3>Friends List</h3>
+                <hr />
+                <p className="No-friends-yet">No friends yet.</p>
+            </div>
+        )}
+    </>
+);
 
 export default UserProfilePage;

@@ -5,6 +5,7 @@ import seenemaLogo from '../../assets/SeenemaLogo.png';
 import "../CSS/Form.css";
 import Lottie from "lottie-react";
 import Mail from "../../assets/Mail.json";
+import Loading from "../../assets/loading.json";
 import {Navigate} from "react-router-dom";
 
 // component to confirm user sign-up with a verification code
@@ -14,6 +15,7 @@ export default function ConfirmSignUp({email}) {
     const [error, setError] = useState("")
     const [success, setSuccess] = useState(false)
     const {register} = useForm();
+    const [loading, setLoading] = useState(false);
 
     // handles the submission of the form
     const handleSubmit = async (e) => {
@@ -22,11 +24,15 @@ export default function ConfirmSignUp({email}) {
 
         try {
             // try to confirm signup using provided email and verification code
+            setLoading(true);
             await confirmSignUp(email, code)
             setSuccess(true)
         } catch (err) {
             // Set the error message
             setError(err.message)
+        } finally {
+            // Stop loading animation, whether successful or not
+            setLoading(false);
         }
     }
 
@@ -59,7 +65,15 @@ export default function ConfirmSignUp({email}) {
                         })} />
                     </div>
                     {error && <p style={{paddingTop: "20px", color: "#E63946", textAlign: "left"}}>{error}</p>}
-                    <button style={{marginTop: "30px"}} className="generic-button-auth button-auth">Submit</button>
+                        {loading ? (
+                            <div className="loading-confirmation">
+                                <Lottie loop={true} animationData={Loading}/>
+                            </div>
+                        ) : (
+                            <button style={{ marginTop: "30px" }} className="generic-button-auth button-auth" disabled={loading}>
+                                Submit
+                            </button>
+                        )}
                 </form>
             </div>
         </div>

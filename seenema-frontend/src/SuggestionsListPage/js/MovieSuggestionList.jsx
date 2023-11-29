@@ -7,6 +7,7 @@ import '../../Homepage/css/MovieList.css';
 import '../../Auth/JavaScript/Auth';
 import '../css/SuggestedMoviesList.css';
 import ListOfMovies from "./ListOfMovies";
+import NoMovieYet from "../../assets/NoDataYet.json";
 
 
 const MovieSuggestionList = () => {
@@ -72,10 +73,17 @@ const MovieSuggestionList = () => {
                     </div>
                 ) : (
                     <div>
-                        {suggestedMoviesList.size > 0 && (
+                        {suggestedMoviesList.size > 0 ? (
                             <ListOfMovies
                                 moviesList={Array.from(suggestedMoviesList)}
                             />
+                        ) : (
+                            <div>
+                                <p className="no-movie-suggestion-yet">No movie suggestions yet.</p>
+                                <div className="no-data-yet-suggestion-list">
+                                    <Lottie loop={true} animationData={NoMovieYet}/>
+                                </div>
+                            </div>
                         )}
                     </div>
                 )}
