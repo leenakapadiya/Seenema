@@ -9,7 +9,7 @@ import '../SuggestionsListPage/css/SuggestedMoviesList.css';
 import Select from 'react-select';
 import * as SelectedFriend from "@material-tailwind/react/context/theme";
 // Import necessary libraries for cookie handling
-import { useCookies } from 'react-cookie';
+import {useCookies} from 'react-cookie';
 import Loading from "../assets/loading.json";
 import Lottie from "lottie-react";
 
@@ -18,7 +18,7 @@ const DetailPage = () => {
     const [movie, setMovie] = useState(null);
     const [cast, setCast] = useState([]);
     const [director, setDirector] = useState('');
-    const [ageRating, setAgeRating] = useState('');
+    const [ageRating, setAgeRating] = useState('Not Rated');
     const [videos, setVideos] = useState([]);
     const [streamingServices, setStreamingServices] = useState(null);
     const {user} = useContext(AuthContext);
@@ -84,7 +84,11 @@ const DetailPage = () => {
 
                 // Extract the MPA rating for the US (if available)
                 const usReleaseDates = releaseDatesData.results.find(r => r.iso_3166_1 === 'US');
-                setAgeRating(usReleaseDates ? usReleaseDates.release_dates[0].certification : 'Rating not available');
+                if (usReleaseDates && usReleaseDates.release_dates[0].certification) {
+                    setAgeRating(usReleaseDates.release_dates[0].certification);
+                } else {
+                    setAgeRating('Not Rated');
+                }
 
                 // Fetch cast and director details
                 const creditsResponse = await api.get(`/movie/${movieId}/credits`);
@@ -114,13 +118,13 @@ const DetailPage = () => {
         const fetchMovieDetails = async () => {
             try {
                 // Fetch the user's watchlist information
-                const isMovieInList = user ? await isMovieInMyList(userToken, movieId): false;
+                const isMovieInList = user ? await isMovieInMyList(userToken, movieId) : false;
 
                 // Set the state to reflect whether the movie is in the user's watchlist
                 setAddedToWatchlist(isMovieInList);
 
                 // Notify other tabs/windows about the change
-                window.postMessage({ type: 'watchlistUpdated', movieId, isMovieInList }, '*');
+                window.postMessage({type: 'watchlistUpdated', movieId, isMovieInList}, '*');
 
             } catch (error) {
                 console.error('Error fetching details:', error);
@@ -134,7 +138,7 @@ const DetailPage = () => {
         try {
             const response = await fetch('https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/getUserInfo', {
                 method: 'POST',
-                body: JSON.stringify({ Email: user.email })
+                body: JSON.stringify({Email: user.email})
             });
 
             if (response.ok) {
@@ -154,7 +158,6 @@ const DetailPage = () => {
             console.error('Error fetching user information:', error.message);
         }
     };
-
 
 
     const handleAddToMyList = async () => {
@@ -178,7 +181,7 @@ const DetailPage = () => {
                 console.error('Failed to add movie to My List:', response.status, response.statusText);
             }
             // Notify other tabs/windows about the change
-            window.postMessage({ type: 'watchlistUpdated', movieId, isMovieInList: true }, '*');
+            window.postMessage({type: 'watchlistUpdated', movieId, isMovieInList: true}, '*');
         } catch (error) {
             console.error('Error adding movie to My List:', error.message);
         } finally {
@@ -234,7 +237,6 @@ const DetailPage = () => {
     }, []); // Call fetchUserInfo on component mount
 
 
-
     // Render loading text if data is not yet loaded
     if (!movie || cast.length === 0 || !director) {
         return <div>Loading...</div>;
@@ -276,6 +278,7 @@ const DetailPage = () => {
             <div className="detail-page-wrapper"
                  style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`}}>
                 <div className="detail-movie-overlay"/>
+               <button className="generic-button button-back" onClick={handleGoBack}>Back</button>
                 <div className="detail-movie-container">
                     <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}
                          className="detail-movie-poster"/>
@@ -302,7 +305,6 @@ const DetailPage = () => {
                         <span>{director}</span>
                     </div>
                     <div className="button-container">
-                        <button className="generic-button button-back" onClick={handleGoBack}>Back</button>
                             {watchlistButtonLoading ? (
                                 <div className="loading-container-detail-page">
                                     <Lottie loop={true} animationData={Loading} />
@@ -329,7 +331,7 @@ const DetailPage = () => {
                                                 value={selectedFriend}
                                                 onChange={(selectedOption) => setSelectedFriend(selectedOption)}
                                                 placeholder="Select friend"
-                                                style={{ color: 'black'}}
+                                                style={{color: 'black'}}
                                             />
                                         </div>
                                         <button
@@ -338,13 +340,19 @@ const DetailPage = () => {
                                             disabled={suggestedMovie}
                                         >
                                             {suggestedMovie ?
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" fill="currentColor" className=" bi bi-check detail-done-after-suggesting-friend-button" viewBox="0 0 16 16" >
-                                                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px"
+                                                     fill="currentColor"
+                                                     className=" bi bi-check detail-done-after-suggesting-friend-button"
+                                                     viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
                                                 </svg>
                                                 :
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" fill="currentColor" className="bi bi-check" viewBox="0 0 16 16" >
-                                                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-                                            </svg> }
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px"
+                                                     fill="currentColor" className="bi bi-check" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                                                </svg>}
                                         </button>
                                     </div>
                                 </div>
@@ -352,7 +360,7 @@ const DetailPage = () => {
                                 <button
                                     className="generic-button button-add-friend-suggestions-list"
                                     onClick={handleToggleDropdown}
-                                    style={{ display: showDropdown ? 'none' : 'block' }}
+                                    style={{display: showDropdown ? 'none' : 'block'}}
                                 >
                                     Suggest to a friend
                                 </button>
@@ -362,30 +370,39 @@ const DetailPage = () => {
                     <div className="watch-on-services">
                         <h2>Available on:</h2>
                         <div className="services-container">
-                            {streamingServices && streamingServices.US && streamingServices.US.flatrate && streamingServices.US.flatrate.map((service) => (
-                                <div key={service.provider_id} className="service">
-                                    <img src={`https://image.tmdb.org/t/p/w500${service.logo_path}`}
-                                         alt={service.provider_name}/>
-                                </div>
-                            ))}
+                            {streamingServices && streamingServices.US && streamingServices.US.flatrate && streamingServices.US.flatrate.length > 0 ? (
+                                streamingServices.US.flatrate.map((service) => (
+                                    <div key={service.provider_id} className="service">
+                                        <img src={`https://image.tmdb.org/t/p/w500${service.logo_path}`}
+                                             alt={service.provider_name}/>
+                                    </div>
+                                ))
+                            ) : (
+                                <p>Not available to stream</p>
+                            )}
                         </div>
                     </div>
+
                     <div className="trailers-and-clips">
                         <h2>Trailers and Clips</h2>
                         <div className="videos">
-                            {videos.slice(0, 2).map((video) => (
-                                <iframe
-                                    key={video.id}
-                                    width="560"
-                                    height="315"
-                                    src={`https://www.youtube.com/embed/${video.key}`}
-                                    title={video.name}
-                                    frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                    className="video-iframe"
-                                ></iframe>
-                            ))}
+                            {videos && videos.length > 0 ? (
+                                videos.slice(0, 2).map((video) => (
+                                    <iframe
+                                        key={video.id}
+                                        width="560"
+                                        height="315"
+                                        src={`https://www.youtube.com/embed/${video.key}`}
+                                        title={video.name}
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        className="video-iframe"
+                                    ></iframe>
+                                ))
+                            ) : (
+                                <p className="no-trailers-text">No trailers or clips available</p>
+                            )}
                         </div>
                     </div>
                 </div>
