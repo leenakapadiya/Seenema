@@ -1,18 +1,34 @@
 import React, {useState} from 'react';
 import {Form, FormControl, Button} from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
-const SearchBar = ({onSearch}) => {
-    const [searchValue, setSearchValue] = useState("")
+const SearchBar = ({onSearch, isGenre, genreId}) => {
+    const navigate = useNavigate();
+    const [searchValue, setSearchValue] = useState("");
+    
     const handleSearchEnter = (e) => {
         if (e.key === 'Enter') {
             if (e.target.value.trim() === "") {
                 const value = "";
                 onSearch(value, false);
+                if(isGenre){
+                    navigate(`/genre/${genreId}`)
+                }
+                else{
+                    navigate(`/Homepage`)
+                }
             } else {
                 e.preventDefault();
                 const value = e.target.value.trim(); // Trim leading/trailing spaces
-                setSearchValue(value)
+                if(isGenre){
+                    navigate(`/genre/${genreId}/${value}`)
+                }
+                else{
+                    navigate(`/search/${value}`);
+                }
                 onSearch(value, true); // Trigger the search only when Enter is pressed
+                setSearchValue(value);
+
             }
         }
     };
@@ -22,12 +38,24 @@ const SearchBar = ({onSearch}) => {
         if (e.target.value.trim() === "") {
             const value = "";
             onSearch(value);
+            if(isGenre){
+                navigate(`/genre/${genreId}`)
+            }
+            else{
+                navigate(`/Homepage`)
+            }
         }
     }
 
     const clearSearch = () => {
         setSearchValue("")
         onSearch("")
+        if(isGenre){
+            navigate(`/genre/${genreId}`)
+        }
+        else{
+            navigate(`/Homepage`)
+        }
     }
 
     return (

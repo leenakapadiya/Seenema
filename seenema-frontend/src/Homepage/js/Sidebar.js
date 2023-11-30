@@ -4,14 +4,8 @@ import {Card,} from "@material-tailwind/react";
 import api from "./api";
 import {useNavigate} from 'react-router-dom';
 
-const SidebarWithContentSeparator = ({selectedGenre}) => {
+const SidebarWithContentSeparator = ({selectedGenre, onGenreChange}) => {
     const [genres, setGenres] = useState([]);
-    const navigate = useNavigate();
-
-    const handleGenreClick = (genreId) => {
-        navigate(`/genre/${genreId}`);
-    };
-
     useEffect(() => {
         const fetchGenres = async () => {
             try {
@@ -47,7 +41,7 @@ const SidebarWithContentSeparator = ({selectedGenre}) => {
                 <div className="genre-list">
                     {genres.map(genre => (
                         <li key={genre.id}>
-                            <span onClick={() => handleGenreClick(genre.id)}
+                            <span onClick={() => onGenreChange(genre.id)}
                                   className={`clickable-genre ${selectedGenre === genre.id ? 'selected-genre' : ''}`}>
                                 {genre.name}
                             </span>
