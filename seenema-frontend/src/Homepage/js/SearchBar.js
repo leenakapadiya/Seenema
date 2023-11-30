@@ -44,7 +44,8 @@ const SearchBar = ({onSearch}) => {
                     value={searchValue}
                 />
                  {searchValue && (
-                    <Button type="button" className="clear-search-button" onClick={clearSearch}>
+                    <Button type="button" className="clear-search-button" onClick={clearSearch}
+                            style={{ backgroundColor: '#313036', border: 'none', color: 'white' }}>
                        X
                     </Button>
                 )}
