@@ -278,7 +278,7 @@ const DetailPage = () => {
             <div className="detail-page-wrapper"
                  style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`}}>
                 <div className="detail-movie-overlay"/>
-                <Link to="/Homepage" className="generic-button button-back">Back</Link>
+               <button className="generic-button button-back" onClick={handleGoBack}>Back</button>
                 <div className="detail-movie-container">
                     <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}
                          className="detail-movie-poster"/>
