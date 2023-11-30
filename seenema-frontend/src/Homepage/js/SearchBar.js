@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {Form, FormControl, Button} from 'react-bootstrap';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const SearchBar = ({onSearch, isGenre, genreId}) => {
     const navigate = useNavigate();
     const [searchValue, setSearchValue] = useState("");
-        
+    
     const handleSearchEnter = (e) => {
         if (e.key === 'Enter') {
             if (e.target.value.trim() === "") {
@@ -20,7 +20,6 @@ const SearchBar = ({onSearch, isGenre, genreId}) => {
             } else {
                 e.preventDefault();
                 const value = e.target.value.trim(); // Trim leading/trailing spaces
-                setSearchValue(value);
                 if(isGenre){
                     navigate(`/genre/${genreId}/${value}`)
                 }
@@ -28,6 +27,8 @@ const SearchBar = ({onSearch, isGenre, genreId}) => {
                     navigate(`/search/${value}`);
                 }
                 onSearch(value, true); // Trigger the search only when Enter is pressed
+                setSearchValue(value);
+
             }
         }
     };

@@ -33,9 +33,7 @@ const GenreMoviesPage = () => {
                 }
             });
             var searchResults = data.results;
-            console.log(data)
             var result = [];
-            console.log(data.total_pages)
             while (page <= data.total_pages && num_movies <= 20) {
                 const {data} = await api.get(`/search/movie`, {
                     params: {
@@ -49,9 +47,7 @@ const GenreMoviesPage = () => {
                     const genre_ids = searchResults[i].genre_ids;
                     if (genre_ids !== undefined) {
                         const movieIsInGenre = genre_ids.some(genre_id => genre_id === Number(genreId));
-                        console.log(movieIsInGenre)
                         if (movieIsInGenre) {
-                            console.log(num_movies);
                             num_movies++;
                             result = result.concat(searchResults[i]);
                         }
@@ -99,15 +95,17 @@ const GenreMoviesPage = () => {
 
     useEffect(() => {
         if(searchTerm !== undefined){
+            console.log(searchTerm)
             setIsSearchActive(true);
-        }
-        if(isSearchActive){
             searchMoviesByGenreAndName(searchTerm);
+            fetchGenreName();   
         }
-        setCurrentPage(1); // Reset page number on genre change
-        setMovies([]); // Clear existing movies
-        fetchMoviesByGenre(1); // Fetch first page of movies
-        fetchGenreName();
+        else{
+            setCurrentPage(1); // Reset page number on genre change
+            setMovies([]); // Clear existing movies
+            fetchMoviesByGenre(1); // Fetch first page of movies
+            fetchGenreName();   
+        }
     }, [genreId, fetchMoviesByGenre, fetchGenreName]);
 
     const handleLoadMore = () => {
@@ -140,12 +138,21 @@ const GenreMoviesPage = () => {
                     <Sidebar selectedGenre={parseInt(genreId)} onGenreChange={handleOnGenreChange}/>
                 </div>
                 <div className="main-content-area-GenrePage">
-                    {(isSearchActive) && (movies.length === 0) ? (
+                    {(searchTerm !== undefined) && (movies.length === 0) ? (
                         <>
                             <h2 className="genre-heading-GenreMoviePage">{'No ' + genreName + ' Movies Found'}</h2>
                             <div style={{width: "70%", paddingLeft: "30%", paddingTop: "10%"}}>
                                 <Lottie loop={true} animationData={NoResultsFound}/>
                             </div>
+                            <div className="movie-grid-genre-page">
+                                {movies.map(movie => (
+                                    <MovieCard key={movie.id} movie={movie}/>
+                                ))}
+                            </div>
+                        </>
+                    ) : (isSearchActive) ? (
+                        <>
+                            <h2 className="genre-heading-GenreMoviePage">{'Searched ' + genreName + ' Movies'}</h2>
                             <div className="movie-grid-genre-page">
                                 {movies.map(movie => (
                                     <MovieCard key={movie.id} movie={movie}/>
