@@ -43,10 +43,10 @@ const SearchBar = ({onSearch}) => {
                     onChange={handleSearchChange}
                     value={searchValue}
                 />
-                 {searchValue && (
+                {searchValue && (
                     <Button type="button" className="clear-search-button" onClick={clearSearch}
-                            style={{ backgroundColor: '#313036', border: 'none', color: 'white' }}>
-                       X
+                            style={{backgroundColor: '#313036', border: 'none', color: 'white'}}>
+                        X
                     </Button>
                 )}
             </Form>
