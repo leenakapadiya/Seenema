@@ -7,21 +7,24 @@ import Lottie from "lottie-react";
 import NoResultsFound from "../../assets/NoResultsFound.json";
 import MovieCard from "./MovieCard"
 import Success from "../../assets/Success.json";
+import { useParams } from "react-router-dom"
 
-const MovieList = (searchValue, showSearchFlag) => {
+const MovieList = () => {
     // State Variables for different categories of the movies.
     const [topRatedMovies, setTopRatedMovies] = useState([]);
     const [upcomingMovies, setUpcomingMovies] = useState([]);
     const [popularMovies, setPopularMovies] = useState([]);
     const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
     const [searchResults, setSearchResults] = useState([])
+    const searchTerm = useParams();
 
     // useEffect to fetch movie data
     useEffect(() => {
         // Async func to fetch the searched movies
-        const fetchSearchMovies = async (searchValue) => {
-            if((searchValue.searchValue !== "") && searchValue.showSearchFlag){
-                const title = searchValue.searchValue;
+        const fetchSearchMovies = async () => {
+            if((searchTerm.searchTerm !== undefined)){
+                console.log("here");
+                const title = searchTerm.searchTerm;
                 try {
                     const {data} = await api.get("search/movie", {
                         params: {
@@ -76,18 +79,17 @@ const MovieList = (searchValue, showSearchFlag) => {
             }
         };
 
-        console.log(searchValue.searchValue)
-        fetchSearchMovies(searchValue);
+        fetchSearchMovies();
         fetchTopRatedMovies();
         fetchUpcomingMovies();
         fetchPopularMovies();
         fetchNowPlayingMovies();
-    }, [searchValue]);
+    }, [searchTerm.searchTerm]);
 
     // Rendering the component with movie data
     return (
         <div>
-            {(searchResults.length > 0) && (searchValue.searchValue !== '') ? (
+            {(searchResults.length > 0) && (searchTerm.searchTerm !== undefined)  ? (
                 <>
                     <h2 className="header-home">Search Results</h2>
                     <div className="movie-grid-search">
@@ -96,7 +98,7 @@ const MovieList = (searchValue, showSearchFlag) => {
                         ))}
                     </div>
                 </>
-            ) : (searchValue.searchValue === "") ? (
+            ) : (searchTerm.searchTerm === undefined) ? (
                 <>
                     <h2 className="header-home">Now Playing</h2>
                     <CardRow movies={nowPlayingMovies}/>

@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import MovieCard from './MovieCard'; // Adjust the path as necessary
 import api from './api';
 import Header from "./Header";
@@ -15,6 +15,11 @@ const GenreMoviesPage = () => {
     const [loading, setLoading] = useState(false);
     const {genreId} = useParams();
     const [isSearchActive, setIsSearchActive] = useState(false);
+    const {searchTerm} = useParams();
+    const navigate = useNavigate();
+
+
+
 
     const searchMoviesByGenreAndName = useCallback(async (searchTerm) => {
         setLoading(true);
@@ -93,6 +98,12 @@ const GenreMoviesPage = () => {
     }, [genreId]); // Add genreId as a dependency
 
     useEffect(() => {
+        if(searchTerm !== undefined){
+            setIsSearchActive(true);
+        }
+        if(isSearchActive){
+            searchMoviesByGenreAndName(searchTerm);
+        }
         setCurrentPage(1); // Reset page number on genre change
         setMovies([]); // Clear existing movies
         fetchMoviesByGenre(1); // Fetch first page of movies
@@ -115,13 +126,18 @@ const GenreMoviesPage = () => {
         }
     };
 
+    const handleOnGenreChange = (selectedGenre) => {
+        navigate(`/genre/${selectedGenre}`);
+        setIsSearchActive(false);
+    }
+
     return (
         <div className="home-layout">
-            <div><Header onSearch={handleSearchChange}/></div>
+            <div><Header onSearch={handleSearchChange} isGenre={true} genreId={genreId}/></div>
             <div className="homepage-main-content">
                 <div className="homepage-sidebar">
                     {/* Pass the genreId as selectedGenre */}
-                    <Sidebar activeGenreId={parseInt(genreId)} selectedGenre={parseInt(genreId)}/>
+                    <Sidebar selectedGenre={parseInt(genreId)} onGenreChange={handleOnGenreChange}/>
                 </div>
                 <div className="main-content-area-GenrePage">
                     {(isSearchActive) && (movies.length === 0) ? (

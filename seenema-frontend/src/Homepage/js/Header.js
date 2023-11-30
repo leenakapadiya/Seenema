@@ -11,7 +11,7 @@ import {Button} from "@mui/material";
 
 
 // NavigationBar component
-const NavigationBar = ({onSearch}) => {
+const NavigationBar = ({onSearch, isGenre, genreId}) => {
     const {user} = useContext(AuthContext);
 
     const [dropdownOpen, setDropdownOpen] = useState(false); // Add state for dropdown
@@ -39,7 +39,7 @@ const NavigationBar = ({onSearch}) => {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <SearchBar onSearch={onSearch}/>
+                    <SearchBar onSearch={onSearch} isGenre={isGenre} genreId={genreId}/>
                 </Navbar.Collapse>
                     {user ? (
                         <NavDropdown title={
