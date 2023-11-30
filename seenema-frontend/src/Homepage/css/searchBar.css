@@ -1,0 +1,13 @@
+.search-input {
+    flex: 1;
+    background-color: #313036;
+    color: white;
+}
+
+.clear-search-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin-left: 8px;
+}

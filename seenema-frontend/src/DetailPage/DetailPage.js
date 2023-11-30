@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 import api from '../Homepage/js/api'; // API import for fetching movie details
 import './DetailPage.css'; // Importing CSS for styling
 import starImage from '../assets/Star.png'; // Star icon for rating display
@@ -38,6 +38,11 @@ const DetailPage = () => {
     const [buttonColor, setButtonColor] = useState("default");
     const [suggestedMovie, setSuggestedMovie] = useState(false);
     const [friendSuggestionLoading, setFriendSuggestionLoading] = useState(false);
+    const navigate = useNavigate();
+
+    const handleGoBack = () => {
+        navigate(-1)
+    }
 
     const handleToggleDropdown = () => {
         setShowDropdown(!showDropdown);
@@ -297,7 +302,7 @@ const DetailPage = () => {
                         <span>{director}</span>
                     </div>
                     <div className="button-container">
-                        <Link to="/Homepage" className="generic-button button-back">Back</Link>
+                        <button className="generic-button button-back" onClick={handleGoBack}>Back</button>
                             {watchlistButtonLoading ? (
                                 <div className="loading-container-detail-page">
                                     <Lottie loop={true} animationData={Loading} />
