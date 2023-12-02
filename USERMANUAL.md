@@ -56,5 +56,3 @@ Feel free to utilize the bug report template available on the page for submittin
 ## Known Bugs
 
 For a list of known bugs and their status, please visit our [GitHub Issues page](https://github.com/leenapagdar/Seenema/issues). We strive to keep this list updated and address bugs promptly.
-
----
