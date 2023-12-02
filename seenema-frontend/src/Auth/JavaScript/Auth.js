@@ -131,6 +131,7 @@ export function confirmPassword(email, confirmationCode, newPassword) {
                         "• At least 8 characters long\n" +
                         "• 1 uppercase letter\n" +
                         "• 1 lowercase letter\n" +
+                        "• 1 special character letter\n" +
                         "• 1 number";
 
                     const customError = new Error(errorMessage);

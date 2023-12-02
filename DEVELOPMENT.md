@@ -1,4 +1,12 @@
 # How to obtain the source code
+ ##  Prerequisite
+* If you don't have Git installed on your machine, you can install it using the following command (only for mac users):
+  ```bash
+  # To install git
+  brew install git
+  ```
+
+## To obtain the source code
 * To obtain the source code for the project clone the repository from the main branch using following command in your command line interface(CLI):
   * `git clone https://github.com/leenapagdar/Seenema.git`
 
@@ -16,13 +24,21 @@
 
 # How to build the software
 
+## Prerequisites to build the application frontend
+
+* If you do not have `Node.js` and `npm` installed in your machine, run the following command in your CLI (only for mac users)
+  ```bash
+  # To install Node (npm will be installed with Node)
+  brew install node
+  ```
 ## To build the application frontend
+
 * `.env.local` file would be necessary:
-  * Ask your colleague to share API keys and authentication tokens needed to initiate the application frontend
+  * Contact Seenema team to share API keys and authentication tokens needed to initiate the application frontend
   * Create a file `.env.local` and place all the tokens and keys inside that file.
   * Place that file under **./seenema-frontend** folder.
     * To build the frontend software
-      * Navigate to the project root directory
+      * Navigate to the project root directory called `Seenema`
       * Navigate to the seenema-frontend directory by running the following command:
         * `cd seenema-frontend`
       * Run the following command in your CLI
@@ -34,7 +50,13 @@
         #  Starts the application in the browser of your choice
         npm run start
         ```
+## Prerequisites to build the application backend
 
+* If you do not have `gradle` installed in your machine, run the following command in your CLI (only for mac users)
+  ```bash
+  # To install gradle
+  brew install gradle
+  ```
 ## To build the application backend
 * To build the backend software
   * Navigate to the project root directory
@@ -79,12 +101,12 @@
   * Place test files in the `seenema-frontend/tests` directory.
   * Follow a consistent naming convention for test files. For example:
     * Source file: `MyClass.js`
-    * Test file: `TestMyClass.js`
+    * Test file: `MyClassTest.js`
 * When adding new tests to the backend, follow these steps:
   * Place test files in the `seenema-backend/src/tests` directory.
   * Follow a consistent naming convention for test files. For example:
     * Source file: `MyClass.java`
-    * Test file: `TestMyClass.java`
+    * Test file: `MyClassTest.java`
 
 # How to build a release of the software
 
@@ -93,3 +115,7 @@ code and update the website. To view the latest released website open [this link
 
 [OPTIONAL]: You can also tag releases using [Git tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging).
 Follow [SemVer](https://semver.org/) versioning for the Git tags.
+
+# Note for Installation Issues:
+If you encounter permission issues during installation, try running the commands with sudo (e.g sudo npm install) 
+for elevated privileges.
