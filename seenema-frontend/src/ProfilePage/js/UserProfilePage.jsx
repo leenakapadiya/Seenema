@@ -14,6 +14,7 @@ const UserProfilePage = () => {
     const [friendEmail, setFriendEmail] = useState("");
     const [friendsList, setFriendsList] = useState(new Set());
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const handleGoBack = () => {
         navigate(-1);
@@ -36,6 +37,15 @@ const UserProfilePage = () => {
                 // handleGetFriendsList();
                 setFriendEmail("");
             } else {
+                const errorResponse = await response.json().catch(() => null); // Handle potential JSON parsing errors
+                const errorMessage = errorResponse?.message || "Failed to add friend. Please try again."; // Set a generic error message if message is not available
+
+                // Check for a specific condition in the error response and customize the message accordingly
+                if (response.status === 500) {
+                    setError("Incorrect email. Please try again.");
+                } else {
+                    setError(errorMessage);
+                }
                 console.error("Failed to add friend:", response.status, response.statusText);
             }
         } catch (error) {
@@ -44,8 +54,6 @@ const UserProfilePage = () => {
             setLoading(false);
         }
     };
-
-    //TODO: when user enters friend's email which does not exist in the database, it should return an error message
     const handleGetFriendsList = async () => {
         try {
             setLoading(true);
@@ -117,8 +125,8 @@ const UserProfilePage = () => {
                             <button onClick={handleAddFriend} className="generic-button button-add-friend-profile">Add
                                 Friend
                             </button>
+                            {error && <p style={{color: "white"}}>{error}</p>}
                         </div>
-                        {/*)}*/}
                     </div>
                     <FriendsListSlab loading={loading} friendsList={friendsList} />
                 </div>
