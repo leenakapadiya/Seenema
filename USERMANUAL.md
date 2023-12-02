@@ -12,7 +12,7 @@ and clips, enhancing the user experience in discovering and suggesting movies.
 - **Social Engagement:** Connect with friends and share movie recommendations.
 - **Real-Time Movie Information:** Access up-to-date movie details and previews.
 
-## How to install Seenema
+## How to install Seenema (for the end user)
 
 ### Prerequisites
 - **Internet Connection:** Stable internet access is required.
@@ -30,23 +30,22 @@ and clips, enhancing the user experience in discovering and suggesting movies.
 2. **Visit the Seenema Website:** Go to [Seenema's website](https://seenema-one.vercel.app/signIn).
 3. **Sign In or Sign Up:** If you're a new user, create an account. If you already have an account, log in with your credentials.
 
+## How to install Seenema (for someone buying the Seenema's software system)
+
+* To obtain the source code follow the documentation listed [here](./DEVELOPMENT.md#how-to-obtain-the-source-code)
+* To build the software follow the documentation listed [here](./DEVELOPMENT.md#how-to-build-the-software)
 ## How to Use Seenema
 
 - **Search and Discover Movies:** Use the search bar to find movies by keywords or phrases.
 - **Browse by Genre:** Explore movies categorized by different genres.
-- **Manage Watchlist:** Add or remove movies from your personalized watchlist.
+- **Manage Watchlist:** Add movies to your personalized watchlist.
+- **Manage Suggestionlist:** Browse through the movies that has been suggested by your friend. 
 - **Social Features:** Add friends by entering their email addresses and suggest movies to them. 
-These suggestions will appear in your friend’s watchlist.
-- **Movie Detail Page:** Access information about the movie, including details like cast members, release date, 
+These suggestions will appear in your friend’s suggestionlist.
+- **Movie Detail Page:** Access information about the movie, including details like cast members, release year, 
 a summary of the plot, ratings, streaming platforms where the movie is available, and access to the movie trailer and clips.
-
-### Work in Progress
-Following features are currently under development:
-- **Browse by Genre** 
-- **Manage Watchlist** 
-- **Social Features**
-- **Movie Detail Page**
-
+In addition to that, **ADD TO WATCHLIST** and **SUGGEST TO A FRIEND** buttons to add that particular movie to your watchlist
+and add that movie in your friend's suggestions list simultaneously.
 
 ## How to report a bug
 
