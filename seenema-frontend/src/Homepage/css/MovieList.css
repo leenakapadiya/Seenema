@@ -16,3 +16,34 @@
     padding: 20px;
     margin-left: -1.5%;
 }
+
+.load-more-container-search-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.search-button-load-more {
+    padding: 10px 20px; /* Padding */
+    border: none; /* No border */
+    border-radius: 20px; /* Rounded corners */
+    text-transform: uppercase; /* Uppercase text */
+    text-decoration: none; /* No text decoration */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition effect for background color */
+    margin-right: 10px; /* Right margin */
+}
+
+/* Back button specific style */
+.button-load-more-search {
+    background-color: var(--accent-color);
+    color: var(--white-text);
+}
+
+/* Hover effect for the back button */
+.button-load-more-search:hover {
+    background-color: #D52B1E; /* Slightly darker red on hover */
+}

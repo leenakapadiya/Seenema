@@ -20,11 +20,13 @@ const SearchBar = ({onSearch, isGenre, genreId}) => {
             } else {
                 e.preventDefault();
                 const value = e.target.value.trim(); // Trim leading/trailing spaces
+                const valueWithNoSpace = value.replace(" ", "-")
+
                 if(isGenre){
-                    navigate(`/genre/${genreId}/${value}`)
+                    navigate(`/genre/${genreId}/${valueWithNoSpace}`)
                 }
                 else{
-                    navigate(`/search/${value}`);
+                    navigate(`/search/${valueWithNoSpace}`);
                 }
                 onSearch(value, true); // Trigger the search only when Enter is pressed
                 setSearchValue(value);
@@ -69,7 +71,6 @@ const SearchBar = ({onSearch, isGenre, genreId}) => {
                     style={{backgroundColor: '#313036', color: 'white', border: 'none'}}
                     onKeyDown={handleSearchEnter}
                     onChange={handleSearchChange}
-                    value={searchValue}
                 />
                 {searchValue && (
                     <Button type="button" className="clear-search-button" onClick={clearSearch}
