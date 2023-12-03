@@ -1,9 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import api from '../Homepage/js/api'; // API import for fetching movie details
 import './DetailPage.css'; // Importing CSS for styling
 import starImage from '../assets/Star.png'; // Star icon for rating display
-import Header from '../Homepage/js/Header'; // Header component import
 import {AuthContext} from "../Auth/JavaScript/AuthContext";
 import '../SuggestionsListPage/css/SuggestedMoviesList.css';
 import Select from 'react-select';
@@ -51,6 +50,13 @@ const DetailPage = () => {
 
     const handleFriendClick = async (friendEmail) => {
         try {
+            if (!user) {
+                // User is not logged in, navigate to the homepage
+                navigate('/signIn');
+                return;
+            }
+
+            setFriendSuggestionLoading(true);
             // Call the function to add the movie to the friend's suggestion list
             handleAddToSuggestionsList(SelectedFriend.value);
 
@@ -63,6 +69,8 @@ const DetailPage = () => {
             }, 2000);
         } catch (error) {
             console.error('Error handling friend click:', error);
+        } finally {
+            setFriendSuggestionLoading(false);
         }
     };
 
@@ -253,6 +261,11 @@ const DetailPage = () => {
 
     const handleButtonClick = async () => {
         try {
+            if (!user) {
+                // User is not logged in, navigate to the homepage
+                navigate('/signIn');
+                return;
+            }
             // Set loading state to true only for the "Add to Watchlist" button
             setWatchlistButtonLoading(true);
 
@@ -274,40 +287,42 @@ const DetailPage = () => {
 
     // Main return statement for rendering the detail page
     return (
-        <div className="detail-page-layout">
-            <div className="detail-page-wrapper"
-                 style={{backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`}}>
-                <div className="detail-movie-overlay"/>
-               <button className="generic-button button-back" onClick={handleGoBack}>Back</button>
-                <div className="detail-movie-container">
-                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}
-                         className="detail-movie-poster"/>
-                    <h1 className="detail-movie-title">{movie.title}</h1>
-                    <div className="detail-movie-info">
-                        <div className="detail-user-rating-box">
-                            <img src={starImage} alt="Star" className="detail-user-rating-star"/>
-                            <span>{rating}</span>
+        <div className="detail-body">
+            <div className="button-back-container">
+                <button onClick={handleGoBack} className="generic-button button-back">Back</button>
+            </div>
+            <div className="movie-detail-page">
+                    <div className="detail-movie-container">
+                        <img src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`} alt={movie.backdrop_path}
+                             className="detail-background-image"/>
+                        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}
+                             className="detail-movie-poster"/>
+                        <h1 className="detail-movie-title">{movie.title}</h1>
+                        <div className="detail-movie-info">
+                            <div className="detail-user-rating-box">
+                                <img src={starImage} alt="Star" className="detail-user-rating-star"/>
+                                <span>{rating}</span>
+                            </div>
+                            <span className="detail-year">{formattedReleaseYear}</span>
+                            <span className="detail-movie-runtime">{formattedRuntime} min</span>
+                            <span className="detail-movie-MPArating">{ageRating}</span>
                         </div>
-                        <span className="detail-year">{formattedReleaseYear}</span>
-                        <span className="detail-movie-runtime">{formattedRuntime} min</span>
-                        <span className="detail-movie-MPArating">{ageRating}</span>
-                    </div>
-                    <div className="detail-movie-genre-list">
-                        {formattedGenres}
-                    </div>
-                    <p className="detail-movie-overview">{movie.overview}</p>
-                    <div className="detail-movie-cast">
-                        <span className="detail-cast-title">Starring : </span>
-                        {formattedCastNames}
-                    </div>
-                    <div className="detail-movie-director">
-                        <span className="detail-cast-title">Director : </span>
-                        <span>{director}</span>
-                    </div>
-                    <div className="button-container">
+                        <div className="detail-movie-genre-list">
+                            {formattedGenres}
+                        </div>
+                        <p className="detail-movie-overview">{movie.overview}</p>
+                        <div className="detail-movie-cast">
+                            <span className="detail-cast-title">Starring : </span>
+                            {formattedCastNames}
+                        </div>
+                        <div className="detail-movie-director">
+                            <span className="detail-cast-title">Director : </span>
+                            <span>{director}</span>
+                        </div>
+                        <div className="button-container">
                             {watchlistButtonLoading ? (
                                 <div className="loading-container-detail-page">
-                                    <Lottie loop={true} animationData={Loading} />
+                                    <Lottie loop={true} animationData={Loading}/>
                                 </div>
                             ) : (
                                 <button
@@ -318,94 +333,94 @@ const DetailPage = () => {
                                     {addedToWatchlist ? 'Added to Watchlist' : 'Add to Watchlist'}
                                 </button>
                             )}
-                        <div>
-                            {showDropdown ? (
-                                <div>
-                                    <div className="add-to-friendList-field">
-                                        <div className="select-friend-detail">
-                                            <Select
-                                                options={Array.from(friendsList).map((friend) => ({
-                                                    value: friend,
-                                                    label: friend,
-                                                }))}
-                                                value={selectedFriend}
-                                                onChange={(selectedOption) => setSelectedFriend(selectedOption)}
-                                                placeholder="Select friend"
-                                                style={{color: 'black'}}
-                                            />
+                            <div>
+                                {showDropdown ? (
+                                    <div>
+                                        <div className="add-to-friendList-field">
+                                            <div className="select-friend-detail">
+                                                <Select
+                                                    options={Array.from(friendsList).map((friend) => ({
+                                                        value: friend,
+                                                        label: friend,
+                                                    }))}
+                                                    value={selectedFriend}
+                                                    onChange={(selectedOption) => setSelectedFriend(selectedOption)}
+                                                    placeholder="Select friend"
+                                                    style={{color: 'black'}}
+                                                />
+                                            </div>
+                                            <button
+                                                className={`generic-button  detail-done-button ${suggestedMovie ? 'detail-done-after-suggesting-friend-button' : ''}`}
+                                                onClick={() => handleFriendClick(selectedFriend ? selectedFriend.value : '')}
+                                                disabled={suggestedMovie}
+                                            >
+                                                {suggestedMovie ?
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px"
+                                                         fill="currentColor"
+                                                         className=" bi bi-check detail-done-after-suggesting-friend-button"
+                                                         viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                                                    </svg>
+                                                    :
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px"
+                                                         fill="currentColor" className="bi bi-check" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                                                    </svg>}
+                                            </button>
                                         </div>
-                                        <button
-                                            className={`generic-button  detail-done-button ${suggestedMovie ? 'detail-done-after-suggesting-friend-button' : ''}`}
-                                            onClick={() => handleFriendClick(selectedFriend ? selectedFriend.value : '')}
-                                            disabled={suggestedMovie}
-                                        >
-                                            {suggestedMovie ?
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px"
-                                                     fill="currentColor"
-                                                     className=" bi bi-check detail-done-after-suggesting-friend-button"
-                                                     viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-                                                </svg>
-                                                :
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px"
-                                                     fill="currentColor" className="bi bi-check" viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-                                                </svg>}
-                                        </button>
                                     </div>
-                                </div>
-                            ) : (
-                                <button
-                                    className="generic-button button-add-friend-suggestions-list"
-                                    onClick={handleToggleDropdown}
-                                    style={{display: showDropdown ? 'none' : 'block'}}
-                                >
-                                    Suggest to a friend
-                                </button>
-                            )}
+                                ) : (
+                                    <button
+                                        className="generic-button button-add-friend-suggestions-list"
+                                        onClick={handleToggleDropdown}
+                                        style={{display: showDropdown ? 'none' : 'block'}}
+                                    >
+                                        Suggest to a friend
+                                    </button>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                    <div className="watch-on-services">
-                        <h2>Available on:</h2>
-                        <div className="services-container">
-                            {streamingServices && streamingServices.US && streamingServices.US.flatrate && streamingServices.US.flatrate.length > 0 ? (
-                                streamingServices.US.flatrate.map((service) => (
-                                    <div key={service.provider_id} className="service">
-                                        <img src={`https://image.tmdb.org/t/p/w500${service.logo_path}`}
-                                             alt={service.provider_name}/>
-                                    </div>
-                                ))
-                            ) : (
-                                <p>Not available to stream</p>
-                            )}
+                        <div className="watch-on-services">
+                            <h2 style={{fontWeight: "bold"}}>Available on:</h2>
+                            <div className="services-container">
+                                {streamingServices && streamingServices.US && streamingServices.US.flatrate && streamingServices.US.flatrate.length > 0 ? (
+                                    streamingServices.US.flatrate.map((service) => (
+                                        <div key={service.provider_id} className="service">
+                                            <img src={`https://image.tmdb.org/t/p/w500${service.logo_path}`}
+                                                 alt={service.provider_name}/>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p>Not available to stream</p>
+                                )}
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="trailers-and-clips">
-                        <h2>Trailers and Clips</h2>
-                        <div className="videos">
-                            {videos && videos.length > 0 ? (
-                                videos.slice(0, 2).map((video) => (
-                                    <iframe
-                                        key={video.id}
-                                        width="560"
-                                        height="315"
-                                        src={`https://www.youtube.com/embed/${video.key}`}
-                                        title={video.name}
-                                        frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                        className="video-iframe"
-                                    ></iframe>
-                                ))
-                            ) : (
-                                <p className="no-trailers-text">No trailers or clips available</p>
-                            )}
+                        <div className="trailers-and-clips">
+                            <h2 style={{fontWeight: "bold"}}>Trailers and Clips</h2>
+                            <div className="videos">
+                                {videos && videos.length > 0 ? (
+                                    videos.slice(0, 2).map((video) => (
+                                        <iframe
+                                            key={video.id}
+                                            width="560"
+                                            height="315"
+                                            src={`https://www.youtube.com/embed/${video.key}`}
+                                            title={video.name}
+                                            frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowFullScreen
+                                            className="video-iframe"
+                                        ></iframe>
+                                    ))
+                                ) : (
+                                    <p className="no-trailers-text">No trailers or clips available</p>
+                                )}
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     );

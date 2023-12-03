@@ -27,38 +27,34 @@
     height: 100%;
 }
 
-/* Background styling */
-.detail-movie-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; /* Position to cover the entire parent element */
-    z-index: 0; /* Layered behind all other content */
-    background-size: cover; /* Background image covers the entire element */
-    background-position: center; /* Centers the background image */
-    opacity: 0.5; /* Opacity for the background image */
+.movie-detail-page {
+    font-family: 'DM Sans', sans-serif;
+    /*display: flex;*/
+    /*margin-top: 3%;*/
+    flex-wrap: wrap;
+    height: auto;
+    overflow-y: hidden;
+}
+.detail-body {
+    overflow-y: auto;
+    height: 100vh;
 }
 
-/* Overlay for the background image */
-.detail-movie-overlay {
+.detail-background-image {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0; /* Position to cover the entire parent element */
-    background-color: rgba(0, 0, 0, 0.88); /* Semi-transparent black overlay */
-    z-index: 1; /* Above the background, below the content */
-    background-attachment: fixed; /* Overlay stays fixed during scrolling */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2;
+    z-index: -1;
 }
 
 /* Container for movie details */
 .detail-movie-container {
-    position: relative; /* Positioning context for child elements */
-    z-index: 2; /* Above the overlay */
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Align children to the left */
     gap: 20px; /* Spacing between child elements */
     padding-left: 28%; /* Space for the poster */
 }
@@ -66,7 +62,7 @@
 /* Styling for the movie poster */
 .detail-movie-poster {
     position: absolute;
-    top: 70px;
+    top: 15%;
     left: 10px; /* Positioning */
     width: 25%; /* Width relative to the container */
     max-width: 680px;
@@ -81,8 +77,7 @@
     font-size: 3.75rem; /* Font size */
     color: var(--white-text); /* Text color */
     max-width: 90%; /* Maximum width */
-    margin-bottom: 0px; /* Top margin */
-    margin-top: 60px; /* Top margin */
+    margin-top: 6%;
 }
 
 /* Container for movie information like rating, year, etc. */
@@ -178,6 +173,7 @@
     background: rgb(47, 45, 45); /* Background color */
     padding: 5px 10px; /* Padding */
     border-radius: 4px; /* Rounded corners */
+    color: white;
 }
 
 /* User rating star icon styling */
@@ -221,14 +217,6 @@
     color: var(--white-text);
 }
 
-/* Back button specific style */
-.button-back {
-    background-color: var(--accent-color);
-    top: 18px; /* Adjust as needed */
-    left: 20px; /* Adjust as needed */
-    color: var(--white-text);
-}
-
 .added-to-watchlist {
     background-color: green;
 }
@@ -268,6 +256,13 @@
 /* Hover effect for the back button */
 .button-back:hover .button-add-friend-suggestions-list:hover {
     background-color: #D52B1E; /* Slightly darker red on hover */
+}
+
+.button-back-container {
+    margin-left: 0.8% ;
+    margin-top: 2%;
+    margin-bottom: 3%;
+
 }
 
 /* Container for buttons */

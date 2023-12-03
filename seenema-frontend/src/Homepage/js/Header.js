@@ -87,14 +87,12 @@ const LoggedInOptions = () => {
         <div>
             <NavDropdown.Item href={"/profile"}>
                 Profile
-                {/*<NavLink to="/profile" style={{textDecoration: 'none', color: 'inherit'}}>Profile</NavLink>*/}
             </NavDropdown.Item>
             <NavDropdown.Item href={"/myList"}>My List</NavDropdown.Item>
             <NavDropdown.Item href={"/suggestionsList"}>Friend Suggestions List</NavDropdown.Item>
             <NavDropdown.Divider/>
             <NavDropdown.Item href={"/signOut"}>
                 Sign Out
-                {/*<NavLink to="/signOut" style={{textDecoration: 'none', color: 'inherit'}}>Sign Out</NavLink>*/}
             </NavDropdown.Item>
         </div>
     );
