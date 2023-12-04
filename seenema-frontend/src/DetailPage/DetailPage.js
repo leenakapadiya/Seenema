@@ -108,16 +108,31 @@ const DetailPage = () => {
                 setCast(castData.slice(0, 10));
                 setDirector(directorData ? directorData.name : 'N/A');
 
-                // Fetch and set trailers and clips (limited to 2)
+                // Fetch and set trailers, clips, and teasers
                 const videosResponse = await api.get(`/movie/${movieId}/videos`);
-                setVideos(videosResponse.data.results.slice(0, 2)); // Here we slice the array to only get the first two videos
+                const allVideos = videosResponse.data.results;
+
+                // Filter for trailers, clips, and teasers
+                const trailers = allVideos.filter(video => video.type === 'Trailer');
+                const teasersAndClips = allVideos.filter(video => video.type === 'Teaser' || video.type === 'Clip');
+
+                // Select videos based on priority
+                let selectedVideos = [];
+                if (trailers.length > 0) {
+                    selectedVideos.push(trailers[0]); // First priority is trailer
+                    if (teasersAndClips.length > 0) {
+                        selectedVideos.push(teasersAndClips[0]); // Second priority is a teaser or clip
+                    }
+                } else if (teasersAndClips.length > 0) {
+                    selectedVideos = teasersAndClips.slice(0, 2); // If no trailer, select up to two teasers/clips
+                }
+
+                // Set the selected videos
+                setVideos(selectedVideos);
 
             } catch (error) {
                 console.error('Error fetching details:', error);
             }
-            // Fetch the trailers and clips
-            const videosResponse = await api.get(`/movie/${movieId}/videos`);
-            setVideos(videosResponse.data.results);
         };
 
         fetchMovieDetails();
@@ -294,7 +309,6 @@ const DetailPage = () => {
         : '';
 
 
-
     // Main return statement for rendering the detail page
     return (
         <div className="detail-body">
@@ -302,135 +316,135 @@ const DetailPage = () => {
                 <button onClick={handleGoBack} className="generic-button button-back">Back</button>
             </div>
             <div className="movie-detail-page">
-                    <div className="detail-movie-container">
-                        <img src={backdropImageUrl} alt={movie ? movie.title : 'Background not available'}
-                             className={`detail-background-image ${!movie.backdrop_path && 'default-background-style'}`}/>
-                        <img src={posterImageUrl} alt={movie ? movie.title : 'Poster not available'}
-                             className="detail-movie-poster"/>
-                        <h1 className="detail-movie-title">{movie.title}</h1>
-                        <div className="detail-movie-info">
-                            <div className="detail-user-rating-box">
-                                <img src={starImage} alt="Star" className="detail-user-rating-star"/>
-                                <span>{rating}</span>
+                <div className="detail-movie-container">
+                    <img src={backdropImageUrl} alt={movie ? movie.title : 'Background not available'}
+                         className={`detail-background-image ${!movie.backdrop_path && 'default-background-style'}`}/>
+                    <img src={posterImageUrl} alt={movie ? movie.title : 'Poster not available'}
+                         className="detail-movie-poster"/>
+                    <h1 className="detail-movie-title">{movie.title}</h1>
+                    <div className="detail-movie-info">
+                        <div className="detail-user-rating-box">
+                            <img src={starImage} alt="Star" className="detail-user-rating-star"/>
+                            <span>{rating}</span>
+                        </div>
+                        <span className="detail-year">{formattedReleaseYear}</span>
+                        <span className="detail-movie-runtime">{formattedRuntime} min</span>
+                        <span className="detail-movie-MPArating">{ageRating}</span>
+                    </div>
+                    <div className="detail-movie-genre-list">
+                        {formattedGenres}
+                    </div>
+                    <p className="detail-movie-overview">{movie.overview}</p>
+                    <div className="detail-movie-cast">
+                        <span className="detail-cast-title">Starring : </span>
+                        {formattedCastNames}
+                    </div>
+                    <div className="detail-movie-director">
+                        <span className="detail-cast-title">Director : </span>
+                        <span>{director}</span>
+                    </div>
+                    <div className="button-container">
+                        {watchlistButtonLoading ? (
+                            <div className="loading-container-detail-page">
+                                <Lottie loop={true} animationData={Loading}/>
                             </div>
-                            <span className="detail-year">{formattedReleaseYear}</span>
-                            <span className="detail-movie-runtime">{formattedRuntime} min</span>
-                            <span className="detail-movie-MPArating">{ageRating}</span>
-                        </div>
-                        <div className="detail-movie-genre-list">
-                            {formattedGenres}
-                        </div>
-                        <p className="detail-movie-overview">{movie.overview}</p>
-                        <div className="detail-movie-cast">
-                            <span className="detail-cast-title">Starring : </span>
-                            {formattedCastNames}
-                        </div>
-                        <div className="detail-movie-director">
-                            <span className="detail-cast-title">Director : </span>
-                            <span>{director}</span>
-                        </div>
-                        <div className="button-container">
-                            {watchlistButtonLoading ? (
-                                <div className="loading-container-detail-page">
-                                    <Lottie loop={true} animationData={Loading}/>
+                        ) : (
+                            <button
+                                className={`generic-button button-watchlist ${addedToWatchlist ? 'added-to-watchlist' : ''}`}
+                                onClick={handleButtonClick}
+                                disabled={addedToWatchlist}
+                            >
+                                {addedToWatchlist ? 'Added to Watchlist' : 'Add to Watchlist'}
+                            </button>
+                        )}
+                        <div>
+                            {showDropdown ? (
+                                <div>
+                                    <div className="add-to-friendList-field">
+                                        <div className="select-friend-detail">
+                                            <Select
+                                                options={Array.from(friendsList).map((friend) => ({
+                                                    value: friend,
+                                                    label: friend,
+                                                }))}
+                                                value={selectedFriend}
+                                                onChange={(selectedOption) => setSelectedFriend(selectedOption)}
+                                                placeholder="Select friend"
+                                                style={{color: 'black'}}
+                                            />
+                                        </div>
+                                        <button
+                                            className={`generic-button  detail-done-button ${suggestedMovie ? 'detail-done-after-suggesting-friend-button' : ''}`}
+                                            onClick={() => handleFriendClick(selectedFriend ? selectedFriend.value : '')}
+                                            disabled={suggestedMovie}
+                                        >
+                                            {suggestedMovie ?
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px"
+                                                     fill="currentColor"
+                                                     className=" bi bi-check detail-done-after-suggesting-friend-button"
+                                                     viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                                                </svg>
+                                                :
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px"
+                                                     fill="currentColor" className="bi bi-check" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                                                </svg>}
+                                        </button>
+                                    </div>
                                 </div>
                             ) : (
                                 <button
-                                    className={`generic-button button-watchlist ${addedToWatchlist ? 'added-to-watchlist' : ''}`}
-                                    onClick={handleButtonClick}
-                                    disabled={addedToWatchlist}
+                                    className="generic-button button-add-friend-suggestions-list"
+                                    onClick={handleToggleDropdown}
+                                    style={{display: showDropdown ? 'none' : 'block'}}
                                 >
-                                    {addedToWatchlist ? 'Added to Watchlist' : 'Add to Watchlist'}
+                                    Suggest to a friend
                                 </button>
                             )}
-                            <div>
-                                {showDropdown ? (
-                                    <div>
-                                        <div className="add-to-friendList-field">
-                                            <div className="select-friend-detail">
-                                                <Select
-                                                    options={Array.from(friendsList).map((friend) => ({
-                                                        value: friend,
-                                                        label: friend,
-                                                    }))}
-                                                    value={selectedFriend}
-                                                    onChange={(selectedOption) => setSelectedFriend(selectedOption)}
-                                                    placeholder="Select friend"
-                                                    style={{color: 'black'}}
-                                                />
-                                            </div>
-                                            <button
-                                                className={`generic-button  detail-done-button ${suggestedMovie ? 'detail-done-after-suggesting-friend-button' : ''}`}
-                                                onClick={() => handleFriendClick(selectedFriend ? selectedFriend.value : '')}
-                                                disabled={suggestedMovie}
-                                            >
-                                                {suggestedMovie ?
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px"
-                                                         fill="currentColor"
-                                                         className=" bi bi-check detail-done-after-suggesting-friend-button"
-                                                         viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-                                                    </svg>
-                                                    :
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px"
-                                                         fill="currentColor" className="bi bi-check" viewBox="0 0 16 16">
-                                                        <path
-                                                            d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-                                                    </svg>}
-                                            </button>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <button
-                                        className="generic-button button-add-friend-suggestions-list"
-                                        onClick={handleToggleDropdown}
-                                        style={{display: showDropdown ? 'none' : 'block'}}
-                                    >
-                                        Suggest to a friend
-                                    </button>
-                                )}
-                            </div>
-                        </div>
-                        <div className="watch-on-services">
-                            <h2 style={{fontWeight: "bold"}}>Available on:</h2>
-                            <div className="services-container">
-                                {streamingServices && streamingServices.US && streamingServices.US.flatrate && streamingServices.US.flatrate.length > 0 ? (
-                                    streamingServices.US.flatrate.map((service) => (
-                                        <div key={service.provider_id} className="service">
-                                            <img src={`https://image.tmdb.org/t/p/w500${service.logo_path}`}
-                                                 alt={service.provider_name}/>
-                                        </div>
-                                    ))
-                                ) : (
-                                    <p>Not available to stream</p>
-                                )}
-                            </div>
-                        </div>
-
-                        <div className="trailers-and-clips">
-                            <h2 style={{fontWeight: "bold"}}>Trailers and Clips</h2>
-                            <div className="videos">
-                                {videos && videos.length > 0 ? (
-                                    videos.slice(0, 2).map((video) => (
-                                        <iframe
-                                            key={video.id}
-                                            width="560"
-                                            height="315"
-                                            src={`https://www.youtube.com/embed/${video.key}`}
-                                            title={video.name}
-                                            frameBorder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowFullScreen
-                                            className="video-iframe"
-                                        ></iframe>
-                                    ))
-                                ) : (
-                                    <p className="no-trailers-text">No trailers or clips available</p>
-                                )}
-                            </div>
                         </div>
                     </div>
+                    <div className="watch-on-services">
+                        <h2 style={{fontWeight: "bold"}}>Available on:</h2>
+                        <div className="services-container">
+                            {streamingServices && streamingServices.US && streamingServices.US.flatrate && streamingServices.US.flatrate.length > 0 ? (
+                                streamingServices.US.flatrate.map((service) => (
+                                    <div key={service.provider_id} className="service">
+                                        <img src={`https://image.tmdb.org/t/p/w500${service.logo_path}`}
+                                             alt={service.provider_name}/>
+                                    </div>
+                                ))
+                            ) : (
+                                <p>Not available to stream</p>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="trailers-and-clips">
+                        <h2 style={{fontWeight: "bold"}}>Trailers and Clips</h2>
+                        <div className="videos">
+                            {videos.length > 0 ? (
+                                videos.map((video) => (
+                                    <iframe
+                                        key={video.id}
+                                        width="560"
+                                        height="315"
+                                        src={`https://www.youtube.com/embed/${video.key}`}
+                                        title={video.name}
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        className="video-iframe"
+                                    ></iframe>
+                                ))
+                            ) : (
+                                <p className="no-trailers-text">No trailers or clips available</p>
+                            )}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );
