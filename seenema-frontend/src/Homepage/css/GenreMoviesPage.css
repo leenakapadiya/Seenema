@@ -1,11 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500&display=swap');
 
 .movie-grid-genre-page {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 11px;
-    padding: 20px;
-    margin-left: -1.5%;
+    display: flex;
+    padding: 20px 20px 20px 2px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 .main-content-area-GenrePage {
