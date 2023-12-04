@@ -73,7 +73,6 @@ const SearchBar = ({onSearch, isGenre, genreId}) => {
                     style={{backgroundColor: '#313036', color: 'white', border: 'none'}}
                     onKeyDown={handleSearchEnter}
                     onChange={handleSearchChange}
-                    value={searchValue}
                 />
                 {searchValue && (
                     <Button type="button" className="clear-search-button" onClick={clearSearch}
