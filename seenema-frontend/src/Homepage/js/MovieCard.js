@@ -3,11 +3,12 @@ import {Paper} from "@material-ui/core";
 import React from "react";
 import "../css/MovieCard.css";
 import starImage from '../../assets/Star.png';
+import placeHolderImage from '../../assets/placeholderImage.png'
 
 // MovieCard component, taking movie object as a prop
 const MovieCard = ({movie}) => {
     // Creating URL for the movie poster
-    const posterPath = movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : '';
+    const posterPath = movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : placeHolderImage;
 
     // Calculating average rating of movie, setting it 'N/A' if avg rating is < 0
     const rating = movie.vote_average && movie.vote_average >= 1 ? movie.vote_average.toFixed(1) : 'N/A';
