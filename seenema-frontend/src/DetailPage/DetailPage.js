@@ -39,6 +39,7 @@ const DetailPage = () => {
     const [suggestedMovie, setSuggestedMovie] = useState(false);
     const [friendSuggestionLoading, setFriendSuggestionLoading] = useState(false);
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(true);
 
     const handleGoBack = () => {
         navigate(-1)
@@ -129,9 +130,11 @@ const DetailPage = () => {
 
                 // Set the selected videos
                 setVideos(selectedVideos);
+                setIsLoading(false);
 
             } catch (error) {
                 console.error('Error fetching details:', error);
+                setIsLoading(false);
             }
         };
 
@@ -262,7 +265,7 @@ const DetailPage = () => {
 
 
     // Render loading text if data is not yet loaded
-    if (!movie || cast.length === 0 || !director) {
+    if (isLoading) {
         return <div>Loading...</div>;
     }
     // Calculating average rating of movie, setting it 'N/A' if avg rating is < 0
@@ -317,8 +320,10 @@ const DetailPage = () => {
             </div>
             <div className="movie-detail-page">
                 <div className="detail-movie-container">
-                    <img src={backdropImageUrl} alt={movie ? movie.title : 'Background not available'}
-                         className={`detail-background-image ${!movie.backdrop_path && 'default-background-style'}`}/>
+                    {movie.backdrop_path && (
+                        <img src={backdropImageUrl} alt={movie ? movie.title : 'Background not available'}
+                             className={`detail-background-image`} />
+                    )}
                     <img src={posterImageUrl} alt={movie ? movie.title : 'Poster not available'}
                          className="detail-movie-poster"/>
                     <h1 className="detail-movie-title">{movie.title}</h1>
@@ -337,7 +342,7 @@ const DetailPage = () => {
                     <p className="detail-movie-overview">{movie.overview}</p>
                     <div className="detail-movie-cast">
                         <span className="detail-cast-title">Starring : </span>
-                        {formattedCastNames}
+                        {cast.length > 0 ? formattedCastNames : 'N/A'}
                     </div>
                     <div className="detail-movie-director">
                         <span className="detail-cast-title">Director : </span>
