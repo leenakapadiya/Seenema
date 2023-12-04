@@ -5,9 +5,24 @@
 }
 
 .clear-search-button {
-    background-color: transparent;
-    border: none;
+    border-radius: 6px;
     color: white;
     cursor: pointer;
     margin-left: 8px;
+    border: none;
+    background-color: #313036;
+}
+
+.clear-search-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.10rem #959499;
+}
+
+.clear-search-button::placeholder {
+    color: #73727a;
+    padding-right: 150px;
+}
+
+.clear-search-button:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.71);
 }
