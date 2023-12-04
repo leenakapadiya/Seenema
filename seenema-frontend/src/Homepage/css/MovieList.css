@@ -10,11 +10,9 @@
 }
 
 .movie-grid-search {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 11px;
-    padding: 20px;
-    margin-left: -1.5%;
+    display: flex;
+    padding: 20px 20px 20px 2px;
+    flex-wrap: wrap;
 }
 
 .load-more-container-search-page {
