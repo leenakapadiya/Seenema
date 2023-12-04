@@ -11,6 +11,7 @@ import * as SelectedFriend from "@material-tailwind/react/context/theme";
 import {useCookies} from 'react-cookie';
 import Loading from "../assets/loading.json";
 import Lottie from "lottie-react";
+import placeHolderImage from '../assets/placeholderImage.png';
 
 const DetailPage = () => {
     // State variables for storing movie data
@@ -284,6 +285,15 @@ const DetailPage = () => {
         }
     };
 
+    const posterImageUrl = movie && movie.poster_path
+        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+        : placeHolderImage;
+
+    const backdropImageUrl = movie && movie.backdrop_path
+        ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+        : '';
+
+
 
     // Main return statement for rendering the detail page
     return (
@@ -293,9 +303,9 @@ const DetailPage = () => {
             </div>
             <div className="movie-detail-page">
                     <div className="detail-movie-container">
-                        <img src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`} alt={movie.backdrop_path}
-                             className="detail-background-image"/>
-                        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}
+                        <img src={backdropImageUrl} alt={movie ? movie.title : 'Background not available'}
+                             className={`detail-background-image ${!movie.backdrop_path && 'default-background-style'}`}/>
+                        <img src={posterImageUrl} alt={movie ? movie.title : 'Poster not available'}
                              className="detail-movie-poster"/>
                         <h1 className="detail-movie-title">{movie.title}</h1>
                         <div className="detail-movie-info">
