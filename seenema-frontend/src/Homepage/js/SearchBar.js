@@ -38,7 +38,7 @@ const SearchBar = ({onSearch, isGenre, genreId}) => {
     };
 
     const handleSearchChange = (e) => {
-        setSearchValue(e.target.value.trim())
+        setSearchValue(e.target.value)
         if (e.target.value.trim() === "") {
             const value = "";
             onSearch(value);
