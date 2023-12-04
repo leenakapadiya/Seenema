@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {Form, FormControl, Button} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import '../css/searchBar.css';
+import '../css/Header.css';
 
 const SearchBar = ({onSearch, isGenre, genreId}) => {
     const navigate = useNavigate();
@@ -71,10 +73,11 @@ const SearchBar = ({onSearch, isGenre, genreId}) => {
                     style={{backgroundColor: '#313036', color: 'white', border: 'none'}}
                     onKeyDown={handleSearchEnter}
                     onChange={handleSearchChange}
+                    value={searchValue}
                 />
                 {searchValue && (
                     <Button type="button" className="clear-search-button" onClick={clearSearch}
-                            style={{backgroundColor: '#313036', border: 'none', color: 'white'}}>
+                            style={{backgroundColor: '#313036'}}>
                         X
                     </Button>
                 )}
