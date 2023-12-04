@@ -6,8 +6,7 @@ import SearchedCardsPage from "./SearchedCardsPage"
 import Lottie from "lottie-react";
 import NoResultsFound from "../../assets/NoResultsFound.json";
 import MovieCard from "./MovieCard"
-import Success from "../../assets/Success.json";
-import { useParams } from "react-router-dom"
+import {useParams} from "react-router-dom"
 
 const MovieList = () => {
     // State Variables for different categories of the movies.
@@ -21,7 +20,7 @@ const MovieList = () => {
 
     // Async func to fetch the searched movies
     const fetchSearchMovies = async (page) => {
-        if((searchTerm.searchTerm !== undefined)){
+        if ((searchTerm.searchTerm !== undefined)) {
             console.log("here");
             const title = searchTerm.searchTerm;
             try {
@@ -31,10 +30,9 @@ const MovieList = () => {
                         page: page
                     },
                 })
-                if(page === 1){
+                if (page === 1) {
                     setSearchResults(data.results);
-                }
-                else{
+                } else {
                     setSearchResults(prev => [...prev, ...data.results])
                 }
             } catch (error) {
@@ -97,23 +95,28 @@ const MovieList = () => {
         setCurrentPage(newPage);
         fetchSearchMovies(newPage)
     }
+    const hasMoreResults = searchResults.length > 0 && searchResults.length % 20 === 0;
+
     // Rendering the component with movie data
     return (
         <div>
-            {(searchResults.length > 0) && (searchTerm.searchTerm !== undefined)  ? (
-                                <>
-                                <h2 className="header-home">Search Results </h2>
-                                <div className="movie-grid-search">
-                                   {searchResults.map(movie => (
-                                        <MovieCard key={movie.id} movie={movie}/>
-                                    ))}
-                                </div>
-                                <div className="load-more-container-search-page">
-                                    <button onClick={handleLoadMore} className="search-button-load-more button-load-more-search">
-                                        Load More
-                                    </button>
-                                </div>
-                            </>
+            {(searchResults.length > 0) && (searchTerm.searchTerm !== undefined) ? (
+                <>
+                    <h2 className="header-home">Search Results </h2>
+                    <div className="movie-grid-search">
+                        {searchResults.map(movie => (
+                            <MovieCard key={movie.id} movie={movie}/>
+                        ))}
+                    </div>
+                    {hasMoreResults && (
+                        <div className="load-more-container-search-page">
+                            <button onClick={handleLoadMore}
+                                    className="search-button-load-more button-load-more-search">
+                                Load More
+                            </button>
+                        </div>
+                    )}
+                </>
             ) : (searchTerm.searchTerm === undefined) ? (
                 <>
                     <h2 className="header-home">Now Playing</h2>
@@ -138,18 +141,20 @@ const MovieList = () => {
                 <>
                     <h2 className="header-home">Search Results </h2>
                     <div className="movie-grid-search">
-                       {searchResults.map(movie => (
+                        {searchResults.map(movie => (
                             <MovieCard key={movie.id} movie={movie}/>
                         ))}
                     </div>
-                    <div className="load-more-container-search-page">
-                        <button onClick={handleLoadMore} className="searhc-button-load-more button-load-more-search">
-                            Load More
-                        </button>
-                    </div>
+                    {hasMoreResults && (
+                        <div className="load-more-container-search-page">
+                            <button onClick={handleLoadMore}
+                                    className="searhc-button-load-more button-load-more-search">
+                                Load More
+                            </button>
+                        </div>
+                    )}
                 </>
-            )
-            }
+            )}
         </div>
     );
 };
