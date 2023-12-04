@@ -320,8 +320,10 @@ const DetailPage = () => {
             </div>
             <div className="movie-detail-page">
                 <div className="detail-movie-container">
-                    <img src={backdropImageUrl} alt={movie ? movie.title : 'Background not available'}
-                         className={`detail-background-image ${!movie.backdrop_path && 'default-background-style'}`}/>
+                    {movie.backdrop_path && (
+                        <img src={backdropImageUrl} alt={movie ? movie.title : 'Background not available'}
+                             className={`detail-background-image`} />
+                    )}
                     <img src={posterImageUrl} alt={movie ? movie.title : 'Poster not available'}
                          className="detail-movie-poster"/>
                     <h1 className="detail-movie-title">{movie.title}</h1>
