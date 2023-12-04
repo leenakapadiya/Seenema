@@ -53,6 +53,7 @@
 
 .header-dropdown {
     color: #959499;
+    margin-right: -80%;
 }
 
 .generic-button-header {
@@ -77,3 +78,17 @@
 .button-header:hover {
     background-color: #D52B1E; /* Slightly darker red on hover */
 }
+
+
+.dropdown-menu.show {
+    margin-right: 50%;
+    border-width: 6px;
+    border-radius: 20px;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.dropdown-item:hover {
+    background-color: #cfced3;
+}
+
