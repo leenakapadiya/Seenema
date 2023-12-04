@@ -20,9 +20,7 @@ const MovieList = () => {
 
     // Async func to fetch the searched movies
     const fetchSearchMovies = async (page) => {
-        console.log(searchTerm.searchTerm)
         if ((searchTerm.searchTerm !== undefined)) {
-            console.log("here");
             const title = searchTerm.searchTerm;
             try {
                 const {data} = await api.get("search/movie", {
@@ -36,7 +34,6 @@ const MovieList = () => {
                 } else {
                     setSearchResults(prev => [...prev, ...data.results])
                 }
-                console.log(searchResults)
             } catch (error) {
                 console.error('Failed to fetch the searched movie:', error);
             }
