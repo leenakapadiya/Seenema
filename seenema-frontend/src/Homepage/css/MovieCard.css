@@ -18,9 +18,9 @@
 }
 
 .card-rating {
-    display: flex; /* This line will make sure that the children (the star icon and the rating) are in a row */
-    align-items: center; /* This line will vertically align the children in the middle */
-    gap: 1px; /* This line will add some space between the star icon and the rating */
+    display: flex;
+    align-items: center;
+    gap: 1px;
 }
 
 .star-icon {
@@ -45,9 +45,9 @@
 }
 
 .card-name {
-    white-space: nowrap; /* Ensures the text is on one line */
-    overflow: hidden; /* Ensures overflow text is hidden */
-    text-overflow: ellipsis; /* Adds an ellipsis at the end of the text */
-    width: 100%; /* You might need to adjust this depending on your layout */
-    display: block; /* If not already set, this ensures proper behavior of white-space property */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    display: block;
 }

@@ -8,11 +8,11 @@
 
 .bg-navbar {
     background-color: #0f1115;
-    position: fixed; /* Add this line */
-    width: 100%; /* Ensure it spans the full width */
-    top: 0; /* Align to the top */
-    left: 0; /* Align to the left */
-    z-index: 1000; /* Make sure it stays on top of other elements */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
 .search-bar-home {
@@ -57,26 +57,24 @@
 }
 
 .generic-button-header {
-    padding: 10px 20px; /* Padding */
-    border: none; /* No border */
-    border-radius: 20px; /* Rounded corners */
-    text-transform: uppercase; /* Uppercase text */
-    text-decoration: none; /* No text decoration */
-    font-weight: bold; /* Bold text */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Transition effect for background color */
-    margin-right: 10px; /* Right margin */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 10px;
 }
 
-/* Back button specific style */
 .button-header {
     background-color: var(--accent-color);
     color: var(--white-text);
 }
 
-/* Hover effect for the back button */
 .button-header:hover {
-    background-color: #D52B1E; /* Slightly darker red on hover */
+    background-color: #D52B1E;
 }
 
 

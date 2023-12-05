@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
-import MovieCard from './MovieCard'; // Adjust the path as necessary
+import MovieCard from './MovieCard';
 import api from './api';
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -18,22 +18,20 @@ const GenreMoviesPage = () => {
     const {searchTerm} = useParams();
     const navigate = useNavigate();
 
-
-
-
-    const searchMoviesByGenreAndName = useCallback(async (searchTerm) => {
+    // Function to search movies by genre
+    const searchMoviesByGenre = useCallback(async (searchTerm) => {
         setLoading(true);
         try {
-            var page = 1;
-            var num_movies = 0;
+            let page = 1;
+            let num_movies = 0;
             const {data} = await api.get(`/search/movie`, {
                 params: {
                     query: searchTerm,
                     page: page
                 }
             });
-            var searchResults = data.results;
-            var result = [];
+            let searchResults = data.results;
+            let result = [];
             while (page <= data.total_pages && num_movies <= 20) {
                 const {data} = await api.get(`/search/movie`, {
                     params: {
@@ -43,7 +41,7 @@ const GenreMoviesPage = () => {
                 });
                 page++;
                 searchResults = data.results;
-                for (var i = 0; i < searchResults.length; i++) {
+                for (let i = 0; i < searchResults.length; i++) {
                     const genre_ids = searchResults[i].genre_ids;
                     if (genre_ids !== undefined) {
                         const movieIsInGenre = genre_ids.some(genre_id => genre_id === Number(genreId));
@@ -61,7 +59,7 @@ const GenreMoviesPage = () => {
         }
     }, [genreId]);
 
-
+    // Function to fetch movies by a specific genre
     const fetchMoviesByGenre = useCallback(async (page) => {
         setLoading(true);
         try {
@@ -83,6 +81,7 @@ const GenreMoviesPage = () => {
         }
     }, [genreId]); // Add genreId as a dependency
 
+    // Function to fetch the name of a genre
     const fetchGenreName = useCallback(async () => {
         try {
             const response = await api.get('/genre/movie/list');
@@ -94,28 +93,29 @@ const GenreMoviesPage = () => {
     }, [genreId]); // Add genreId as a dependency
 
     useEffect(() => {
-        if(searchTerm !== undefined){
+        if (searchTerm !== undefined) {
             setIsSearchActive(true);
-            searchMoviesByGenreAndName(searchTerm);
-            fetchGenreName();   
-        }
-        else{
+            searchMoviesByGenre(searchTerm);
+            fetchGenreName();
+        } else {
             setCurrentPage(1); // Reset page number on genre change
             setMovies([]); // Clear existing movies
             fetchMoviesByGenre(1); // Fetch first page of movies
-            fetchGenreName();   
+            fetchGenreName();
         }
     }, [genreId, fetchMoviesByGenre, fetchGenreName]);
 
+    // Function to handle 'Load More' button click
     const handleLoadMore = () => {
         const newPage = currentPage + 1;
         setCurrentPage(newPage);
         fetchMoviesByGenre(newPage);
     }
 
+    // Function to handle search input changes
     const handleSearchChange = (value) => {
         if (value.trim() !== '') {
-            searchMoviesByGenreAndName(value);
+            searchMoviesByGenre(value);
             setIsSearchActive(true);
         } else {
             fetchMoviesByGenre(currentPage); // fetch current page of genre when search is cleared
@@ -123,6 +123,7 @@ const GenreMoviesPage = () => {
         }
     };
 
+    // Function to handle genre changes
     const handleOnGenreChange = (selectedGenre) => {
         navigate(`/genre/${selectedGenre}`);
         setIsSearchActive(false);
@@ -130,12 +131,15 @@ const GenreMoviesPage = () => {
 
     return (
         <div className="home-layout">
+            {/* Header component with search functionality */}
             <div><Header onSearch={handleSearchChange} isGenre={true} genreId={genreId}/></div>
             <div className="homepage-main-content">
+                {/* Sidebar component for genre selection */}
                 <div className="homepage-sidebar">
                     {/* Pass the genreId as selectedGenre */}
                     <Sidebar selectedGenre={parseInt(genreId)} onGenreChange={handleOnGenreChange}/>
                 </div>
+                {/* Main content area for displaying movies */}
                 <div className="main-content-area-GenrePage">
                     {(searchTerm !== undefined) && (movies.length === 0) ? (
                         <>

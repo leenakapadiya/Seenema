@@ -18,7 +18,7 @@ const MovieList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const searchTerm = useParams();
 
-    // Async func to fetch the searched movies
+    // Function to fetch searched movies based on the searchTerm and page number
     const fetchSearchMovies = async (page) => {
         if ((searchTerm.searchTerm !== undefined)) {
             const title = searchTerm.searchTerm;
@@ -40,7 +40,7 @@ const MovieList = () => {
         }
     }
 
-    // Async func to fetch top-rated movies
+    // Function to fetch top-rated movies
     const fetchTopRatedMovies = async () => {
         try {
             const {data} = await api.get("movie/top_rated");
@@ -50,7 +50,7 @@ const MovieList = () => {
         }
     };
 
-    // Async func to fetch upcoming movies
+    // Function to fetch upcoming movies
     const fetchUpcomingMovies = async () => {
         try {
             const {data} = await api.get("movie/upcoming");
@@ -60,7 +60,7 @@ const MovieList = () => {
         }
     };
 
-    // Async func to fetch Popular movies
+    // Function to fetch popular movies
     const fetchPopularMovies = async () => {
         try {
             const {data} = await api.get("movie/popular");
@@ -70,7 +70,7 @@ const MovieList = () => {
         }
     };
 
-    // Async func to fetch now playing movies
+    // Function to fetch now playing movies
     const fetchNowPlayingMovies = async () => {
         try {
             const {data} = await api.get("movie/now_playing");
@@ -79,7 +79,7 @@ const MovieList = () => {
             console.error('Failed to fetch now playing movies:', error);
         }
     };
-    // useEffect to fetch movie data
+    // useEffect to call the fetch functions when the component mounts or searchTerm changes
     useEffect(() => {
         setCurrentPage(1);
         fetchSearchMovies(1);
@@ -89,11 +89,14 @@ const MovieList = () => {
         fetchNowPlayingMovies();
     }, [searchTerm]);
 
+    // Function to handle the load more button click
     const handleLoadMore = () => {
         const newPage = currentPage + 1;
         setCurrentPage(newPage);
         fetchSearchMovies(newPage)
     }
+
+    // Boolean to check if there are more results to load
     const hasMoreResults = searchResults.length > 0 && searchResults.length % 20 === 0;
 
     // Rendering the component with movie data

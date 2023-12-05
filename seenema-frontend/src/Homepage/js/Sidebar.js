@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import '../css/Sidebar.css';
 import {Card,} from "@material-tailwind/react";
 import api from "./api";
-import {useNavigate} from 'react-router-dom';
 
 const SidebarWithContentSeparator = ({selectedGenre, onGenreChange}) => {
     const [genres, setGenres] = useState([]);

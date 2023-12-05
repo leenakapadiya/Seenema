@@ -8,35 +8,31 @@
     display: flex;
 }
 
-/* Style the default state of the scrollbar */
 .movie-container::-webkit-scrollbar {
-    width: 6px; /* Width of the scrollbar */
-    height: 6px; /* Height of the scrollbar (for horizontal scrolling) */
-    background: transparent; /* Initially transparent scrollbar */
+    width: 6px;
+    height: 6px;
+    background: transparent;
 }
 
 .movie-container::-webkit-scrollbar-track {
-    background: transparent; /* Initially transparent track */
+    background: transparent;
 }
 
 .movie-container::-webkit-scrollbar-thumb {
-    background: transparent; /* Initially transparent thumb */
-    border-radius: 10px; /* Rounded corners for the thumb */
+    background: transparent;
+    border-radius: 10px;
 }
 
-/* Style the scrollbar on hover over the movie container */
 .movie-container:hover::-webkit-scrollbar {
-    background: transparent; /* Keep the scrollbar background transparent on hover */
+    background: transparent;
 }
 
 .movie-container:hover::-webkit-scrollbar-track {
-    /*background: #343239; !* Light gray background for the track on hover *!*/
-    background: transparent; /* Light gray background for the track on hover */
-
+    background: transparent;
 }
 
 .movie-container:hover::-webkit-scrollbar-thumb {
-    background: #9a999c; /* Darker gray scrollbar thumb on hover */
+    background: #9a999c;
 }
 
 .container {
