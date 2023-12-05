@@ -12,4 +12,4 @@ Below is the documentation that might be helpful:
 In this repository we have a folder for reports which contain all of our weekly status reports. We also have a file that takes care of the CI of our project. All the other files are the code to our project.
 
 ### To Build, Test and run the System
-To build, test, and run our system, refer to our documentation [here](./DEVELOPMENT.md)
+To build, test, and run our system, refer to our documentation [here](./DEVELOPMENT.md#how-to-build-the-software)
