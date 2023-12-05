@@ -2,7 +2,7 @@
 
 .movie-grid-genre-page {
     display: flex;
-    padding: 20px 20px 20px 2px;
+    padding: 20px 0 20px 2px;
     flex-wrap: wrap;
     justify-content: flex-start;
 }
@@ -12,6 +12,30 @@
     overflow-x: auto;
     margin-left: 14.50rem;
     margin-top: 6px;
+}
+
+/* Style the default state of the scrollbar */
+.main-content-area-GenrePage::-webkit-scrollbar {
+    width: 7px; /* Width of the scrollbar */
+    height: 7px; /* Height of the scrollbar (for horizontal scrolling) */
+    background: transparent; /* Initially transparent scrollbar */
+}
+
+.main-content-area-GenrePage::-webkit-scrollbar-track {
+    background: transparent; /* Initially transparent track */
+}
+
+.main-content-area-GenrePage::-webkit-scrollbar-thumb {
+    background: transparent; /* Initially transparent thumb */
+    border-radius: 10px; /* Rounded corners for the thumb */
+}
+
+.main-content-area-GenrePage:hover::-webkit-scrollbar-thumb {
+    background-color: #9a999c; /* Replace with your desired color */
+}
+
+.main-content-area-GenrePage:hover::-webkit-scrollbar-track {
+    background-color: transparent; /* Replace with your desired color */
 }
 
 .genre-heading-GenreMoviePage {

@@ -29,6 +29,30 @@
     overflow-y: auto; /* Adds a scrollbar to this area */
 }
 
+/* Style the default state of the scrollbar */
+.list-main-area::-webkit-scrollbar {
+    width: 7px; /* Width of the scrollbar */
+    height: 7px; /* Height of the scrollbar (for horizontal scrolling) */
+    background: transparent; /* Initially transparent scrollbar */
+}
+
+.list-main-area::-webkit-scrollbar-track {
+    background: transparent; /* Initially transparent track */
+}
+
+.list-main-area::-webkit-scrollbar-thumb {
+    background: transparent; /* Initially transparent thumb */
+    border-radius: 10px; /* Rounded corners for the thumb */
+}
+
+.list-main-area:hover::-webkit-scrollbar-thumb {
+    background-color: #9a999c; /* Replace with your desired color */
+}
+
+.list-main-area:hover::-webkit-scrollbar-track {
+    background-color: transparent; /* Replace with your desired color */
+}
+
 /* Mobile Phones */
 @media (max-width: 767px) {
     .list-main-area {

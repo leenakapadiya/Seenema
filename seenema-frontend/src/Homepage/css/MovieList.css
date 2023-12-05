@@ -11,7 +11,7 @@
 
 .movie-grid-search {
     display: flex;
-    padding: 20px 20px 20px 2px;
+    padding: 20px 0 20px 2px;
     flex-wrap: wrap;
 }
 
