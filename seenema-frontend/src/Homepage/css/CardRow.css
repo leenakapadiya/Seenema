@@ -10,8 +10,8 @@
 
 /* Style the default state of the scrollbar */
 .movie-container::-webkit-scrollbar {
-    width: 8px; /* Width of the scrollbar */
-    height: 8px; /* Height of the scrollbar (for horizontal scrolling) */
+    width: 6px; /* Width of the scrollbar */
+    height: 6px; /* Height of the scrollbar (for horizontal scrolling) */
     background: transparent; /* Initially transparent scrollbar */
 }
 
@@ -30,8 +30,8 @@
 }
 
 .movie-container:hover::-webkit-scrollbar-track {
-    background: #343239; /* Light gray background for the track on hover */
-    /*background: transparent; !* Light gray background for the track on hover *!*/
+    /*background: #343239; !* Light gray background for the track on hover *!*/
+    background: transparent; /* Light gray background for the track on hover */
 
 }
 
