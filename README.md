@@ -1,6 +1,6 @@
 # Seenema
 ### Project Overview
-Seenema is a movie/tv show browsing website that allows users to browse movies, add movies to watchlist, and send movie recommendations to friends. 
+Seenema is a centralized platform designed to transform how users manage, discover, and engage with movies. It offers intuitive search and browsing features, allowing users to explore movies through keywords, phrases, or genres. With the integration of the TMDb API, Seenema provides real-time access to extensive movie information, trailers, and clips, enhancing the user experience in discovering and suggesting movies.
 
 Below is the documentation that might be helpful:
 
