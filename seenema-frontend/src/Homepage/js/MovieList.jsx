@@ -21,7 +21,6 @@ const MovieList = () => {
     // Async func to fetch the searched movies
     const fetchSearchMovies = async (page) => {
         if ((searchTerm.searchTerm !== undefined)) {
-            console.log("here");
             const title = searchTerm.searchTerm;
             try {
                 const {data} = await api.get("search/movie", {
@@ -83,12 +82,12 @@ const MovieList = () => {
     // useEffect to fetch movie data
     useEffect(() => {
         setCurrentPage(1);
-        fetchSearchMovies(currentPage);
+        fetchSearchMovies(1);
         fetchTopRatedMovies();
         fetchUpcomingMovies();
         fetchPopularMovies();
         fetchNowPlayingMovies();
-    }, [searchTerm.searchTerm]);
+    }, [searchTerm]);
 
     const handleLoadMore = () => {
         const newPage = currentPage + 1;

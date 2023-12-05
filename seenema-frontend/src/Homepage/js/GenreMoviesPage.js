@@ -95,7 +95,6 @@ const GenreMoviesPage = () => {
 
     useEffect(() => {
         if(searchTerm !== undefined){
-            console.log(searchTerm)
             setIsSearchActive(true);
             searchMoviesByGenreAndName(searchTerm);
             fetchGenreName();   
