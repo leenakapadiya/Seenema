@@ -24,49 +24,47 @@
 }
 
 .list-main-area {
-    padding-top: 100px; /* Adjust based on your header's actual height */
+    padding-top: 100px;
     height: 100vh;
-    overflow-y: auto; /* Adds a scrollbar to this area */
+    overflow-y: auto;
 }
 
 /* Mobile Phones */
 @media (max-width: 767px) {
     .list-main-area {
-        padding-top: 90px; /* Adjust for mobile screens */
+        padding-top: 90px;
     }
 }
 
 /* Tablets */
 @media (min-width: 768px) and (max-width: 1023px) {
     .list-main-area {
-        padding-top: 95px; /* Adjust for tablet screens */
+        padding-top: 95px;
     }
 }
 
 /* Desktops */
 @media (min-width: 1024px) {
     .list-main-area {
-        padding-top: 110px; /* Adjust for desktop screens */
+        padding-top: 110px;
     }
 }
 
-/* Specific styling for the back button */
 .button-back-mylist {
-    background-color: #E63946; /* Red background */
-    color: #FFFFFF; /* White text */
-    padding: 10px 20px; /* Padding */
-    border-radius: 20px; /* Rounded corners */
-    text-transform: uppercase; /* Uppercase text */
-    text-decoration: none; /* No text decoration */
-    font-weight: bold; /* Bold text */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Transition effect for background color */
+    background-color: #E63946;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
     margin-left: 8px;
 }
 
-/* Hover effect for the back button */
 .button-back-mylist:hover .button-add-friend-suggestions-list:hover {
-    background-color: #D52B1E; /* Slightly darker red on hover */
+    background-color: #D52B1E;
 }
 
 .loading-container-my-list {
@@ -84,5 +82,4 @@
 .no-data-yet-my-list {
     width: 40%;
     margin-left: 30%;
-    /*margin-top: 10%;*/
 }

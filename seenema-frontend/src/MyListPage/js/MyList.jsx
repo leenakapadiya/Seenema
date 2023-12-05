@@ -1,28 +1,34 @@
 import React, {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {AuthContext} from "../../Auth/JavaScript/AuthContext";
+import {AuthContext} from "../../Auth/js/AuthContext";
 import Loading from "../../assets/loading.json";
 import NoMovieYet from "../../assets/NoDataYet.json";
 import Lottie from "lottie-react";
 import '../../Homepage/css/MovieList.css';
-import '../../Auth/JavaScript/Auth';
+import '../../Auth/js/Auth';
 import MyMoviesList from "./MyMoviesList";
 import '../css/MyList.css';
-import FriendsList from "../../ProfilePage/js/FriendsList";
 
+// Component representing the user's movie list
 const MyList = () => {
+    // React Router's navigation hook
     const navigate = useNavigate();
+    // Accessing user information from the authentication context
     const {user} = useContext(AuthContext);
+    // State to store the user's movie list and loading state
     const [moviesList, setMoviesList] = useState(new Set());
     const [loading, setLoading] = useState(false);
 
+    // Function to navigate back to the previous page
     const handleGoBack = () => {
         navigate(-1);
     };
 
+    // Function to fetch the user's movie list from the server
     const handleGetMoviesList = async () => {
         try {
             setLoading(true);
+            // Fetch user information, including the movie list, from the server
             const response = await fetch("https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/getUserInfo", {
                 method: "POST",
                 body: JSON.stringify({
@@ -32,11 +38,13 @@ const MyList = () => {
 
             if (response.ok) {
                 console.log("Movies list fetched successfully!");
+                // Parse the response data
                 const userData = await response.json();
 
-                // Check if Friends array exists before using map
+                // Check if the Movies array exists and is an array before using it
                 if (userData.Movies && Array.isArray(userData.Movies)) {
                     const movieList = userData.Movies;
+                    // Set the movie list in the component state
                     setMoviesList(new Set(movieList));
                 } else {
                     console.error("Invalid movies list data:", userData);
@@ -44,7 +52,7 @@ const MyList = () => {
             } else {
                 console.error("Failed to fetch movie list:", response.status, response.statusText);
 
-                // Log the response when it's not OK
+                // Log the error response when the request is not successful
                 const errorResponse = await response.text();
                 console.error("Error response:", errorResponse);
             }
@@ -54,10 +62,13 @@ const MyList = () => {
             setLoading(false);
         }
     };
+
+    // Effect hook to fetch the user's movie list when the component mounts
     useEffect(() => {
         handleGetMoviesList();
     }, []);
 
+    // Render the MyList component
     return (
         <div className="my-list-whole">
             <div className="mylist-header">

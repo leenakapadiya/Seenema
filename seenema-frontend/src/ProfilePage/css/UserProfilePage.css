@@ -38,7 +38,6 @@
     border-color: var(--text-color);
 }
 
-
 .close-button {
     margin-left: 90%;
     color: white;
@@ -103,7 +102,6 @@
     text-align: center;
     max-height: 370px;
 }
-
 
 .back-button-profile {
     display: flex;

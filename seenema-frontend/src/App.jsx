@@ -1,20 +1,17 @@
 import {BrowserRouter as Router, Navigate, Route, Routes} from "react-router-dom"
-import SignUp from "./Auth/JavaScript/SignUp"
-import SignIn from "./Auth/JavaScript/SignIn"
+import SignUp from "./Auth/js/SignUp"
+import SignIn from "./Auth/js/SignIn"
 import Homepage from "./Homepage/js/Homepage";
-import SignOut from "./Auth/JavaScript/SignOut";
-import ForgotPassword from "./Auth/JavaScript/ForgotPassword";
-import ResetPassword from "./Auth/JavaScript/ResetPassword";
-import DetailPage from './DetailPage/DetailPage';
+import SignOut from "./Auth/js/SignOut";
+import ForgotPassword from "./Auth/js/ForgotPassword";
+import ResetPassword from "./Auth/js/ResetPassword";
+import DetailPage from './DetailPage/js/DetailPage';
 import UserProfilePage from './ProfilePage/js/UserProfilePage';
 import MyList from './MyListPage/js/MyList';
-import {AuthProvider} from "./Auth/JavaScript/AuthContext"
-import RouteGuard from "./Auth/JavaScript/RouteGuard";
+import {AuthProvider} from "./Auth/js/AuthContext"
+import RouteGuard from "./Auth/js/RouteGuard";
 import GenreMoviesPage from "./Homepage/js/GenreMoviesPage";
-import SuggestedMoviesList from "./SuggestionsListPage/js/ListOfMovies";
 import MovieSuggestionList from "./SuggestionsListPage/js/MovieSuggestionList";
-import SearchedCardsPage from "./Homepage/js/SearchedCardsPage"; // Adjust the path as necessary
-
 
 function App() {
     return (

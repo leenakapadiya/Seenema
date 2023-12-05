@@ -1,18 +1,18 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
-import api from '../Homepage/js/api'; // API import for fetching movie details
-import './DetailPage.css'; // Importing CSS for styling
-import starImage from '../assets/Star.png'; // Star icon for rating display
-import {AuthContext} from "../Auth/JavaScript/AuthContext";
-import '../SuggestionsListPage/css/SuggestedMoviesList.css';
+import api from '../../Homepage/js/api';
+import '../css/DetailPage.css';
+import starImage from '../../assets/Star.png';
+import {AuthContext} from "../../Auth/js/AuthContext";
+import '../../SuggestionsListPage/css/SuggestedMoviesList.css';
 import Select from 'react-select';
 import * as SelectedFriend from "@material-tailwind/react/context/theme";
-// Import necessary libraries for cookie handling
 import {useCookies} from 'react-cookie';
-import Loading from "../assets/loading.json";
+import Loading from "../../assets/loading.json";
 import Lottie from "lottie-react";
-import placeHolderImage from '../assets/placeholderImage.png';
+import placeHolderImage from '../../assets/placeholderImage.png';
 
+// DetailPage component definition
 const DetailPage = () => {
     // State variables for storing movie data
     const [movie, setMovie] = useState(null);
@@ -23,7 +23,7 @@ const DetailPage = () => {
     const [streamingServices, setStreamingServices] = useState(null);
     const {user} = useContext(AuthContext);
     const [watchlistButtonLoading, setWatchlistButtonLoading] = useState(false);
-    const {movieId} = useParams(); // Getting movie ID from URL params
+    const {movieId} = useParams();
     const [friendEmail, setFriendEmail] = useState("");
     const [addedToWatchlist, setAddedToWatchlist] = useState(false);
     let {userEmail} = useParams();
@@ -33,7 +33,7 @@ const DetailPage = () => {
     const [selectedFriend, setSelectedFriend] = useState(null);
     let rating = "";
     const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
-    const userToken = cookies.userToken; // Get the user token from the cookie
+    const userToken = cookies.userToken;
     const [buttonState, setButtonState] = useState("default");
     const [buttonColor, setButtonColor] = useState("default");
     const [suggestedMovie, setSuggestedMovie] = useState(false);
@@ -41,15 +41,18 @@ const DetailPage = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
 
+    // Function to handle navigating back
     const handleGoBack = () => {
         navigate(-1)
     }
 
+    // Function to toggle the friend suggestion dropdown
     const handleToggleDropdown = () => {
         setShowDropdown(!showDropdown);
         setSuggestedMovie(false);
     };
 
+    // Function to handle friend suggestion click
     const handleFriendClick = async (friendEmail) => {
         try {
             if (!user) {
@@ -76,6 +79,7 @@ const DetailPage = () => {
         }
     };
 
+    // Fetch movie details on component mount or when the movieId changes
     useEffect(() => {
         const fetchMovieDetails = async () => {
             try {
@@ -141,6 +145,7 @@ const DetailPage = () => {
         fetchMovieDetails();
     }, [movieId]); // Effect dependency on movieId
 
+    // Fetch user watchlist information on component mount or when userToken changes
     useEffect(() => {
         const fetchMovieDetails = async () => {
             try {
@@ -161,6 +166,7 @@ const DetailPage = () => {
         fetchMovieDetails();
     }, [movieId, userToken]); // Effect dependency on movieId and userEmail
 
+    // Fetch user information on component mount
     const fetchUserInfo = async () => {
         try {
             const response = await fetch('https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/getUserInfo', {
@@ -187,6 +193,7 @@ const DetailPage = () => {
     };
 
 
+    // Function to add movies to user's my list
     const handleAddToMyList = async () => {
         try {
             setWatchlistButtonLoading(true);
@@ -215,6 +222,8 @@ const DetailPage = () => {
             setWatchlistButtonLoading(false);
         }
     };
+
+    // Function to add movies to friend's suggestion list
     const handleAddToSuggestionsList = async () => {
         try {
             setFriendSuggestionLoading(true);
@@ -241,6 +250,7 @@ const DetailPage = () => {
         }
     };
 
+    // Function to check if a movie is in the user's watchlist
     const isMovieInMyList = async (userEmail, movieId) => {
         try {
             // Fetch the user's watchlist information from local storage
@@ -254,6 +264,7 @@ const DetailPage = () => {
         }
     };
 
+    // Effect to call isMovieInMyList on component mount
     useEffect(() => {
         isMovieInMyList(userEmail, movieId);
     }, []);
@@ -272,7 +283,6 @@ const DetailPage = () => {
     rating = movie.vote_average && movie.vote_average >= 1 ? movie.vote_average.toFixed(1) : 'N/A'
 
     // Formatted data for display
-    // const formattedRating = movie.vote_average.toFixed(1);
     const formattedReleaseYear = new Date(movie.release_date).getFullYear();
     const formattedRuntime = movie.runtime;
     const formattedGenres = movie.genres.map((genre) => genre.name).join(', ');
@@ -322,7 +332,7 @@ const DetailPage = () => {
                 <div className="detail-movie-container">
                     {movie.backdrop_path && (
                         <img src={backdropImageUrl} alt={movie ? movie.title : 'Background not available'}
-                             className={`detail-background-image`} />
+                             className={`detail-background-image`}/>
                     )}
                     <img src={posterImageUrl} alt={movie ? movie.title : 'Poster not available'}
                          className="detail-movie-poster"/>

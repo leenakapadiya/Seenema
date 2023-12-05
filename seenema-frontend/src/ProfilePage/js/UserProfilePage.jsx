@@ -2,12 +2,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "../css/UserProfilePage.css";
-import {AuthContext} from "../../Auth/JavaScript/AuthContext";
+import {AuthContext} from "../../Auth/js/AuthContext";
 import FriendsList from "./FriendsList";
 import Loading from "../../assets/loading.json";
 import Lottie from "lottie-react";
 import backgroundImage from "../../assets/Profile-Background.png";
 
+// Component representing the user profile page
 const UserProfilePage = () => {
     const navigate = useNavigate();
     const {user} = useContext(AuthContext);
@@ -16,13 +17,16 @@ const UserProfilePage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    // Function to navigate back
     const handleGoBack = () => {
         navigate(-1);
     };
 
+    // Function to add a friend
     const handleAddFriend = async () => {
         try {
             setLoading(true);
+            // Send a request to add a friend
             const response = await fetch("https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/addFriend", {
                 method: "POST",
                 body: JSON.stringify({
@@ -33,10 +37,11 @@ const UserProfilePage = () => {
 
             if (response.ok) {
                 console.log("Friend added successfully!");
+                // Update the friends list in the state
                 setFriendsList((prevFriendsList) => new Set([...prevFriendsList, friendEmail]));
-                // handleGetFriendsList();
                 setFriendEmail("");
             } else {
+                // Handle errors in the response
                 const errorResponse = await response.json().catch(() => null); // Handle potential JSON parsing errors
                 const errorMessage = errorResponse?.message || "Failed to add friend. Please try again."; // Set a generic error message if message is not available
 
@@ -54,9 +59,12 @@ const UserProfilePage = () => {
             setLoading(false);
         }
     };
+
+    // Function to get the user's friends list
     const handleGetFriendsList = async () => {
         try {
             setLoading(true);
+            // Send a request to get user information, including the friends list
             const response = await fetch("https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/getUserInfo", {
                 method: "POST",
                 body: JSON.stringify({
@@ -66,11 +74,13 @@ const UserProfilePage = () => {
 
             if (response.ok) {
                 console.log("Friend list fetched successfully!");
+                // Parse the response data
                 const userData = await response.json();
 
                 // Check if Friends array exists before using map
                 if (userData.Friends && Array.isArray(userData.Friends)) {
                     const friendEmails = userData.Friends;
+                    // Update the friends list in the state
                     setFriendsList(new Set(friendEmails));
                 } else {
                     console.error("Invalid friend list data:", userData);
@@ -94,6 +104,7 @@ const UserProfilePage = () => {
         handleGetFriendsList();
     }, []); // Empty dependency array ensures it runs only once on mount
 
+    // Render the UserProfilePage component
     return (
         <div className="profile-body">
             <div className="back-button-profile">
@@ -128,47 +139,51 @@ const UserProfilePage = () => {
                             {error && <p style={{color: "white"}}>{error}</p>}
                         </div>
                     </div>
-                    <FriendsListSlab loading={loading} friendsList={friendsList} />
+                    <FriendsListSlab loading={loading} friendsList={friendsList}/>
                 </div>
             </div>
         </div>
     );
 };
-const FriendsListSlab = ({ loading, friendsList }) => {
+
+// Component to display the Friends List section, considering loading state and whether it is scrollable
+const FriendsListSlab = ({loading, friendsList}) => {
     const isScrollable = friendsList.size > 0 && friendsList.size > 5;
 
     return (
         <div
             className={`friends-list-slab ${isScrollable ? 'scrollable' : ''}`}
-            style={{ minHeight: friendsList.size === 0 ? '420px' : 'auto' }}
+            style={{minHeight: friendsList.size === 0 ? '420px' : 'auto'}}
         >
             {loading ? (
-                <LoadingSection />
+                <LoadingSection/>
             ) : (
-                <FriendsListSection friendsList={friendsList} />
+                <FriendsListSection friendsList={friendsList}/>
             )}
         </div>
     );
 };
 
+// Component to display loading animation
 const LoadingSection = () => (
     <>
         <h3>Friends List</h3>
-        <hr />
+        <hr/>
         <div className="loading-container">
-            <Lottie loop={true} animationData={Loading} />
+            <Lottie loop={true} animationData={Loading}/>
         </div>
     </>
 );
 
-const FriendsListSection = ({ friendsList }) => (
+// Component to display the Friends List or a message if no friends yet
+const FriendsListSection = ({friendsList}) => (
     <>
         {friendsList.size > 0 ? (
-            <FriendsList friendsList={Array.from(friendsList)} />
+            <FriendsList friendsList={Array.from(friendsList)}/>
         ) : (
             <div>
                 <h3>Friends List</h3>
-                <hr />
+                <hr/>
                 <p className="No-friends-yet">No friends yet.</p>
             </div>
         )}

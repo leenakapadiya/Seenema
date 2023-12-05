@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import {forgotPassword} from "./Auth";
 import {Link, Navigate} from "react-router-dom"
-import "../CSS/Form.css";
+import "../css/Form.css";
 import seenemaLogo from "../../assets/SeenemaLogo.png";
 
 // Component for forgot password

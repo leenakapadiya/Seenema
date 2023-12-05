@@ -2,7 +2,7 @@ import React, {useState} from "react"
 import {confirmSignUp} from "./Auth"
 import {useForm} from "react-hook-form";
 import seenemaLogo from '../../assets/SeenemaLogo.png';
-import "../CSS/Form.css";
+import "../css/Form.css";
 import Lottie from "lottie-react";
 import Mail from "../../assets/Mail.json";
 import Loading from "../../assets/loading.json";

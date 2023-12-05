@@ -1,0 +1,327 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500&display=swap');
+
+.detail-page-layout {
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+
+.detail-page-wrapper {
+    max-width: 2550px;
+    min-width: 320px;
+    overflow-x: auto;
+    margin: auto;
+    position: relative;
+    padding: 10px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--white-text);
+    background-color: #0f1115;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.movie-detail-page {
+    font-family: 'DM Sans', sans-serif;
+    flex-wrap: wrap;
+    height: auto;
+    overflow-y: hidden;
+}
+
+.detail-body {
+    overflow-y: auto;
+    height: 100vh;
+}
+
+.detail-background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.13;
+    z-index: -1;
+}
+
+.detail-movie-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-left: 28%;
+}
+
+.detail-movie-poster {
+    position: absolute;
+    top: 15%;
+    left: 10px;
+    width: 25%;
+    max-width: 680px;
+    min-width: 120px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    z-index: 3;
+}
+
+.detail-movie-title {
+    font-size: 3.75rem;
+    color: var(--white-text);
+    max-width: 90%;
+    margin-top: 6%;
+}
+
+.detail-movie-info {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.detail-star-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.detail-rating, .detail-year {
+    font-size: 1rem;
+    color: var(--white-text);
+    background: rgb(47, 45, 45);
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+
+.detail-movie-rating-box, .detail-movie-USERrating, .detail-movie-MPArating {
+    font-size: 1rem;
+    color: var(--white-text);
+    background: rgb(47, 45, 45);
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+
+.detail-movie-overview {
+    font-size: 1.1rem;
+    line-height: 1.35;
+    text-align: left;
+    color: var(--white-text);
+    max-width: 90%;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding: 0px 0px;
+}
+
+.detail-movie-runtime {
+    font-size: 1rem;
+    color: var(--white-text);
+    background: rgb(47, 45, 45);
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+
+.detail-movie-genres {
+    font-size: 1rem;
+    color: var(--gray-text);
+    line-height: 1.35;
+    max-width: 90%;
+    margin-top: 0px;
+}
+
+.detail-movie-cast, .detail-movie-director {
+    color: var(--gray-text);
+    font-size: 1rem;
+    max-width: 70%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.detail-cast-title, .detail-director-title {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    font-weight: bold;
+}
+
+.detail-user-rating-box {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    background: rgb(47, 45, 45);
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: white;
+}
+
+.detail-user-rating-star {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.detail-movie-genre-list {
+    font-size: 1rem;
+    color: var(--gray-text);
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px 0px;
+    margin-left: 0px;
+}
+
+.detail-cast-title, .detail-director-title {
+    color: var(--white-text);
+    font-weight: bold;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px 0px;
+}
+
+.generic-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 20px;
+    background-color: var(--accent-color);
+    color: var(--white-text);
+}
+
+.added-to-watchlist {
+    background-color: green;
+}
+
+.detail-done-after-suggesting-friend-button {
+    background-color: green;
+}
+
+
+.button-watchlist,
+.button-friends-watchlist
+.button-add-friend-suggestions-list {
+    color: var(--button-text-color);
+}
+
+.generic-button:hover {
+    filter: brightness(85%);
+}
+
+.button-back {
+    background-color: #E63946;
+    position: absolute;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s;
+}
+
+.button-back:hover .button-add-friend-suggestions-list:hover {
+    background-color: #D52B1E;
+}
+
+.button-back-container {
+    margin-left: 0.8%;
+    margin-top: 2%;
+    margin-bottom: 3%;
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+    margin-top: 0px;
+}
+
+.detail-done-button {
+    margin-left: 3%;
+    border-radius: 40px;
+}
+
+.add-to-friendList-field {
+    display: flex;
+    color: black;
+}
+
+.select-friend-detail {
+    width: 300px;
+    margin-top: 1%;
+    color: black;
+}
+
+.css-1fdsijx-ValueContainer {
+    background-color: rgba(224, 222, 227, 0.94) !important;
+}
+
+.css-1xc3v61-indicatorContainer {
+    background-color: rgba(224, 222, 227, 0.94) !important;
+}
+
+.css-tj5bde-Svg {
+    color: black;
+}
+
+.css-13cymwt-control {
+    background-color: rgba(224, 222, 227, 0.94) !important;
+}
+
+.css-15lsz6c-indicatorContainer hover {
+    color: rgba(224, 222, 227, 0.94) !important;
+}
+
+.trailers-and-clips h2 {
+    color: var(--white-text);
+    font-size: 1rem;
+    margin-top: 0rem;
+    margin-bottom: 1rem;
+}
+
+.videos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.video-iframe {
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.watch-on-services h2 {
+    color: var(--white-text);
+    font-size: 1rem;
+}
+
+.services-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.service img {
+    width: 50px;
+    height: auto;
+    border-radius: 10px;
+
+}
+
+.loading-container-detail-page {
+    width: 6%;
+    margin-left: 10%;
+    margin-right: 10%;
+}

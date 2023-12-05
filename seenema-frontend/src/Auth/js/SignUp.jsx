@@ -4,8 +4,8 @@ import {signUp} from "./Auth"
 import ConfirmSignUp from "./ConfirmSignUp";
 import {Link} from "react-router-dom";
 import seenemaLogo from '../../assets/SeenemaLogo.png';
-import "../CSS/Form.css";
-import '../JavaScript/SignIn';
+import "../css/Form.css";
+import './/SignIn';
 
 // component for user sign-up
 export default function SignUp() {
@@ -84,7 +84,6 @@ export default function SignUp() {
                             onChange: (e) => setPassword(e.target.value)
                         })} />
                     </div>
-                    {/*{error && <p style={{paddingTop: "10px", textAlign: "left", color: "#E63946"}}>{error}</p>}*/}
                     {error && <p style={{ paddingTop: "10px", textAlign: "left", color: "#E63946" }} dangerouslySetInnerHTML={{ __html: error }} />}
                     <button style={{marginTop: "30px"}} className="generic-button-auth button-auth">Sign Up</button>
                 </form>
