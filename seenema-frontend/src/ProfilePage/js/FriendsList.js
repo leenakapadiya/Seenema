@@ -1,5 +1,6 @@
 import "../css/UserProfilePage.css";
 
+// Component representing the list of friends for a user
 const FriendsList = ({friendsList}) => {
     return (
         <div>
@@ -18,6 +19,4 @@ const FriendsList = ({friendsList}) => {
         </div>
     );
 };
-
-
 export default FriendsList;

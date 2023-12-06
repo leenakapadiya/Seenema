@@ -1,29 +1,31 @@
 import React, {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {AuthContext} from "../../Auth/JavaScript/AuthContext";
+import {AuthContext} from "../../Auth/js/AuthContext";
 import Loading from "../../assets/loading.json";
 import Lottie from "lottie-react";
 import '../../Homepage/css/MovieList.css';
-import '../../Auth/JavaScript/Auth';
+import '../../Auth/js/Auth';
 import '../css/SuggestedMoviesList.css';
 import ListOfMovies from "./ListOfMovies";
 import NoMovieYet from "../../assets/NoDataYet.json";
 
-
+// Component representing the movie suggestion list
 const MovieSuggestionList = () => {
     const navigate = useNavigate();
     const {user} = useContext(AuthContext);
     const [suggestedMoviesList, setSuggestedMoviesList] = useState(new Set());
-    // const[movieId, setMovieId] = useState("");
     const [loading, setLoading] = useState(false);
 
+    // Function to navigate back
     const handleGoBack = () => {
         navigate(-1);
     };
 
+    // Function to get the movie suggestion list for the user
     const handleGetMoviesList = async () => {
         try {
             setLoading(true);
+            // Send a request to get user information, including the movie suggestion list
             const response = await fetch("https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/getUserInfo", {
                 method: "POST",
                 body: JSON.stringify({
@@ -33,11 +35,13 @@ const MovieSuggestionList = () => {
 
             if (response.ok) {
                 console.log("Movies list fetched successfully!");
+                // Parse the response data
                 const userData = await response.json();
 
-                // Check if Friends array exists before using map
+                // Check if MovieSuggestionsList array exists before using map
                 if (userData.MovieSuggestionsList && Array.isArray(userData.MovieSuggestionsList)) {
                     const suggestedMovieList = userData.MovieSuggestionsList;
+                    // Update the suggested movie list in the state
                     setSuggestedMoviesList(new Set(suggestedMovieList));
                 } else {
                     console.error("Invalid movies list data:", userData);
@@ -55,10 +59,13 @@ const MovieSuggestionList = () => {
             setLoading(false);
         }
     };
+
+    // Fetch movie suggestion list on component mount
     useEffect(() => {
         handleGetMoviesList();
     }, []);
 
+    // Render the MovieSuggestionList component
     return (
         <div>
             <div className="mylist-header">

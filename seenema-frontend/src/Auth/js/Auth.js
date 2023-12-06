@@ -186,6 +186,7 @@ export function getCurrentUser() {
     })
 }
 
+// Function to get the current user session
 export function getSession() {
     const cognitoUser = userPool.getCurrentUser()
     return new Promise((resolve, reject) => {

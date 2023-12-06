@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react"
 import {useForm} from "react-hook-form";
-import "../CSS/Form.css";
+import "../css/Form.css";
 import seenemaLogo from '../../assets/SeenemaLogo.png';
 import {Link, Navigate} from "react-router-dom";
 import {AuthContext} from "./AuthContext"

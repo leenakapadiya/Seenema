@@ -1,14 +1,12 @@
-
 :root {
     --primary-color: #F1FAEE;
     --secondary-color: #A8DADC;
     --accent-color: #E63946;
     --text-color: #959499;
-    --background-color: #1a1820; /* Background Color */
-    --surface-color: #0f1115; /* Header and Sidebar color */
+    --background-color: #1a1820;
+    --surface-color: #0f1115;
     --white-text: white;
-    --gray-text: #808080; /* Define gray color */
-    --button-bg-color: #1d3557; /* Button background color */
-    --button-text-color: #F1FAEE; /* Button text color */
+    --gray-text: #808080;
+    --button-bg-color: #1d3557;
+    --button-text-color: #F1FAEE;
 }
-

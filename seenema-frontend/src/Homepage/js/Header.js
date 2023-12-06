@@ -4,9 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../../assets/SeenemaLogo.png';
 import '../css/Header.css';
 import {Link, NavLink} from "react-router-dom";
-import '../../Auth/JavaScript/SignIn';
+import '../../Auth/js/SignIn';
 import SearchBar from './SearchBar';
-import {AuthContext} from "../../Auth/JavaScript/AuthContext";
+import {AuthContext} from "../../Auth/js/AuthContext";
 import {Button} from "@mui/material";
 
 

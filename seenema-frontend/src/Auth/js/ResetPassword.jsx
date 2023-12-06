@@ -3,7 +3,7 @@ import {useForm} from "react-hook-form";
 import {confirmPassword} from "./Auth"
 import {Link} from "react-router-dom"
 import seenemaLogo from "../../assets/SeenemaLogo.png";
-import "../CSS/Form.css";
+import "../css/Form.css";
 import Lottie from "lottie-react";
 import Success from "../../assets/Success.json";
 import Mail from "../../assets/Mail.json";
@@ -38,7 +38,7 @@ export default function ResetPassword(callback) {
         }
     }
 
-    // if success is ture, it renders the component with animation and a button to sign in page
+    // if success is true, it renders the component with animation and a button to sign in page
     if (success) {
         return (
             <div className="bg-Poster">

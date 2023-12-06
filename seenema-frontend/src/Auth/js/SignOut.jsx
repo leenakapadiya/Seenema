@@ -17,8 +17,6 @@ function SignOut() {
             // try to confirm signOut and then navigate to sign in page
             await signOut();
             user = null;
-
-            //TODO: when user sign out it should go to the default home page
         } catch (err) {
             // Set the error message
             setError(err.message)
