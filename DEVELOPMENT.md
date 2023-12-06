@@ -59,7 +59,7 @@
   ```
 ## To build the application backend
 * To build the backend software
-  * Navigate to the project root directory
+  * Navigate to the project root directory called `Seenema`
   * Navigate to the seenema-backend directory by running the following command:
     * `cd seenema-backend`
   * Run the following command in your CLI
@@ -71,7 +71,7 @@
 # How to test the software
 ## To test the application frontend
 * To build and test our frontend system, run the following commands.
-  * Navigate to the project root directory
+  * Navigate to the project root directory called `Seenema`
   * Navigate to the seenema-frontend directory by running the following command:
     * `cd seenema-frontend`
   * Run the following command in your CLI
@@ -87,7 +87,7 @@
     
 ## To test the application backend
 * To build and test our backend system, run the following commands.
-  * Navigate to the project root directory
+  * Navigate to the project root directory called `Seenema`
   * Navigate to the seenema-backend directory by running the following command:
     * `cd seenema-backend`
   * Run the following command in your CLI
@@ -100,12 +100,11 @@
 * When adding new tests to the frontend, follow these steps:
   * Place test files in the `seenema-frontend/tests` directory.
   * Follow a consistent naming convention for test files. For example:
-    * Source file: `MyClass.js`
-    * Test file: `MyClassTest.js`
+    * Test file: `MyClass.test.js`
 * When adding new tests to the backend, follow these steps:
   * Place test files in the `seenema-backend/src/tests` directory.
   * Follow a consistent naming convention for test files. For example:
-    * Source file: `MyClass.java`
+    * Source file: `MyClassHandler.java`
     * Test file: `MyClassTest.java`
 
 # How to build a release of the software

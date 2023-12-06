@@ -36,16 +36,18 @@ and clips, enhancing the user experience in discovering and suggesting movies.
 * To build the software follow the documentation listed [here](./DEVELOPMENT.md#how-to-build-the-software)
 ## How to Use Seenema
 
-- **Search and Discover Movies:** Use the search bar to find movies by keywords or phrases.
-- **Browse by Genre:** Explore movies categorized by different genres.
-- **Manage Watchlist:** Add movies to your personalized watchlist.
-- **Manage Suggestionlist:** Browse through the movies that has been suggested by your friend. 
-- **Social Features:** Add friends by entering their email addresses and suggest movies to them. 
-These suggestions will appear in your friend’s suggestionlist.
-- **Movie Detail Page:** Access information about the movie, including details like cast members, release year, 
-a summary of the plot, ratings, streaming platforms where the movie is available, and access to the movie trailer and clips.
-In addition to that, **ADD TO WATCHLIST** and **SUGGEST TO A FRIEND** buttons to add that particular movie to your watchlist
-and add that movie in your friend's suggestions list simultaneously.
+- **User authentication:** Users can sign up or sign in by inputting their details, and they can also
+  reset their passwords when needed.
+- **Search and discover movies(Home page):** Search bar to find movies by keywords or phrases.
+- **Browse by genre:** Explore movies categorized by different genres.
+- **Search and discover movies by genre(Genre page):** Search bar to find movies by keywords or phrases in a specific genre.
+- **Add friends:** Add friends to your friend's list by entering their email addresses.
+- **Add movies to the watchlist:** User can add movies to their watchlist.
+- **Add movies to friend's Suggestion list:** Suggest movie to a friend by adding a movie to friend's suggestion list.
+- **Movie detail page:** Access information about the movie, including details like cast members, release year,
+  a summary of the plot, ratings, streaming platforms where the movie is available, and access to the movie trailer and clips.
+  In addition to that, **ADD TO WATCHLIST** and **SUGGEST TO A FRIEND** buttons to add that particular movie to your watchlist
+  and suggest that movie to your friend simultaneously.
 
 ## How to report a bug
 
