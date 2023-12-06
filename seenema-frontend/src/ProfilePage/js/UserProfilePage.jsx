@@ -47,7 +47,7 @@ const UserProfilePage = () => {
 
                 // Check for a specific condition in the error response and customize the message accordingly
                 if (response.status === 500) {
-                    setError("Incorrect email. Please try again.");
+                    setError("Incorrect email or email not registered. Please try again.");
                 } else {
                     setError(errorMessage);
                 }
@@ -130,7 +130,10 @@ const UserProfilePage = () => {
                                 type="text"
                                 placeholder="  Friend's Email"
                                 value={friendEmail}
-                                onChange={(e) => setFriendEmail(e.target.value)}
+                                onChange={(e) => {
+                                    setFriendEmail(e.target.value);
+                                    setError(null); // Reset the error when the user starts typing
+                                }}
                                 className={"add-friend-input"}
                             />
                             <button onClick={handleAddFriend} className="generic-button button-add-friend-profile">Add
