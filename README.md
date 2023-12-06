@@ -30,3 +30,12 @@ All the other files are the code to our project.
 
 ### To Build, Test and run the System
 To build, test, and run our system, refer to our documentation [here](./DEVELOPMENT.md#how-to-build-the-software)
+
+### Final Release Version
+[v2.0.0](https://github.com/leenapagdar/Seenema/releases/tag/v2.0.0)
+
+### To checkout the final release version (v2.0.0) use the following command:
+```bash
+git checkout v2.0.0
+```
+
