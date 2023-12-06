@@ -2,7 +2,8 @@ import React from "react";
 import "../css/SearchedCardsPage.css";
 import MovieCard from "./MovieCard";
 
-const SearchedCardsPage = ({movies}) => { // Accept movies as props
+// SearchedCardsPage component. It takes 'movies' as a prop.
+const SearchedCardsPage = ({movies}) => {
     return (
         <div>
             <div className="Cards">

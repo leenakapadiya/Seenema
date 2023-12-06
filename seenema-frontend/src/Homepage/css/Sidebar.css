@@ -31,26 +31,25 @@
     margin-top: 15px;
     margin-bottom: 15px;
     border: 0;
-    border-top: 1px solid #ddd; /* Adjust the color as needed */
+    border-top: 1px solid #ddd;
 }
 
 .sidebar-footer {
     text-align: center;
-    font-size: 14px; /* Adjust the size as needed */
-    color: #aaa; /* Adjust the color as needed */
-    margin-bottom: 10px; /* Space at the bottom */
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 10px;
 }
 
 .tmdb-logo {
-    display: block; /* Ensures the image is a block-level element */
-    margin: 10px auto; /* Centers the image and adds margin */
-    width: 80px; /* Adjust the width as needed */
-    height: auto; /* Keeps the aspect ratio of the image */
+    display: block;
+    margin: 10px auto;
+    width: 80px;
+    height: auto;
 }
 
 .clickable-genre {
     cursor: pointer;
-
 }
 
 .clickable-genre:hover, .selected-genre {

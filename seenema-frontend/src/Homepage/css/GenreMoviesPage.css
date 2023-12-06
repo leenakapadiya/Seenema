@@ -14,28 +14,27 @@
     margin-top: 6px;
 }
 
-/* Style the default state of the scrollbar */
 .main-content-area-GenrePage::-webkit-scrollbar {
-    width: 7px; /* Width of the scrollbar */
-    height: 7px; /* Height of the scrollbar (for horizontal scrolling) */
-    background: transparent; /* Initially transparent scrollbar */
+    width: 7px;
+    height: 7px;
+    background: transparent;
 }
 
 .main-content-area-GenrePage::-webkit-scrollbar-track {
-    background: transparent; /* Initially transparent track */
+    background: transparent;
 }
 
 .main-content-area-GenrePage::-webkit-scrollbar-thumb {
-    background: transparent; /* Initially transparent thumb */
-    border-radius: 10px; /* Rounded corners for the thumb */
+    background: transparent;
+    border-radius: 10px;
 }
 
 .main-content-area-GenrePage:hover::-webkit-scrollbar-thumb {
-    background-color: #9a999c; /* Replace with your desired color */
+    background-color: #9a999c;
 }
 
 .main-content-area-GenrePage:hover::-webkit-scrollbar-track {
-    background-color: transparent; /* Replace with your desired color */
+    background-color: transparent;
 }
 
 .genre-heading-GenreMoviePage {
@@ -56,24 +55,22 @@
 }
 
 .generic-button-load-more {
-    padding: 10px 20px; /* Padding */
-    border: none; /* No border */
-    border-radius: 20px; /* Rounded corners */
-    text-transform: uppercase; /* Uppercase text */
-    text-decoration: none; /* No text decoration */
-    font-weight: bold; /* Bold text */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Transition effect for background color */
-    margin-right: 10px; /* Right margin */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 10px;
 }
 
-/* Back button specific style */
 .button-load-more {
     background-color: var(--accent-color);
     color: var(--white-text);
 }
 
-/* Hover effect for the back button */
 .button-load-more:hover {
-    background-color: #D52B1E; /* Slightly darker red on hover */
+    background-color: #D52B1E;
 }

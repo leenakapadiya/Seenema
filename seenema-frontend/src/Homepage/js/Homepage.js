@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Header from './Header';
 import MovieList from "./MovieList";
 import "../css/Homepage.css"
 import "../../App.css"
 import Sidebar from "./Sidebar";
-import { useNavigate, useParams } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 // Defining homepage component as a functional component
 function Homepage() {
@@ -13,28 +13,29 @@ function Homepage() {
     const searchTerm = useParams();
     const navigate = useNavigate();
 
+    // Handler for search input changes
     const handleSearchChange = (showSearch) => {
-        console.log(searchTerm.searchTerm)
-        if(searchTerm !== undefined){
+        // Update search value and showSearchFlag based on the searchTerm and the argument passed
+        if (searchTerm !== undefined) {
             setSearchValue(searchTerm);
             setShowSearchFlag(true);
-            console.log(searchValue);
-        }
-        else  {
+        } else {
             setSearchValue();
         }
         setShowSearchFlag(showSearch);
     }
 
+    // Handler for genre selection
     const handleOnGenreChange = (selectedGenre) => {
+        // Navigate to the selected genre's route and reset search value
         navigate(`/genre/${selectedGenre}`);
         setSearchValue("");
     }
-    
+
     return (
         <div className="home-layout">
             {/*Header Component */}
-            <div><Header onSearch={handleSearchChange} isGenre={false} /></div>
+            <div><Header onSearch={handleSearchChange} isGenre={false}/></div>
             <div className="homepage-main-content">
                 {/* Sidebar */}
                 <div className="homepage-sidebar">
@@ -42,7 +43,7 @@ function Homepage() {
                 </div>
                 <div className="main-content-area">
                     {/* Rendering MovieList component */}
-                    <MovieList />
+                    <MovieList/>
                 </div>
             </div>
         </div>
