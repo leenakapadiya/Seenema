@@ -8,7 +8,7 @@ import FriendsList from "./FriendsList";
 import ListOfMovies from "../../SuggestionsListPage/js/ListOfMovies.js";
 import Loading from "../../assets/loading.json";
 import Lottie from "lottie-react";
-import backgroundImage from "../../assets/Profile-Background.png";
+import backgroundImage from "../../assets/FrostedGlassBackground.png";
 import MyMoviesList from "../../MyListPage/js/MyMoviesList";
 import { Film } from "lucide-react";
 import { Users } from "lucide-react";
