@@ -2,11 +2,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "../css/UserProfilePage.css";
+import MyListPage from "../../MyListPage/js/MyMoviesList";
 import {AuthContext} from "../../Auth/js/AuthContext";
 import FriendsList from "./FriendsList";
+import ListOfMovies from "../../SuggestionsListPage/js/ListOfMovies.js";
 import Loading from "../../assets/loading.json";
 import Lottie from "lottie-react";
-import backgroundImage from "../../assets/Profile-Background.png";
+import backgroundImage from "../../assets/FrostedGlassBackground.png";
+import MyMoviesList from "../../MyListPage/js/MyMoviesList";
+import { Film } from "lucide-react";
+import { Users } from "lucide-react";
+import { Mail } from "lucide-react";
 
 // Component representing the user profile page
 const UserProfilePage = () => {
@@ -16,6 +22,9 @@ const UserProfilePage = () => {
     const [friendsList, setFriendsList] = useState(new Set());
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [showFriendsList, setShowFriendsList] = useState(false);
+    const myListSize = MyMoviesList.length;
+    const suggestionsListSize = ListOfMovies.length;
 
     // Function to navigate back
     const handleGoBack = () => {
@@ -110,42 +119,79 @@ const UserProfilePage = () => {
             <div className="back-button-profile">
                 <button onClick={handleGoBack} className="generic-button">Back</button>
             </div>
+
             <div className="user-profile-page">
-                <img src={backgroundImage} alt="Background" className="background-image"/>
-                <div className="left-column">
-                    <div className="profile-slab" style={{marginTop: "20%"}}>
-                        <h3>Profile</h3>
-                        <hr/>
-                        <p>Name: {`${user.given_name} ${user.family_name}`}</p>
-                        <p>Email: {user.email}</p>
-                        <br/>
+                <img src={backgroundImage} alt="Background" className="background-image" />
+
+                {/* Profile Header */}
+                <div className="profile-slab">
+                    <div className="avatar">
+                        {user.given_name?.[0] || "U"}
                     </div>
+                    <h2>{`${user.given_name} ${user.family_name}`}</h2>
+                    <p className="email">{user.email}</p>
                 </div>
-                <div className="right-column">
-                    <div className="add-friend-slab">
-                        <h3> Add Friend </h3>
-                        <hr/>
-                        <div className="add-friend-field">
-                            <input
-                                type="text"
-                                placeholder="  Friend's Email"
-                                value={friendEmail}
-                                onChange={(e) => {
-                                    setFriendEmail(e.target.value);
-                                    setError(null); // Reset the error when the user starts typing
-                                }}
-                                className={"add-friend-input"}
-                            />
-                            <button onClick={handleAddFriend} className="generic-button button-add-friend-profile">Add
-                                Friend
-                            </button>
-                            {error && <p style={{color: "white"}}>{error}</p>}
+
+                {/* Row for Stats */}
+                <div className="profile-stat-section">
+                    <div className="profile-stats-row">
+                        <div className="stat-box">
+                            <br/>
+                            <Film size={32} color="#E63946" className="icon" />
+                            <br/>
+                            <h2 className="stat-number">{myListSize}</h2>
+                            <br/>
+                            <p className="stat-name">WatchList</p>
+                        </div>
+                        <div className="stat-box clickable"
+                            onClick={() => setShowFriendsList((prev) => !prev)}>
+                            <br/>
+                            <Users size={32} color="#E63946" className="icon" />
+                            <h2 className="stat-number">{friendsList.size}</h2>
+                            <br/>
+                            <p className="stat-name">Friends</p>
                         </div>
                     </div>
-                    <FriendsListSlab loading={loading} friendsList={friendsList}/>
+                    {showFriendsList && (
+                        <div className="friends-list-wrapper">
+                            <FriendsListSlab loading={loading} friendsList={friendsList} />
+                        </div>
+                    )}
+                </div>
+
+                {/* Row for Add Friend + Suggestion */}
+                <div className="friend-actions-row">
+                    <div className="add-friend-modern">
+                        <h3 className="section-title">Add a Friend</h3>
+                        <div className="input-wrapper">
+                            <Mail className="input-icon" size={18} color="#aaa" />
+                            <input
+                            type="email"
+                            placeholder="Friend’s email address"
+                            value={friendEmail}
+                            onChange={(e) => {
+                                setFriendEmail(e.target.value);
+                                setError(null);
+                            }}
+                            className="friend-input-modern"
+                            />
+                        </div>
+                        <button onClick={handleAddFriend} className="add-friend-modern-button">
+                            ➕ Add Friend
+                        </button>
+                        {error && <p className="error-modern-msg">{error}</p>}
+                    </div>
+
+                    <div className="friend-suggestions">
+                        <button onClick={() => navigate("/suggestionsList")} className="generic-button">
+                            <h2>{suggestionsListSize}</h2>
+                        Friend Suggestions →
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
+
     );
 };
 
