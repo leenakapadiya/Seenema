@@ -11,6 +11,7 @@ import {useCookies} from 'react-cookie';
 import Loading from "../../assets/loading.json";
 import Lottie from "lottie-react";
 import placeHolderImage from '../../assets/placeholderImage.png';
+import BACKEND_API_URL from '../../Homepage/js/backendApi';
 
 // DetailPage component definition
 const DetailPage = () => {
@@ -169,7 +170,7 @@ const DetailPage = () => {
     // Fetch user information on component mount
     const fetchUserInfo = async () => {
         try {
-            const response = await fetch('https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/getUserInfo', {
+            const response = await fetch('${BACKEND_API_URL}/getUserInfo', {
                 method: 'POST',
                 body: JSON.stringify({Email: user.email})
             });
@@ -197,7 +198,7 @@ const DetailPage = () => {
     const handleAddToMyList = async () => {
         try {
             setWatchlistButtonLoading(true);
-            const response = await fetch('https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/addMovieToMyList', {
+            const response = await fetch('${BACKEND_API_URL}/addMovieToMyList', {
                 method: 'POST',
                 body: JSON.stringify({
                     username: userEmail,
@@ -227,7 +228,7 @@ const DetailPage = () => {
     const handleAddToSuggestionsList = async () => {
         try {
             setFriendSuggestionLoading(true);
-            const response = await fetch(' https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/addMoviesToFriendsSuggestionsList', {
+            const response = await fetch('${BACKEND_API_URL}/addMoviesToFriendsSuggestionsList', {
                 method: 'POST',
                 body: JSON.stringify({
                     username: user.email,

@@ -7,9 +7,11 @@ import Lottie from "lottie-react";
 import Mail from "../../assets/Mail.json";
 import Loading from "../../assets/loading.json";
 import {Navigate} from "react-router-dom";
+import BACKEND_API_URL from '../../Homepage/js/backendApi';
+
 
 // component to confirm user sign-up with a verification code
-export default function ConfirmSignUp({email}) {
+export default function ConfirmSignUp({email, selectedPlatforms}) {
     // State variables to handle the code
     const [code, setCode] = useState("")
     const [error, setError] = useState("")
@@ -26,7 +28,22 @@ export default function ConfirmSignUp({email}) {
             // try to confirm signup using provided email and verification code
             setLoading(true);
             await confirmSignUp(email, code)
-            setSuccess(true)
+            // Wait 1 second before calling the backend
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            // Save streaming platforms in DynamoDB via your API
+            const response = await fetch(`${BACKEND_API_URL}/addStreamingPlatforms`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    username: email,
+                    streamingPlatforms: selectedPlatforms,
+                }),
+            });
+            if (!response.ok) {
+                throw new Error("Failed to save streaming platforms");
+            }
+
+            setSuccess(true);
         } catch (err) {
             // Set the error message
             setError(err.message)

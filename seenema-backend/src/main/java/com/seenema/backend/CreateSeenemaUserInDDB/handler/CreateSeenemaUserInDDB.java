@@ -10,6 +10,7 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 
 import java.util.Map;
+import java.util.Set;
 
 
 public class CreateSeenemaUserInDDB implements RequestHandler<CognitoUserPoolPostConfirmationEvent, CognitoUserPoolPostConfirmationEvent> {
@@ -27,7 +28,12 @@ public class CreateSeenemaUserInDDB implements RequestHandler<CognitoUserPoolPos
                     .tableName(Constants.DYNAMODB_TABLE)
                     .item(createDynamoDBItem(userAttributes.get("email"),
                             userAttributes.get("given_name"),
-                            userAttributes.get("family_name")))
+                            userAttributes.get("family_name"),
+                            java.util.Collections.emptySet(),
+                            java.util.Collections.emptySet(),
+                            java.util.Collections.emptySet(),
+                            java.util.Collections.emptySet()
+                    ))
                     .build();
 
             // Execute the PutItem request
@@ -40,12 +46,16 @@ public class CreateSeenemaUserInDDB implements RequestHandler<CognitoUserPoolPos
         return event;
     }
 
-    private java.util.Map<String, AttributeValue> createDynamoDBItem(String email, String firstName, String lastName) {
+    private java.util.Map<String, AttributeValue> createDynamoDBItem(String email, String firstName, String lastName, Set<String> streamingPlatforms, Set<String> friends, Set<String> movies, Set<String> movieSuggestionsList) {
         // Create a DynamoDB item with the required attributes
         return java.util.Map.of(
                 "Email", AttributeValue.builder().s(email).build(),
                 "FirstName", AttributeValue.builder().s(firstName).build(),
-                "LastName", AttributeValue.builder().s(lastName).build()
+                "LastName", AttributeValue.builder().s(lastName).build(),
+                "StreamingPlatforms", AttributeValue.builder().ss(streamingPlatforms).build(),
+                "Friends", AttributeValue.builder().ss(friends).build(),
+                "Movies", AttributeValue.builder().ss(movies).build(),
+                "MovieSuggestionsList", AttributeValue.builder().ss(movieSuggestionsList).build()
         );
     }
 }

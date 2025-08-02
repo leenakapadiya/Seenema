@@ -8,6 +8,7 @@ public class Response {
     private String       Email;
     private String       FirstName;
     private String       LastName;
+    private String StreamingPlatforms;
     private List<String> Friends;
     private List<String> Movies;
 
@@ -19,10 +20,11 @@ public class Response {
 
     }
 
-    public Response(String Email, String FirstName, String LastName, List<String> Friends, List<String> Movies, List<String> MovieSuggestionsList) {
+    public Response(String Email, String FirstName, String LastName, String StreamingPlatforms, List<String> Friends, List<String> Movies, List<String> MovieSuggestionsList) {
         this.Email = Email;
         this.FirstName = FirstName;
         this.LastName = LastName;
+        this.StreamingPlatforms = StreamingPlatforms;
         this.Friends = Friends;
         this.Movies = Movies;
         this.MovieSuggestionsList = MovieSuggestionsList;
@@ -40,6 +42,7 @@ public class Response {
         return Objects.equals(Email, response.Email) &&
                 Objects.equals(FirstName, response.FirstName) &&
                 Objects.equals(LastName, response.LastName) &&
+                Objects.equals(StreamingPlatforms, response.StreamingPlatforms) &&
                 Objects.equals(Friends, response.Friends) &&
                 Objects.equals(Movies, response.Movies) &&
                 Objects.equals(MovieSuggestionsList, response.MovieSuggestionsList);
@@ -47,6 +50,6 @@ public class Response {
 
     @Override
     public int hashCode() {
-        return Objects.hash(Email, LastName, FirstName, Friends, Movies, MovieSuggestionsList);
+        return Objects.hash(Email, LastName, FirstName, StreamingPlatforms, Friends, Movies, MovieSuggestionsList);
     }
 }

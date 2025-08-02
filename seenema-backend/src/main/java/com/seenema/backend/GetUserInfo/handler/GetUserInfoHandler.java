@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class GetUserInfoHandler implements RequestHandler<APIGatewayV2HTTPEvent, String> {
 
@@ -46,12 +47,13 @@ public class GetUserInfoHandler implements RequestHandler<APIGatewayV2HTTPEvent,
                 String LastName = item.get("LastName").s();
                 String FirstName = item.get("FirstName").s();
                 //TODO: Write tests for this when user doesn't have any friends or movies added
+                String StreamingPlatforms = item.getOrDefault("StreamingPlatforms", AttributeValue.builder().s("[]").build()).s();
                 List<String> Friends = item.getOrDefault("Friends", AttributeValue.builder().ss().build()).ss();
                 List<String> Movies = item.getOrDefault("Movies", AttributeValue.builder().ss().build()).ss();
                 List<String> MovieSuggestionsList = item.getOrDefault("MovieSuggestionsList", AttributeValue.builder().ss().build()).ss();
 
                 // Assuming you have a constructor in the Response class
-                return gson.toJson(new Response(Email, LastName, FirstName, Friends, Movies, MovieSuggestionsList));
+                return gson.toJson(new Response(Email, LastName, FirstName, StreamingPlatforms, Friends, Movies, MovieSuggestionsList));
             } else {
                 return gson.toJson(new Response("User not found"));
             }

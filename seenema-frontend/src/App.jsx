@@ -12,6 +12,7 @@ import {AuthProvider} from "./Auth/js/AuthContext"
 import RouteGuard from "./Auth/js/RouteGuard";
 import GenreMoviesPage from "./Homepage/js/GenreMoviesPage";
 import MovieSuggestionList from "./SuggestionsListPage/js/MovieSuggestionList";
+import PlatformsSuggestionsList from "./PlatformsSuggestionsListPage/js/PlatformsSuggestionsList";
 
 function App() {
     return (
@@ -52,7 +53,7 @@ function App() {
                                 <MovieSuggestionList/>
                             </RouteGuard>
                         }
-                    />
+                    /> 
                 </Routes>
             </Router>
         </AuthProvider>

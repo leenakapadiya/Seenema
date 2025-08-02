@@ -8,6 +8,7 @@ import '../../Homepage/css/MovieList.css';
 import '../../Auth/js/Auth';
 import MyMoviesList from "./MyMoviesList";
 import '../css/MyList.css';
+import BACKEND_API_URL from '../../Homepage/js/backendApi';
 
 // Component representing the user's movie list
 const MyList = () => {
@@ -29,7 +30,7 @@ const MyList = () => {
         try {
             setLoading(true);
             // Fetch user information, including the movie list, from the server
-            const response = await fetch("https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/getUserInfo", {
+            const response = await fetch("${BACKEND_API_URL}/getUserInfo", {
                 method: "POST",
                 body: JSON.stringify({
                     Email: user.email

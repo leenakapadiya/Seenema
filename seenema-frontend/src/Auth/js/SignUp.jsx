@@ -6,6 +6,8 @@ import {Link} from "react-router-dom";
 import seenemaLogo from '../../assets/SeenemaLogo.png';
 import "../css/Form.css";
 import './/SignIn';
+import StreamingPlatformsDropdown from "./StreamingPlatformsDropDown.jsx";
+import BACKEND_API_URL from '../../Homepage/js/backendApi';
 
 // component for user sign-up
 export default function SignUp() {
@@ -17,6 +19,8 @@ export default function SignUp() {
     const [error, setError] = useState("")
     const [success, setSuccess] = useState(false)
     const {register} = useForm();
+    const [selectedPlatforms, setSelectedPlatforms] = useState([]);
+
 
 
     // handles the submission of the form
@@ -29,14 +33,15 @@ export default function SignUp() {
             await signUp(firstname, lastname, email, password)
             setSuccess(true)
         } catch (err) {
-            // Set the error message
             setError(err.message.replace(/\n/g, '<br />'));
         }
     }
+
+    
     // if success is true, go to confirmSignUp
     if (success) {
         return (
-            <ConfirmSignUp email={email}/>
+            <ConfirmSignUp email={email} selectedPlatforms={selectedPlatforms} />
         )
     }
 
@@ -83,6 +88,13 @@ export default function SignUp() {
                                required {...register('password', {
                             onChange: (e) => setPassword(e.target.value)
                         })} />
+                    </div>
+                    <label className="label-names">Streaming Platforms</label>
+                    <div className="auth-input-dropdown">
+                        <StreamingPlatformsDropdown
+                            value={selectedPlatforms}
+                            onChange={setSelectedPlatforms}
+                        />
                     </div>
                     {error && <p style={{ paddingTop: "10px", textAlign: "left", color: "#E63946" }} dangerouslySetInnerHTML={{ __html: error }} />}
                     <button style={{marginTop: "30px"}} className="generic-button-auth button-auth">Sign Up</button>

@@ -13,6 +13,9 @@ import MyMoviesList from "../../MyListPage/js/MyMoviesList";
 import { Film } from "lucide-react";
 import { Users } from "lucide-react";
 import { Mail } from "lucide-react";
+import { fetchAllMovieProviders } from "../../TMDB/tmdb.js";
+import BACKEND_API_URL from '../../Homepage/js/backendApi';
+import StreamingPlatformsDropdown from "../../Auth/js/StreamingPlatformsDropDown";
 
 // Component representing the user profile page
 const UserProfilePage = () => {
@@ -23,8 +26,18 @@ const UserProfilePage = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [showFriendsList, setShowFriendsList] = useState(false);
-    const myListSize = MyMoviesList.length;
-    const suggestionsListSize = ListOfMovies.length;
+    const [myList, setMyList] = useState([]);
+    const [suggestionsList, setSuggestionsList] = useState([]);
+    const [streamingPlatforms, setStreamingPlatforms] = useState([]);
+    const [providerOptions, setProviderOptions] = useState([]);
+    const [editingPlatforms, setEditingPlatforms] = useState(false);
+    const myListSize = myList.length;
+    const suggestionsListSize = suggestionsList.length;
+    const streamingPlatformsSize = streamingPlatforms.length;
+    const [showAllPlatforms, setShowAllPlatforms] = useState(false);
+    const maxVisible = 8;
+    const visiblePlatforms = showAllPlatforms ? streamingPlatforms : streamingPlatforms.slice(0, maxVisible);
+    const [loadingPlatforms, setLoadingPlatforms] = useState(true);
 
     // Function to navigate back
     const handleGoBack = () => {
@@ -36,7 +49,7 @@ const UserProfilePage = () => {
         try {
             setLoading(true);
             // Send a request to add a friend
-            const response = await fetch("https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/addFriend", {
+            const response = await fetch(`${BACKEND_API_URL}/addFriend`, {
                 method: "POST",
                 body: JSON.stringify({
                     username: user.email,
@@ -74,7 +87,7 @@ const UserProfilePage = () => {
         try {
             setLoading(true);
             // Send a request to get user information, including the friends list
-            const response = await fetch("https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/getUserInfo", {
+            const response = await fetch(`${BACKEND_API_URL}/getUserInfo`, {
                 method: "POST",
                 body: JSON.stringify({
                     Email: user.email
@@ -108,10 +121,56 @@ const UserProfilePage = () => {
         }
     };
 
-    // Fetch friends list on component mount
-    useEffect(() => {
+    const handleSavePlatforms = async () => {
+        setEditingPlatforms(false);
+        await fetch(`${BACKEND_API_URL}/addStreamingPlatforms`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username: user.email,
+                streamingPlatforms: streamingPlatforms,
+            }),
+        });
+    // Optionally, refresh user info here
+    };
+
+   useEffect(() => {
+        const fetchUserInfo = async () => {
+            const response = await fetch(`${BACKEND_API_URL}/getUserInfo`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ Email: user.email }),
+            });
+            if (response.ok) {
+                const data = await response.json();
+                console.log("User info:", data);
+                setMyList(data.Movies || []);
+                setSuggestionsList(data.MovieSuggestionsList || []);
+                let platforms = [];
+                try {
+                    platforms = JSON.parse(data.StreamingPlatforms || "[]");
+                } catch (e) {
+                    platforms = [];
+                }
+                setStreamingPlatforms(platforms);
+            }
+            setLoadingPlatforms(false);
+        };
+        fetchUserInfo();
+        const getProviders = async () => {
+            const providersList = await fetchAllMovieProviders('US');
+            const formatted = providersList.map(provider => ({
+                value: provider.provider_id,
+                label: provider.provider_name,
+                logo: provider.logo_path
+            }));
+            setProviderOptions(formatted);
+        };
+        getProviders();
         handleGetFriendsList();
-    }, []); // Empty dependency array ensures it runs only once on mount
+    }, []);
+
+    const userPlatforms = providerOptions.filter(opt => streamingPlatforms.includes(opt.value));
 
     // Render the UserProfilePage component
     return (
@@ -130,6 +189,78 @@ const UserProfilePage = () => {
                     </div>
                     <h2>{`${user.given_name} ${user.family_name}`}</h2>
                     <p className="email">{user.email}</p>
+                    <br/>
+                    {streamingPlatformsSize >= 0 && (
+                        <div className="profile-platforms-section">
+    {streamingPlatforms.length === 0 ? (
+      editingPlatforms ? (
+        <div className="edit-platforms-modal">
+          <div style={{width: "100%", marginBottom: "18px"}}>
+            <StreamingPlatformsDropdown
+              value={streamingPlatforms}
+              onChange={setStreamingPlatforms}
+            />
+          </div>
+          <button onClick={handleSavePlatforms} className="edit-platforms-btn">Save</button>
+          <br/>
+          <button onClick={() => setEditingPlatforms(false)} className="edit-platforms-btn">Cancel</button>
+        </div>
+      ) : (
+        <button
+          className="edit-platforms-btn"
+          onClick={() => setEditingPlatforms(true)}
+          style={{margin: "12px auto", display: "block"}}
+        >
+          Add Streaming Platforms
+        </button>
+      )
+    ) : (
+      <>
+        <div className="platforms-header-row">
+          <h4>Streaming Platforms</h4>
+          <button className="edit-platforms-btn" onClick={() => setEditingPlatforms(true)}>Edit</button>
+        </div>
+        {loadingPlatforms ? (
+          <div className="platforms-loader">
+            <Lottie loop={true} animationData={Loading} style={{height: 40}} />
+          </div>
+        ) : editingPlatforms ? (
+          <div className="edit-platforms-modal">
+            <div style={{width: "100%", marginBottom: "18px"}}>
+              <StreamingPlatformsDropdown
+                value={streamingPlatforms}
+                onChange={setStreamingPlatforms}
+              />
+            </div>
+            <button onClick={handleSavePlatforms} className="edit-platforms-btn">Save</button>
+            <br/>
+            <button onClick={() => setEditingPlatforms(false)} className="edit-platforms-btn">Cancel</button>
+          </div>
+        ) : (
+          <div className="platforms-list">
+            {visiblePlatforms.map((platform, idx) => (
+              <div className="platform-pill-card" key={idx}>
+                {platform.logo && (
+                  <img
+                    src={`https://image.tmdb.org/t/p/w45${platform.logo}`}
+                    alt={platform.label}
+                    className="platform-icon-img"
+                  />
+                )}
+                <span className="platform-name">{platform.label}</span>
+              </div>
+            ))}
+            {streamingPlatforms.length > maxVisible && (
+              <button className="show-more-btn" onClick={() => setShowAllPlatforms(v => !v)}>
+                {showAllPlatforms ? "Show Less" : `+${streamingPlatforms.length - maxVisible} more`}
+              </button>
+            )}
+          </div>
+        )}
+      </>
+    )}
+                        </div>
+                    )}
                 </div>
 
                 {/* Row for Stats */}
@@ -161,37 +292,36 @@ const UserProfilePage = () => {
 
                 {/* Row for Add Friend + Suggestion */}
                 <div className="friend-actions-row">
-                    <div className="add-friend-modern">
-                        <h3 className="section-title">Add a Friend</h3>
-                        <div className="input-wrapper">
-                            <Mail className="input-icon" size={18} color="#aaa" />
-                            <input
-                            type="email"
-                            placeholder="Friend’s email address"
-                            value={friendEmail}
-                            onChange={(e) => {
-                                setFriendEmail(e.target.value);
-                                setError(null);
-                            }}
-                            className="friend-input-modern"
-                            />
+                        <div className="add-friend-modern">
+                            <h3 className="section-title">Add a Friend</h3>
+                            <div className="input-wrapper">
+                                <Mail className="input-icon" size={18} color="#aaa" />
+                                <input
+                                type="email"
+                                placeholder="Friend’s email address"
+                                value={friendEmail}
+                                onChange={(e) => {
+                                    setFriendEmail(e.target.value);
+                                    setError(null);
+                                }}
+                                className="friend-input-modern"
+                                />
+                            </div>
+                            <button onClick={handleAddFriend} className="add-friend-modern-button">
+                                ➕ Add Friend
+                            </button>
+                            {error && <p className="error-modern-msg">{error}</p>}
                         </div>
-                        <button onClick={handleAddFriend} className="add-friend-modern-button">
-                            ➕ Add Friend
-                        </button>
-                        {error && <p className="error-modern-msg">{error}</p>}
-                    </div>
 
-                    <div className="friend-suggestions">
-                        <button onClick={() => navigate("/suggestionsList")} className="generic-button">
-                            <h2>{suggestionsListSize}</h2>
-                        Friend Suggestions →
-                        </button>
-                    </div>
+                        <div className="friend-suggestions">
+                            <button onClick={() => navigate("/suggestionsList")} className="generic-button">
+                                <h2>{suggestionsListSize}</h2>
+                            Friend Suggestions →
+                            </button>
+                        </div>
                 </div>
             </div>
         </div>
-
     );
 };
 

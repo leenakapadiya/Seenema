@@ -81,6 +81,7 @@ public class GetUserInfoHandlerTest {
                         .item(Map.of("Email", AttributeValue.fromS("test@example.com"),
                                 "FirstName", AttributeValue.fromS("John"),
                                 "LastName", AttributeValue.fromS("Doe"),
+                                "StreamingPlatforms", AttributeValue.fromS("[{\"value\":8.0,\"label\":\"Netflix\",\"logo\":\"/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg\"},{\"value\":9.0,\"label\":\"Amazon Prime Video\",\"logo\":\"/pvske1MyAoymrs5bguRfVqYiM9a.jpg\"},{\"value\":2.0,\"label\":\"Apple TV\",\"logo\":\"/9ghgSC0MA082EL6HLCW3GalykFD.jpg\"},{\"value\":337.0,\"label\":\"Disney Plus\",\"logo\":\"/97yvRBw1GzX7fXprcF80er19ot.jpg\"}]"),
                                 "Friends", AttributeValue.fromSs(List.of("Friend1", "Friend2", "Friend3")),
                                 "Movies", AttributeValue.fromSs(List.of("12345", "67891", "13425")),
                                 "MovieSuggestionsList", AttributeValue.fromSs(List.of("9876", "4657", "3333"))))
@@ -95,7 +96,7 @@ public class GetUserInfoHandlerTest {
 
 
         // Assert the expected result based on your logic
-        assertEquals(response, new Response("test@example.com", "Doe", "John", List.of("Friend1", "Friend2", "Friend3"),
+        assertEquals(response, new Response("test@example.com", "Doe", "John","[{\"value\":8.0,\"label\":\"Netflix\",\"logo\":\"/pbpMk2JmcoNnQwx5JGpXngfoWtp.jpg\"},{\"value\":9.0,\"label\":\"Amazon Prime Video\",\"logo\":\"/pvske1MyAoymrs5bguRfVqYiM9a.jpg\"},{\"value\":2.0,\"label\":\"Apple TV\",\"logo\":\"/9ghgSC0MA082EL6HLCW3GalykFD.jpg\"},{\"value\":337.0,\"label\":\"Disney Plus\",\"logo\":\"/97yvRBw1GzX7fXprcF80er19ot.jpg\"}]" , List.of("Friend1", "Friend2", "Friend3"),
                 List.of("12345", "67891", "13425"), List.of("9876", "4657", "3333")));
     }
 }

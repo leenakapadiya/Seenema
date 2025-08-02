@@ -15,6 +15,7 @@ import software.amazon.awssdk.services.dynamodb.model.UpdateItemRequest;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 
 public class AddMoviesToMyListHandler implements RequestHandler<APIGatewayV2HTTPEvent, Response> {

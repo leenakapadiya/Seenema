@@ -8,6 +8,7 @@ import '../../Auth/js/Auth';
 import '../css/SuggestedMoviesList.css';
 import ListOfMovies from "./ListOfMovies";
 import NoMovieYet from "../../assets/NoDataYet.json";
+import BACKEND_API_URL from '../../Homepage/js/backendApi';
 
 // Component representing the movie suggestion list
 const MovieSuggestionList = () => {
@@ -26,7 +27,7 @@ const MovieSuggestionList = () => {
         try {
             setLoading(true);
             // Send a request to get user information, including the movie suggestion list
-            const response = await fetch("https://9acdf5s7k2.execute-api.us-west-2.amazonaws.com/dev/getUserInfo", {
+            const response = await fetch("${BACKEND_API_URL}/getUserInfo", {
                 method: "POST",
                 body: JSON.stringify({
                     Email: user.email
